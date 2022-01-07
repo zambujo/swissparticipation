@@ -82,3 +82,7 @@ development.
 
 -   [SERI
     website](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/horizon-2020/ch-status-horizon-2020.html)
+
+## Acknowledgements
+
+-   [RAWGraphs](https://rawgraphs.io/)
