@@ -5,6 +5,7 @@ output: github_document
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
+library(magrittr)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -16,7 +17,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-[R notebook](Rmd/swiss-participation.Rmd) with participation statistics of Switzerland in EU-Framework programmes in research and development.
+[**R notebook**](Rmd/swiss-participation.Rmd) summarizing participation statistics of Switzerland in EU-Framework programmes in research and development.
 
 ## Data
 
@@ -25,7 +26,17 @@ knitr::opts_chunk$set(
 
 ## Results
 
+### H2020 EU contribution (MEUR) to Switzerland
+
 ![treemap](data/treemap.svg "EU H2020 contribution for Switzerland by pillar.")
+
+### H2020 EU contribution (MEUR) to Switzerland in Pillar I
+
+
+```{r, echo=FALSE, message=FALSE}
+readr::read_csv("data/h2020-pillar1.csv") %>%
+  reactable::reactable()
+```
 
 
 ## More

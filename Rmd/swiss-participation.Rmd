@@ -3,7 +3,6 @@ title: "Swiss Participation in EU Framework Programmes"
 output: 
   html_document: 
     theme: cerulean
-    toc: yes
 editor_options: 
   chunk_output_type: console
 ---
@@ -45,7 +44,12 @@ df <- df %>%
     project_end_date = as.Date(project_end_date, format = "%d/%m/%Y")
   )
 
-# Logic ----
+```
+
+
+```{r}
+
+# Overall EU contribution to CH by pillar ---
 
 stats_level1 <-
   df %>%
@@ -56,9 +60,10 @@ stats_level1 <-
   ungroup() %>%
   unite("pillar", starts_with("pillar"), sep = ". ") %>%
   mutate(
-    pillar = str_replace(pillar,
-                         fixed("Cross-theme. Cross-theme"),
-                         "Cross-theme"),
+    pillar = str_replace(
+      pillar,
+      fixed("Cross-theme. Cross-theme"),
+      "Cross-theme"),
     pillar = str_replace(
       pillar,
       fixed("Euratom. Euratom Research and Training Programme"),
@@ -85,8 +90,7 @@ stats_level2 <- df %>%
     thematic_priority = thematic_priority_abbr, 
     contrib = total_eu_contrib)
 
-# Write ----
-
+# for treemap with https://rawgraphs.io
 stats_level1 %>%
   bind_rows(stats_level2) %>%
   arrange(pillar, desc(contrib)) %>%
@@ -96,18 +100,28 @@ stats_level1 %>%
     contrib_txt = str_c(contrib_txt, " MEUR")) %>%
   write_csv(here("data", "h2020-treemap.csv"))
 
-# make treemap with https://app.rawgraphs.io/
 ```
 
+## Pillar I
 
-```{r cordis-h2020, eval=FALSE}
-projects <- 
-  here("data-raw", "project.xlsx") %>%
-  read_excel() %>%
-  clean_names()
-orgs <- 
-  here("data-raw", "organization.xlsx") %>%
-  read_excel() %>%
-  clean_names()
+```{r}
+
+# EU contribution to CH by year for pillar I ---
+
+df %>%
+  filter(country_code == "CH") %>%
+  filter(pillar_abbr == "I") %>%
+  mutate(`Call Year` = str_sub(call_deadline_date, 1, 4)) %>% 
+  # simple stats
+  group_by(thematic_priority_abbr, `Call Year`) %>%
+  summarise(total_eu_contrib = sum(eu_contribution, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(total_eu_contrib = round(total_eu_contrib / 1000000, 2)) %>%
+  pivot_wider(
+    names_from = "thematic_priority_abbr",
+    values_from = "total_eu_contrib",
+    values_fill = 0) %>%
+  write_csv(here("data", "h2020-pillar1.csv"))
+
 ```
 

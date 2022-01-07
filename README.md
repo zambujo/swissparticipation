@@ -6,8 +6,9 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-[R notebook](Rmd/swiss-participation.Rmd) with participation statistics
-of Switzerland in EU-Framework programmes in research and development.
+[**R notebook**](Rmd/swiss-participation.Rmd) summarizing participation
+statistics of Switzerland in EU-Framework programmes in research and
+development.
 
 ## Data
 
@@ -19,7 +20,13 @@ of Switzerland in EU-Framework programmes in research and development.
 
 ## Results
 
+### H2020 EU contribution (MEUR) to Switzerland
+
 ![treemap](data/treemap.svg "EU H2020 contribution for Switzerland by pillar.")
+
+### H2020 EU contribution (MEUR) to Switzerland in Pillar I
+
+![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 ## More
 
