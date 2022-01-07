@@ -26,19 +26,25 @@ knitr::opts_chunk$set(
 
 ## Results
 
-### H2020 EU contribution (MEUR) to Switzerland
+> Overall H2020 EU contribution (MEUR) to Switzerland by Pillar and Thematic Priority
 
 ![treemap](data/treemap.svg "EU H2020 contribution for Switzerland by pillar.")
 
-### H2020 EU contribution (MEUR) to Switzerland in Pillar I
+> H2020 EU contribution (MEUR) to Switzerland by Pillar, Thematic Priority, and Entity Type: HighEd (Higher or secondary education), ResOrg (Research organisations), PubOrg (Public body), Private (Private for profit)
 
+```{r, echo=FALSE, message=FALSE}
+readr::read_csv("data/h2020-org-type.csv") %>%
+  knitr::kable()
+```
+
+
+> H2020 EU contribution (MEUR) to Switzerland in Pillar I by call year
 
 ```{r, echo=FALSE, message=FALSE}
 readr::read_csv("data/h2020-pillar1.csv") %>%
   knitr::kable()
 ```
 
-
 ## More
 
-- [SERI website on the topic](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/horizon-2020/ch-status-horizon-2020.html)
+- [SERI website](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/horizon-2020/ch-status-horizon-2020.html)

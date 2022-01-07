@@ -102,6 +102,40 @@ stats_level1 %>%
 
 ```
 
+## Organization Type
+
+```{r}
+
+df %>%
+  filter(country_code == "CH") %>%
+  # simple stats
+  group_by(
+    pillar_abbr,
+    thematic_priority_abbr,
+    legal_entity_type) %>%
+  summarise(total_eu_contrib = sum(eu_contribution, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(
+    Pillar = pillar_abbr,
+    Priority = thematic_priority_abbr,
+    org_type = legal_entity_type,
+    contrib = total_eu_contrib) %>%
+  mutate(contrib = round(contrib / 1000000, 1)) %>%
+  pivot_wider(names_from = org_type, values_from = contrib, values_fill = 0) %>%
+  arrange(Pillar, desc(HES)) %>%
+  select(
+    Pillar,
+    Priority,
+    HighEd = HES,
+    ResOrg = REC,
+    PubOrg = PUB,
+    Private = PRC,
+    Other = OTH) %>%
+  write_csv(here("data", "h2020-org-type.csv"))
+
+```
+
+
 ## Pillar I
 
 ```{r}
@@ -122,6 +156,5 @@ df %>%
     values_from = "total_eu_contrib",
     values_fill = 0) %>%
   write_csv(here("data", "h2020-pillar1.csv"))
-
 ```
 
