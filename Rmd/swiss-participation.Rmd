@@ -1,0 +1,113 @@
+---
+title: "Swiss Participation in EU Framework Programmes"
+output: 
+  html_document: 
+    theme: cerulean
+    toc: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r boilerplate, include=FALSE}
+# knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+library(tidyverse)
+library(readxl)
+library(here)
+library(janitor)
+```
+
+# H2020
+
+```{r}
+
+# Read ----
+
+df <-
+  here("data-raw", "horizon2020.xlsx") %>%
+  read_excel() %>%
+  clean_names()
+
+df <- df %>%
+  # minimal cleaning
+  mutate(
+    pillar_abbr = str_replace(pillar_abbr, fixed("EU.0."), "Cross-theme"),
+    pillar_abbr = str_replace(pillar_abbr, fixed("EU.1."), "I"),
+    pillar_abbr = str_replace(pillar_abbr, fixed("EU.2."), "II"),
+    pillar_abbr = str_replace(pillar_abbr, fixed("EU.3."), "III"),
+    pillar_abbr = str_replace(pillar_abbr, fixed("EU.4."), "IV"),
+    pillar_abbr = str_replace(pillar_abbr, fixed("EU.5."), "V"),
+    eu_contribution = str_replace(eu_contribution, fixed("-"), "0"),
+    eu_contribution = as.numeric(eu_contribution),
+    # import dates
+    signature_date = as.Date(signature_date, format = "%d/%m/%Y"),
+    call_deadline_date = as.Date(call_deadline_date, format = "%d/%m/%Y"),
+    project_start_date = as.Date(project_start_date, format = "%d/%m/%Y"),
+    project_end_date = as.Date(project_end_date, format = "%d/%m/%Y")
+  )
+
+# Logic ----
+
+stats_level1 <-
+  df %>%
+  filter(country_code == "CH") %>%
+  filter(!pillar_abbr %in% c("I", "II", "III")) %>%
+  group_by(pillar_abbr, pillar_descr) %>%
+  summarise(total_eu_contrib = sum(eu_contribution, na.rm = TRUE)) %>%
+  ungroup() %>%
+  unite("pillar", starts_with("pillar"), sep = ". ") %>%
+  mutate(
+    pillar = str_replace(pillar,
+                         fixed("Cross-theme. Cross-theme"),
+                         "Cross-theme"),
+    pillar = str_replace(
+      pillar,
+      fixed("Euratom. Euratom Research and Training Programme"),
+      "Euratom"
+    ),
+    thematic_priority_abbr = NA
+  ) %>%
+  select(
+    pillar, 
+    thematic_priority = thematic_priority_abbr, 
+    contrib = total_eu_contrib)
+
+stats_level2 <- df %>%
+  filter(country_code == "CH") %>%
+  filter(pillar_abbr %in% c("I", "II", "III")) %>%
+  # simple stats
+  group_by(pillar_abbr, pillar_descr, thematic_priority_abbr) %>%
+  summarise(total_eu_contrib = sum(eu_contribution, na.rm = TRUE)) %>%
+  ungroup() %>%
+  # for printing
+  unite("pillar", starts_with("pillar"), sep = ". ") %>%
+  select(
+    pillar, 
+    thematic_priority = thematic_priority_abbr, 
+    contrib = total_eu_contrib)
+
+# Write ----
+
+stats_level1 %>%
+  bind_rows(stats_level2) %>%
+  arrange(pillar, desc(contrib)) %>%
+  mutate(
+    thematic_priority = replace_na(thematic_priority, ""),
+    contrib_txt = round(contrib / 1000000, 1),
+    contrib_txt = str_c(contrib_txt, " MEUR")) %>%
+  write_csv(here("data", "h2020-treemap.csv"))
+
+# make treemap with https://app.rawgraphs.io/
+```
+
+
+```{r cordis-h2020, eval=FALSE}
+projects <- 
+  here("data-raw", "project.xlsx") %>%
+  read_excel() %>%
+  clean_names()
+orgs <- 
+  here("data-raw", "organization.xlsx") %>%
+  read_excel() %>%
+  clean_names()
+```
+

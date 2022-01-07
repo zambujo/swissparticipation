@@ -1,0 +1,1141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1200"
+   height="900"
+   version="1.1"
+   id="svg1201"
+   sodipodi:docname="treemap.svg"
+   inkscape:version="1.0.1 (c497b03c, 2020-09-10)">
+  <metadata
+     id="metadata1207">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs1205">
+    <clipPath
+       id="clip_ancestor0">
+      <use
+         xlink:href="#path_ancestor0"
+         id="use835"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor1">
+      <use
+         xlink:href="#path_ancestor1"
+         id="use843"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-1,-12)" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor2">
+      <use
+         xlink:href="#path_ancestor2"
+         id="use851"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-1,-182)" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor3">
+      <use
+         xlink:href="#path_ancestor3"
+         id="use859"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-29,-12)" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor4">
+      <use
+         xlink:href="#path_ancestor4"
+         id="use867"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-812,-12)" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor5">
+      <use
+         xlink:href="#path_ancestor5"
+         id="use875"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-812,-391)" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor6">
+      <use
+         xlink:href="#path_ancestor6"
+         id="use883"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-812,-888)" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor7">
+      <use
+         xlink:href="#path_ancestor7"
+         id="use891"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-1036,-888)" />
+    </clipPath>
+    <clipPath
+       id="clip0">
+      <use
+         xlink:href="#path0"
+         id="use900"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-2,-24)" />
+    </clipPath>
+    <clipPath
+       id="clip1">
+      <use
+         xlink:href="#path1"
+         id="use912"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-2,-194)" />
+    </clipPath>
+    <clipPath
+       id="clip2">
+      <use
+         xlink:href="#path2"
+         id="use924"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-30,-24)" />
+    </clipPath>
+    <clipPath
+       id="clip3">
+      <use
+         xlink:href="#path3"
+         id="use936"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-30,-557)" />
+    </clipPath>
+    <clipPath
+       id="clip4">
+      <use
+         xlink:href="#path4"
+         id="use948"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-372,-557)" />
+    </clipPath>
+    <clipPath
+       id="clip5">
+      <use
+         xlink:href="#path5"
+         id="use960"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-372,-758)" />
+    </clipPath>
+    <clipPath
+       id="clip6">
+      <use
+         xlink:href="#path6"
+         id="use972"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-813,-24)" />
+    </clipPath>
+    <clipPath
+       id="clip7">
+      <use
+         xlink:href="#path7"
+         id="use984"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-813,-236)" />
+    </clipPath>
+    <clipPath
+       id="clip8">
+      <use
+         xlink:href="#path8"
+         id="use996"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-1093,-24)" />
+    </clipPath>
+    <clipPath
+       id="clip9">
+      <use
+         xlink:href="#path9"
+         id="use1008"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-1093,-197)" />
+    </clipPath>
+    <clipPath
+       id="clip10">
+      <use
+         xlink:href="#path10"
+         id="use1020"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-1093,-284)" />
+    </clipPath>
+    <clipPath
+       id="clip11">
+      <use
+         xlink:href="#path11"
+         id="use1032"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-1093,-351)" />
+    </clipPath>
+    <clipPath
+       id="clip12">
+      <use
+         xlink:href="#path12"
+         id="use1044"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-1177,-284)" />
+    </clipPath>
+    <clipPath
+       id="clip13">
+      <use
+         xlink:href="#path13"
+         id="use1056"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-1177,-387)" />
+    </clipPath>
+    <clipPath
+       id="clip14">
+      <use
+         xlink:href="#path14"
+         id="use1068"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-1198,-387)" />
+    </clipPath>
+    <clipPath
+       id="clip15">
+      <use
+         xlink:href="#path15"
+         id="use1080"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-813,-403)" />
+    </clipPath>
+    <clipPath
+       id="clip16">
+      <use
+         xlink:href="#path16"
+         id="use1092"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-1047,-403)" />
+    </clipPath>
+    <clipPath
+       id="clip17">
+      <use
+         xlink:href="#path17"
+         id="use1104"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-813,-660)" />
+    </clipPath>
+    <clipPath
+       id="clip18">
+      <use
+         xlink:href="#path18"
+         id="use1116"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-813,-775)" />
+    </clipPath>
+    <clipPath
+       id="clip19">
+      <use
+         xlink:href="#path19"
+         id="use1128"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-1040,-660)" />
+    </clipPath>
+    <clipPath
+       id="clip20">
+      <use
+         xlink:href="#path20"
+         id="use1140"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-1040,-783)" />
+    </clipPath>
+    <clipPath
+       id="clip21">
+      <use
+         xlink:href="#path21"
+         id="use1152"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-1134,-783)" />
+    </clipPath>
+    <clipPath
+       id="clip22">
+      <use
+         xlink:href="#path22"
+         id="use1164"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-1134,-843)" />
+    </clipPath>
+    <clipPath
+       id="clip23">
+      <use
+         xlink:href="#path23"
+         id="use1176"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-813,-899)" />
+    </clipPath>
+    <clipPath
+       id="clip24">
+      <use
+         xlink:href="#path24"
+         id="use1188"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-1037,-899)" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1744"
+     inkscape:window-height="1076"
+     id="namedview1203"
+     showgrid="false"
+     inkscape:zoom="0.96337403"
+     inkscape:cx="600"
+     inkscape:cy="450"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg1201" />
+  <rect
+     width="1200"
+     height="900"
+     x="0"
+     y="0"
+     fill="#ffffff"
+     id="backgorund" />
+  <rect
+     width="1200"
+     height="900"
+     id="path_ancestor0"
+     fill="#cccccc"
+     fill-opacity="0"
+     stroke="#cccccc"
+     stroke-opacity="0.1"
+     x="0"
+     y="0" />
+  <rect
+     width="27"
+     height="169"
+     id="path_ancestor1"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="1"
+     y="12" />
+  <rect
+     width="27"
+     height="717"
+     id="path_ancestor2"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="1"
+     y="182" />
+  <rect
+     width="782"
+     height="887"
+     id="path_ancestor3"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="29"
+     y="12" />
+  <text
+     x="1"
+     y="2"
+     clip-path="url(#clip_ancestor3)"
+     font-family="Arial, sans-serif"
+     font-size="8px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text862"
+     transform="translate(29,12)">I. Excellent Science</text>
+  <rect
+     width="387"
+     height="378"
+     id="path_ancestor4"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="812"
+     y="12" />
+  <text
+     x="1"
+     y="2"
+     clip-path="url(#clip_ancestor4)"
+     font-family="Arial, sans-serif"
+     font-size="8px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text870"
+     transform="translate(812,12)">II. Industrial Leadership</text>
+  <rect
+     width="387"
+     height="496"
+     id="path_ancestor5"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="812"
+     y="391" />
+  <text
+     x="1"
+     y="2"
+     clip-path="url(#clip_ancestor5)"
+     font-family="Arial, sans-serif"
+     font-size="8px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text878"
+     transform="translate(812,391)">III. Societal Challenges</text>
+  <rect
+     width="223"
+     height="11"
+     id="path_ancestor6"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="812"
+     y="888" />
+  <text
+     x="1"
+     y="2"
+     clip-path="url(#clip_ancestor6)"
+     font-family="Arial, sans-serif"
+     font-size="8px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text886"
+     transform="translate(812,888)">IV. Spreading excellence and widening participation</text>
+  <rect
+     width="163"
+     height="11"
+     id="path_ancestor7"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="1036"
+     y="888" />
+  <text
+     x="1"
+     y="2"
+     clip-path="url(#clip_ancestor7)"
+     font-family="Arial, sans-serif"
+     font-size="8px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text894"
+     transform="translate(1036,888)">V. Science with and for Society</text>
+  <rect
+     id="path0"
+     fill="#9e0142"
+     width="25"
+     height="156"
+     x="2"
+     y="24" />
+  <rect
+     id="path1"
+     fill="#e85e49"
+     width="25"
+     height="704"
+     x="2"
+     y="194" />
+  <rect
+     id="path2"
+     fill="#fdbe70"
+     width="780"
+     height="532"
+     x="30"
+     y="24" />
+  <text
+     clip-path="url(#clip2)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text931"
+     transform="translate(30,24)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan927">ERC</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan929">953.7 MEUR</tspan></text>
+  <rect
+     id="path3"
+     fill="#fdbe70"
+     width="341"
+     height="341"
+     x="30"
+     y="557" />
+  <text
+     clip-path="url(#clip3)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text943"
+     transform="translate(30,557)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan939">MSCA</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan941">267.2 MEUR</tspan></text>
+  <rect
+     id="path4"
+     fill="#fdbe70"
+     width="438"
+     height="200"
+     x="372"
+     y="557" />
+  <text
+     clip-path="url(#clip4)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text955"
+     transform="translate(372,557)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan951">FET</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan953">201.9 MEUR</tspan></text>
+  <rect
+     id="path5"
+     fill="#fdbe70"
+     width="438"
+     height="140"
+     x="372"
+     y="758" />
+  <text
+     clip-path="url(#clip5)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text967"
+     transform="translate(372,758)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan963">INFRA</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan965">141.7 MEUR</tspan></text>
+  <rect
+     id="path6"
+     fill="#fbf8b0"
+     width="279"
+     height="211"
+     x="813"
+     y="24" />
+  <text
+     clip-path="url(#clip6)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text979"
+     transform="translate(813,24)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan975">LEIT-ICT</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan977">139.6 MEUR</tspan></text>
+  <rect
+     id="path7"
+     fill="#fbf8b0"
+     width="279"
+     height="153"
+     x="813"
+     y="236" />
+  <text
+     clip-path="url(#clip7)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text991"
+     transform="translate(813,236)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan987">INNOSUPSME</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan989">100.9 MEUR</tspan></text>
+  <rect
+     id="path8"
+     fill="#fbf8b0"
+     width="105"
+     height="172"
+     x="1093"
+     y="24" />
+  <text
+     clip-path="url(#clip8)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text1003"
+     transform="translate(1093,24)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan999">LEIT-ADVMANU</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1001">42.7 MEUR</tspan></text>
+  <rect
+     id="path9"
+     fill="#fbf8b0"
+     width="105"
+     height="86"
+     x="1093"
+     y="197" />
+  <text
+     clip-path="url(#clip9)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text1015"
+     transform="translate(1093,197)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1011">LEIT-ADVMAT</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1013">21.7 MEUR</tspan></text>
+  <rect
+     id="path10"
+     fill="#fbf8b0"
+     width="83"
+     height="66"
+     x="1093"
+     y="284" />
+  <text
+     clip-path="url(#clip10)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text1027"
+     transform="translate(1093,284)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1023">LEIT-SPACE</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1025">13.1 MEUR</tspan></text>
+  <rect
+     id="path11"
+     fill="#fbf8b0"
+     width="83"
+     height="38"
+     x="1093"
+     y="351" />
+  <text
+     clip-path="url(#clip11)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text1039"
+     transform="translate(1093,351)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1035">LEIT-NMP</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1037">7.7 MEUR</tspan></text>
+  <rect
+     id="path12"
+     fill="#fbf8b0"
+     width="21"
+     height="102"
+     x="1177"
+     y="284" />
+  <text
+     clip-path="url(#clip12)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text1051"
+     transform="translate(1177,284)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1047">LEIT-BIOTECH</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1049">5.2 MEUR</tspan></text>
+  <rect
+     id="path13"
+     fill="#fbf8b0"
+     width="21"
+     height="2"
+     x="1177"
+     y="387" />
+  <text
+     clip-path="url(#clip13)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text1063"
+     transform="translate(1177,387)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1059">LEIT</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1061">0.1 MEUR</tspan></text>
+  <rect
+     id="path14"
+     fill="#fbf8b0"
+     width="0"
+     height="0"
+     x="1198"
+     y="387" />
+  <text
+     clip-path="url(#clip14)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text1075"
+     transform="translate(1198,387)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1071">RISKFINANCE</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1073">0 MEUR</tspan></text>
+  <rect
+     id="path15"
+     fill="#bee5a0"
+     width="233"
+     height="256"
+     x="813"
+     y="403" />
+  <text
+     clip-path="url(#clip15)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text1087"
+     transform="translate(813,403)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1083">HEALTH</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1085">139.7 MEUR</tspan></text>
+  <rect
+     id="path16"
+     fill="#bee5a0"
+     width="151"
+     height="256"
+     x="1047"
+     y="403" />
+  <text
+     clip-path="url(#clip16)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text1099"
+     transform="translate(1047,403)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1095">ENERGY</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1097">90.7 MEUR</tspan></text>
+  <rect
+     id="path17"
+     fill="#bee5a0"
+     width="226"
+     height="114"
+     x="813"
+     y="660" />
+  <text
+     clip-path="url(#clip17)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text1111"
+     transform="translate(813,660)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1107">TPT</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1109">61.3 MEUR</tspan></text>
+  <rect
+     id="path18"
+     fill="#bee5a0"
+     width="226"
+     height="111"
+     x="813"
+     y="775" />
+  <text
+     clip-path="url(#clip18)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text1123"
+     transform="translate(813,775)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1119">FOOD</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1121">59.1 MEUR</tspan></text>
+  <rect
+     id="path19"
+     fill="#bee5a0"
+     width="158"
+     height="122"
+     x="1040"
+     y="660" />
+  <text
+     clip-path="url(#clip19)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text1135"
+     transform="translate(1040,660)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1131">ENV</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1133">45.5 MEUR</tspan></text>
+  <rect
+     id="path20"
+     fill="#bee5a0"
+     width="93"
+     height="103"
+     x="1040"
+     y="783" />
+  <text
+     clip-path="url(#clip20)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text1147"
+     transform="translate(1040,783)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1143">SECURITY</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1145">22.6 MEUR</tspan></text>
+  <rect
+     id="path21"
+     fill="#bee5a0"
+     width="64"
+     height="59"
+     x="1134"
+     y="783" />
+  <text
+     clip-path="url(#clip21)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text1159"
+     transform="translate(1134,783)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1155">SOCCHAL-CROSST</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1157">9 MEUR</tspan></text>
+  <rect
+     id="path22"
+     fill="#bee5a0"
+     width="64"
+     height="43"
+     x="1134"
+     y="843" />
+  <text
+     clip-path="url(#clip22)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text1171"
+     transform="translate(1134,843)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1167">SOCIETY</tspan><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1169">6.6 MEUR</tspan></text>
+  <rect
+     id="path23"
+     fill="#56adae"
+     width="221"
+     height="0"
+     x="813"
+     y="899" />
+  <text
+     clip-path="url(#clip23)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text1183"
+     transform="translate(813,899)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1179" /><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1181">6.1 MEUR</tspan></text>
+  <rect
+     id="path24"
+     fill="#5e4fa2"
+     width="161"
+     height="0"
+     x="1037"
+     y="899" />
+  <text
+     clip-path="url(#clip24)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text1195"
+     transform="translate(1037,899)"><tspan
+       x="3"
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1191" /><tspan
+       x="3"
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan1193">4.5 MEUR</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:8px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
+     x="-895.53644"
+     y="9.8535061"
+     id="text1825"
+     transform="rotate(-90)"><tspan
+       sodipodi:role="line"
+       id="tspan1823"
+       x="-895.53644"
+       y="9.8535061"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'">Euratom</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:8px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
+     x="-177.79689"
+     y="9.7457514"
+     id="text1825-3"
+     transform="rotate(-90)"><tspan
+       sodipodi:role="line"
+       id="tspan1823-7"
+       x="-177.79689"
+       y="9.7457514"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'">Cross-theme</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:10px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
+     x="-178.75197"
+     y="19.402456"
+     id="text1825-6"
+     transform="rotate(-90)"><tspan
+       sodipodi:role="line"
+       id="tspan1823-2"
+       x="-178.75197"
+       y="19.402456"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;font-family:sans-serif;-inkscape-font-specification:sans-serif">10.7 MEUR</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:10px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
+     x="-895.17023"
+     y="19.407339"
+     id="text1825-6-0"
+     transform="rotate(-90)"><tspan
+       sodipodi:role="line"
+       id="tspan1823-2-6"
+       x="-895.17023"
+       y="19.407339"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;font-family:sans-serif;-inkscape-font-specification:sans-serif">45.2 MEUR</tspan></text>
+</svg>
