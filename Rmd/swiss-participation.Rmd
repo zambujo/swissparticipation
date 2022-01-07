@@ -116,7 +116,7 @@ df %>%
   group_by(thematic_priority_abbr, `Call Year`) %>%
   summarise(total_eu_contrib = sum(eu_contribution, na.rm = TRUE)) %>%
   ungroup() %>%
-  mutate(total_eu_contrib = round(total_eu_contrib / 1000000, 2)) %>%
+  mutate(total_eu_contrib = round(total_eu_contrib / 1000000, 1)) %>%
   pivot_wider(
     names_from = "thematic_priority_abbr",
     values_from = "total_eu_contrib",
