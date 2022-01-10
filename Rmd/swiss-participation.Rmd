@@ -198,4 +198,4 @@ stats_depth_1 %>%
 
 A treemap of the overall H2020 EU contribution (MEUR) to Switzerland by Pillar and Thematic Priority.
 
-![](../data/treemap.svg "A treemap of EU H2020 contribution to Swiss participants, by pillar and thematic priority.")
+![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap.svg "A treemap of EU H2020 contribution to Swiss participants, by pillar and thematic priority.")
