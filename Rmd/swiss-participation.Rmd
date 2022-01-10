@@ -21,6 +21,8 @@ library(reactable)
 knitr::opts_chunk$set(message = FALSE)
 ```
 
+[![](https://img.shields.io/github/issues/zambujo/swissparticipation)](https://github.com/zambujo/swissparticipation/issues)
+
 # H2020 dashboard data
 
 ## Raw data
