@@ -135,7 +135,9 @@ df %>%
     write_csv(here("data", "h2020-countries-treemap.csv"))
 ```
 
-![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-countries.svg "A treemap of total EU contribution to the top 10 countries participating in H2020.")
+A treemap showing the total EU contribution to the top 10 participating countries in H2020.  Switzerland ranks 8th by total EU contribution.
+
+![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-countries.svg "Total EU contribution to the top 10 countries participating in H2020.")
 
 
 ## Swiss participation: an overview
@@ -175,6 +177,8 @@ df %>%
   )
 ```
 
+
+### Visual summary
 
 ```{r visual-overview}
 stats_depth_1 <-
@@ -230,9 +234,6 @@ stats_depth_1 %>%
   write_csv(here("data", "h2020-treemap.csv"))
 ```
 
+A treemap showing the overall H2020 EU contribution (MEUR) to Switzerland by Pillar and Thematic Priority. Only the three largest pillars are shown.
 
-### Visual summary
-
-A treemap of the overall H2020 EU contribution (MEUR) to Switzerland by Pillar and Thematic Priority. Focus on the three largest pillars.
-
-![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap.svg "A treemap of EU H2020 contribution to Swiss participants, by pillar and thematic priority.")
+![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap.svg "H2020 EU contribution to Swiss participants, by pillar and thematic priority.")
