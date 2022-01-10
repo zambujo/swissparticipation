@@ -218,9 +218,14 @@ stats_depth_1 %>%
   arrange(pillar, desc(contrib)) %>%
   mutate(
     thematic_priority = replace_na(thematic_priority, ""),
-    contrib_txt = round(contrib / 1000000, 1),
-    contrib_txt = str_c(contrib_txt, " MEUR")
-  ) %>%
+    contrib_txt = contrib / 1000000,
+    contrib_txt = format(
+      contrib_txt,
+      big.mark = ",",
+      decimal.mark = ".",
+      trim = TRUE,
+      digits = 2),
+    contrib_txt = str_c("M€", contrib_txt)) %>%
   write_csv(here("data", "h2020-treemap.csv"))
 ```
 
