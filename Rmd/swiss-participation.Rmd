@@ -109,6 +109,34 @@ top10 %>%
   )
 ```
 
+### Visual Summary
+
+```{r visual-countries}
+df %>%
+  group_by(Country = country) %>%
+  summarise(
+    `EU Contribution` = sum(eu_contribution, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(Country = fct_lump(Country, 10, w = `EU Contribution`)) %>%
+  group_by(Country) %>%
+  summarise(
+    `EU Contribution` = sum(`EU Contribution`, na.rm = TRUE)) %>%
+  ungroup() %>%
+  arrange(desc(`EU Contribution`)) %>%
+  mutate(
+    contrib_txt = format(
+      `EU Contribution`,
+      big.mark = ",",
+      decimal.mark = ".",
+      trim = TRUE,
+      digits = 12),
+    contrib_txt = str_c("€", contrib_txt)) %>%
+    write_csv(here("data", "h2020-countries-treemap.csv"))
+```
+
+![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-countries.svg "A treemap of total EU contribution to the top 10 countries participating in H2020.")
+
+
 ## Swiss participation: an overview
 
 Swiss participation in H2020: participation count, number of projects (distinct), total EU contribution by pillar, thematic priority, and call year.
