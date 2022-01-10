@@ -11,7 +11,8 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r boilerplate, include=FALSE}
+```{r boilerplate}
+# source code: https://github.com/zambujo/swissparticipation
 library(tidyverse)
 library(readxl)
 library(here)
@@ -22,9 +23,9 @@ knitr::opts_chunk$set(message = FALSE)
 
 # H2020 dashboard data
 
-## Raw data: glimpse
+## Raw data
 
-The [**Horizon 2020 Dashboard**](https://webgate.ec.europa.eu/dashboard) project data was last updated 2021-12-06.  The data contains 176,512 rows with the following details on every participant on each project:
+The [**Horizon 2020 Dashboard**](https://webgate.ec.europa.eu/dashboard) project data was last updated 2021-12-06 (see data [here](https://webgate.ec.europa.eu/dashboard/single/?appid=93297a69-09fd-4ef5-889f-b83c4e21d33e&sheet=c616ed33-064c-40c0-803a-e75045b78c05)).  The data contains 176,512 rows with the following details on every participant on each project:
 
 ```{r read-dashboard-data}
 df <-
