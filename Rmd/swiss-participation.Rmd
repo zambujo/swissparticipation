@@ -11,7 +11,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r boilerplate}
+```{r boilerplate, message=FALSE}
 # source code: https://github.com/zambujo/swissparticipation
 library(tidyverse)
 library(readxl)
@@ -21,6 +21,7 @@ library(reactable)
 knitr::opts_chunk$set(message = FALSE)
 ```
 
+[![](https://img.shields.io/github/watchers/zambujo/swissparticipation?style=social)](https://github.com/zambujo/swissparticipation)
 [![](https://img.shields.io/github/issues/zambujo/swissparticipation)](https://github.com/zambujo/swissparticipation/issues)
 
 # H2020 dashboard data
@@ -232,6 +233,6 @@ stats_depth_1 %>%
 
 ### Visual summary
 
-A treemap of the overall H2020 EU contribution (MEUR) to Switzerland by Pillar and Thematic Priority.
+A treemap of the overall H2020 EU contribution (MEUR) to Switzerland by Pillar and Thematic Priority. Focus on the three largest pillars.
 
 ![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap.svg "A treemap of EU H2020 contribution to Swiss participants, by pillar and thematic priority.")
