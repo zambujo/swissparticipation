@@ -237,3 +237,45 @@ stats_depth_1 %>%
 A treemap showing the overall H2020 EU contribution (MEUR) to Switzerland by Pillar and Thematic Priority. Only the three largest pillars are shown.
 
 ![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-ch.svg "H2020 EU contribution to Swiss participants, by pillar and thematic priority.")
+
+```{r cern}
+total_cern <- df %>%
+  filter(country_code == "CH") %>%
+  filter(legal_name == "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
+  summarise(total_eu_contrib = sum(eu_contribution, na.rm = TRUE)) %>%
+  pull() %>%
+  format(
+    big.mark = ",",
+    decimal.mark = ".",
+    trim = TRUE,
+    digits = 11)
+```
+
+**Note**: EU Contribution to Switzerland include `r str_c("€", total_cern)` awarded to the CERN.  Please see the EU contribution to CERN detailed below:
+
+```{r cern-detail}
+df %>%
+  filter(country_code == "CH") %>%
+  filter(legal_name == "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
+  group_by(Pillar = pillar_descr, Priority = thematic_priority_abbr) %>%
+  summarise(`EU Contribution` = sum(eu_contribution, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(Share = `EU Contribution` / sum(`EU Contribution`)) %>%
+  arrange(desc(Share)) %>%
+  reactable(
+    columns = list(
+      `EU Contribution` = colDef(
+        format = colFormat(
+          currency = "EUR",
+          separators = TRUE, 
+          digits = 10),
+        footer = function(values) sum(values) %>% format(big.mark = ",") %>% str_c("€", .)),
+      Share = colDef(format = colFormat(percent = TRUE, digits = 1)),
+      Pillar = colDef(footer = "Total")
+    ),
+    defaultColDef = colDef(footerStyle = list(fontWeight = "bold")),
+    highlight = TRUE,
+    compact = TRUE
+  )
+```
+
