@@ -63,7 +63,7 @@ df <- df %>%
   )
 ```
 
-## Contribution by Pillar
+## Total EU Contribution by Pillar (All Countries)
 
 ```{r overview-pillar, eval=FALSE}
 ggp <- df %>%
@@ -160,8 +160,6 @@ top10 %>%
   )
 ```
 
-### Visual Summary
-
 ```{r visual-countries}
 df %>%
   group_by(Country = country) %>%
@@ -226,8 +224,47 @@ df %>%
   )
 ```
 
-
-### Visual summary
+```{r ch-type, fig.asp=.5, fig.retina=TRUE}
+df %>%
+  filter(country_code == "CH") %>%
+  mutate(
+    pillar_abbr = str_replace(pillar_abbr, fixed("Cross-theme"), "Other"),
+    pillar_abbr = str_replace(pillar_abbr, fixed("Euratom"), "Other"),
+    legal_entity_type = str_replace(legal_entity_type, fixed("HES"), "Research & Education"),
+    legal_entity_type = str_replace(legal_entity_type, fixed("REC"), "Research & Education"),
+    legal_entity_type = str_replace(legal_entity_type, fixed("PRC"), "Other (Excl. R&Ed)"),
+    legal_entity_type = str_replace(legal_entity_type, fixed("PUB"), "Other (Excl. R&Ed)"),
+    legal_entity_type = str_replace(legal_entity_type, fixed("OTH"), "Other (Excl. R&Ed)")
+  ) %>%
+  group_by(
+    Pillar = pillar_abbr, 
+    Affiliation = legal_entity_type
+  ) %>%
+  summarise(
+  `Participation Count` = n(),
+  `Nb Projects` = n_distinct(project_nbr),
+  `EU Contribution` = sum(eu_contribution, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(Affiliation = fct_rev(Affiliation)) %>%
+  arrange(Pillar, Affiliation) %>%
+  ggplot(aes(x = fct_rev(Pillar), y = `EU Contribution`, fill = Affiliation)) +
+  geom_col(position = position_stack(reverse = TRUE)) +
+  scale_fill_nejm() +
+  scale_y_continuous(labels=unit_format(suffix="", scale = 1e-6, big.mark = ",")) +
+  coord_flip() +
+  theme_minimal(base_size = 16) +
+  labs(
+    title = "Pillar 1 is the primary source of funding for CH",
+    subtitle = "Swiss R&Education organisations received a high share",
+    x = "Pillar",
+    y = "EU Contribution to CH (MioEUR)"
+  ) +
+  theme(
+    plot.title.position = "plot",
+    legend.position = "bottom",
+    legend.title = element_blank()
+  )
+```
 
 ```{r visual-overview}
 stats_depth_1 <-
@@ -286,53 +323,6 @@ stats_depth_1 %>%
 A treemap showing the overall H2020 EU contribution (MEUR) to Switzerland by Pillar and Thematic Priority. Only the three largest pillars are shown.
 
 ![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-ch.svg "H2020 EU contribution to Swiss participants, by pillar and thematic priority.")
-
-#### EU Contribution to CH by organisation type
-
-```{r ch-type}
-df %>%
-  filter(country_code == "CH") %>%
-  mutate(
-    pillar_abbr = str_replace(pillar_abbr, fixed("Cross-theme"), "Other"),
-    pillar_abbr = str_replace(pillar_abbr, fixed("Euratom"), "Other"),
-    legal_entity_type = str_replace(legal_entity_type, fixed("HES"), "Research & Education"),
-    legal_entity_type = str_replace(legal_entity_type, fixed("REC"), "Research & Education"),
-    legal_entity_type = str_replace(legal_entity_type, fixed("PRC"), "Other (Excl. R&Ed)"),
-    legal_entity_type = str_replace(legal_entity_type, fixed("PUB"), "Other (Excl. R&Ed)"),
-    legal_entity_type = str_replace(legal_entity_type, fixed("OTH"), "Other (Excl. R&Ed)")
-  ) %>%
-  group_by(
-    Pillar = pillar_abbr, 
-    Affiliation = legal_entity_type
-  ) %>%
-  summarise(
-  `Participation Count` = n(),
-  `Nb Projects` = n_distinct(project_nbr),
-  `EU Contribution` = sum(eu_contribution, na.rm = TRUE)) %>%
-  ungroup() %>%
-  mutate(Affiliation = fct_rev(Affiliation)) %>%
-  arrange(Pillar, Affiliation) %>%
-  ggplot(aes(x = fct_rev(Pillar), y = `EU Contribution`, fill = Affiliation)) +
-  geom_col(position = position_stack(reverse = TRUE)) +
-  scale_fill_nejm() +
-  scale_y_continuous(labels=unit_format(suffix="", scale = 1e-6, big.mark = ",")) +
-  coord_flip() +
-  theme_minimal(base_size = 16) +
-  labs(
-    title = "Swiss R&Ed Organisations Receive Most of the Funding in Pillar 1",
-    x = "Pillar",
-    y = "EU Contribution to CH (MioEUR)"
-  ) +
-  theme(
-    plot.title.position = "plot",
-    legend.position = "top",
-    legend.title = element_blank(),
-    axis.title.y = element_text(
-      angle = 0, 
-      vjust = 1.1, 
-      margin = margin(r = -40))
-  )
-```
 
 #### CERN
 
