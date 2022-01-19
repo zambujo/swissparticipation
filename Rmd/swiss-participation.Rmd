@@ -108,8 +108,7 @@ ggp <- df %>%
     axis.text.y = element_blank(),
     axis.ticks.y = element_blank()
   );
-
-ggsave(file="budget-allocation.svg", plot=ggp, width=12, height=6)
+# ggsave(file="budget-allocation.svg", plot=ggp, width=12, height=6)
 ```
 
 ![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/budget-allocation.svg "Total EU contribution to the different pillars in H2020.")
