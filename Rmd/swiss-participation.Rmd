@@ -14,6 +14,7 @@ editor_options:
 ```{r boilerplate, message=FALSE}
 # source code: https://github.com/zambujo/swissparticipation
 library(tidyverse)
+library(ggsci)
 library(readxl)
 library(here)
 library(janitor)
@@ -41,11 +42,11 @@ df <- df %>%
   mutate(
     # rename pillars
     pillar_abbr = str_replace(pillar_abbr, fixed("EU.0."), "Cross-theme"),
-    pillar_abbr = str_replace(pillar_abbr, fixed("EU.1."), "I"),
-    pillar_abbr = str_replace(pillar_abbr, fixed("EU.2."), "II"),
-    pillar_abbr = str_replace(pillar_abbr, fixed("EU.3."), "III"),
-    pillar_abbr = str_replace(pillar_abbr, fixed("EU.4."), "IV"),
-    pillar_abbr = str_replace(pillar_abbr, fixed("EU.5."), "V"),
+    pillar_abbr = str_replace(pillar_abbr, fixed("EU.1."), "1"),
+    pillar_abbr = str_replace(pillar_abbr, fixed("EU.2."), "2"),
+    pillar_abbr = str_replace(pillar_abbr, fixed("EU.3."), "3"),
+    pillar_abbr = str_replace(pillar_abbr, fixed("EU.4."), "4"),
+    pillar_abbr = str_replace(pillar_abbr, fixed("EU.5."), "5"),
     # import EU contribution
     eu_contribution = str_replace(eu_contribution, fixed("-"), "0"),
     eu_contribution = as.numeric(eu_contribution),
@@ -60,6 +61,58 @@ df <- df %>%
     call_year = as.integer(call_year)
   )
 ```
+
+## Contribution by Pillar
+
+```{r}
+ggp <- df %>%
+  mutate(
+    pillar_abbr = str_replace(pillar_abbr, fixed("Cross-theme"), "Other"),
+    pillar_abbr = str_replace(pillar_abbr, fixed("Euratom"), "Other"),
+  ) %>%
+  group_by(
+    Pillar = pillar_abbr, 
+  ) %>%
+  summarise(
+    `Participation Count` = n(),
+    `Nb Projects` = n_distinct(project_nbr),
+    `EU Contribution` = sum(eu_contribution, na.rm = TRUE)) %>%
+  mutate(
+    `EU Contribution Share` = 100 * prop.table(`EU Contribution`),
+    `EU Contribution` = round(`EU Contribution`, 1),
+    `EU Contribution Share` = round(`EU Contribution Share`, 1),
+    FP = "H2020"
+  ) %>%
+  ggplot(aes(
+    x = FP,
+    y = `EU Contribution Share`,
+    fill = Pillar
+  )) +
+  geom_col(position = position_stack(reverse = TRUE)) +
+  geom_text(
+    aes(label = paste0(`EU Contribution Share`, "%")),
+    position = position_stack(vjust = 0.5, reverse = TRUE),
+    size = 4, fontface = "bold"
+  ) +
+  coord_flip() + 
+  scale_fill_nejm() +
+  theme_minimal(base_size = 14) +
+  ylab(NULL) +
+  xlab(NULL) +
+  theme(
+    legend.position = "bottom", 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()
+  );
+
+ggsave(file="budget-allocation.svg", plot=ggp, width=12, height=6)
+```
+
+![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/budget-allocation.svg "Total EU contribution to the different pillars in H2020.")
 
 ## Top countries
 
