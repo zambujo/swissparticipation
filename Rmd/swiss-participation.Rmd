@@ -15,6 +15,7 @@ editor_options:
 # source code: https://github.com/zambujo/swissparticipation
 library(tidyverse)
 library(ggsci)
+library(ggtext)
 library(scales)
 library(readxl)
 library(here)
@@ -48,6 +49,12 @@ df <- df %>%
     pillar_abbr = str_replace(pillar_abbr, fixed("EU.3."), "3"),
     pillar_abbr = str_replace(pillar_abbr, fixed("EU.4."), "4"),
     pillar_abbr = str_replace(pillar_abbr, fixed("EU.5."), "5"),
+    # group entity types
+    legal_entity_type = str_replace(legal_entity_type, fixed("HES"), "Research & Education"),
+    legal_entity_type = str_replace(legal_entity_type, fixed("REC"), "Research & Education"),
+    legal_entity_type = str_replace(legal_entity_type, fixed("PRC"), "Others (Excl. R&Ed)"),
+    legal_entity_type = str_replace(legal_entity_type, fixed("PUB"), "Others (Excl. R&Ed)"),
+    legal_entity_type = str_replace(legal_entity_type, fixed("OTH"), "Others (Excl. R&Ed)"),
     # import EU contribution
     eu_contribution = str_replace(eu_contribution, fixed("-"), "0"),
     eu_contribution = as.numeric(eu_contribution),
@@ -161,26 +168,67 @@ top10 %>%
 ```
 
 ```{r visual-countries}
+pal <- c(
+  rep("gray85", 7),
+  "goldenrod1",
+  rep("gray85", 2)) %>%
+  rev()
+
 df %>%
   group_by(Country = country) %>%
-  summarise(
-    `EU Contribution` = sum(eu_contribution, na.rm = TRUE)) %>%
+  summarise(`EU Contribution` = sum(eu_contribution, na.rm = TRUE)) %>%
   ungroup() %>%
   mutate(Country = fct_lump(Country, 10, w = `EU Contribution`)) %>%
+  # sum over other
   group_by(Country) %>%
-  summarise(
-    `EU Contribution` = sum(`EU Contribution`, na.rm = TRUE)) %>%
+  summarise(`EU Contribution` = sum(`EU Contribution`, na.rm = TRUE)) %>%
   ungroup() %>%
   arrange(desc(`EU Contribution`)) %>%
   mutate(
-    contrib_txt = format(
-      `EU Contribution`,
-      big.mark = ",",
-      decimal.mark = ".",
-      trim = TRUE,
-      digits = 12),
-    contrib_txt = str_c("€", contrib_txt)) %>%
-    write_csv(here("data", "h2020-countries-treemap.csv"))
+    Country = forcats::fct_rev(forcats::fct_inorder(Country)),
+    Country = forcats::fct_relevel(Country, "Other", after = 0),
+    perc = scales::percent(
+      `EU Contribution` / sum(`EU Contribution`),
+      accuracy = .1,
+      trim = FALSE
+    )
+  ) %>%
+  arrange(desc(Country)) %>%
+  filter(Country != "Other") %>%
+  ggplot(aes(x = `EU Contribution`, y = Country, fill = Country)) +
+  geom_col() +
+  geom_text(
+    aes(label = perc),
+    hjust = 1.1,
+    size = 4,
+    fontface = "bold",
+    family = "Fira Sans",
+  ) +
+  labs(x = "EU Contribution to CH (MioEUR)",
+       y = NULL) +
+  scale_fill_manual(values = pal, guide = "none") +
+  scale_x_continuous(labels = unit_format(
+    suffix = "",
+    scale = 1e-6,
+    big.mark = ","
+  )) +
+  theme_minimal() +
+  theme(
+    axis.title.x = element_text(
+      size = 14,
+      family = "Fira Sans"
+    ), 
+    axis.text.x = element_text(
+      size = 13,
+      family = "Fira Sans"
+    ), 
+    axis.text.y = element_text(
+      size = 14,
+      hjust = 1,
+      family = "Fira Sans"
+    ),
+    plot.margin = margin(rep(10, 4))
+  )
 ```
 
 A treemap showing the total EU contribution to the top 10 participating countries in H2020.  Switzerland ranks 8th by total EU contribution.
@@ -224,26 +272,20 @@ df %>%
   )
 ```
 
-```{r ch-type, fig.asp=.5, fig.retina=TRUE}
+```{r ch-type-role, fig.asp=.7, fig.retina=TRUE}
 df %>%
   filter(country_code == "CH") %>%
   mutate(
     pillar_abbr = str_replace(pillar_abbr, fixed("Cross-theme"), "Other"),
     pillar_abbr = str_replace(pillar_abbr, fixed("Euratom"), "Other"),
-    legal_entity_type = str_replace(legal_entity_type, fixed("HES"), "Research & Education"),
-    legal_entity_type = str_replace(legal_entity_type, fixed("REC"), "Research & Education"),
-    legal_entity_type = str_replace(legal_entity_type, fixed("PRC"), "Other (Excl. R&Ed)"),
-    legal_entity_type = str_replace(legal_entity_type, fixed("PUB"), "Other (Excl. R&Ed)"),
-    legal_entity_type = str_replace(legal_entity_type, fixed("OTH"), "Other (Excl. R&Ed)")
+    partner_role = str_to_title(partner_role)
   ) %>%
   group_by(
     Pillar = pillar_abbr, 
-    Affiliation = legal_entity_type
+    Affiliation = legal_entity_type,
+    Role = partner_role
   ) %>%
-  summarise(
-  `Participation Count` = n(),
-  `Nb Projects` = n_distinct(project_nbr),
-  `EU Contribution` = sum(eu_contribution, na.rm = TRUE)) %>%
+  summarise(`EU Contribution` = sum(eu_contribution, na.rm = TRUE)) %>%
   ungroup() %>%
   mutate(Affiliation = fct_rev(Affiliation)) %>%
   arrange(Pillar, Affiliation) %>%
@@ -252,12 +294,13 @@ df %>%
   scale_fill_nejm() +
   scale_y_continuous(labels=unit_format(suffix="", scale = 1e-6, big.mark = ",")) +
   coord_flip() +
-  theme_minimal(base_size = 16) +
+  facet_grid(Role ~ .) +
+  theme_minimal(base_size = 14) +
   labs(
-    title = "Pillar 1 is the primary source of funding for CH",
-    subtitle = "Swiss R&Education organisations received a high share",
+    title = "Excellent Science is the primary source of funding for CH",
+    subtitle = "Swiss Research & Education organisations received a high share",
     x = "Pillar",
-    y = "EU Contribution to CH (MioEUR)"
+    y = "EU Contribution in H2020 (MioEUR)"
   ) +
   theme(
     plot.title.position = "plot",
@@ -324,7 +367,20 @@ A treemap showing the overall H2020 EU contribution (MEUR) to Switzerland by Pil
 
 ![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-ch.svg "H2020 EU contribution to Swiss participants, by pillar and thematic priority.")
 
-#### CERN
+---
+
+## Annex
+
+### Raw Data
+
+The raw data contains 176,512 rows with the following details on every participant on each project:
+
+```{r}
+df %>%
+  glimpse()
+```
+
+### CERN
 
 ```{r cern}
 total_cern <- df %>%
@@ -366,13 +422,3 @@ df %>%
     compact = TRUE
   )
 ```
-
-## Annex
-
-The raw data contains 176,512 rows with the following details on every participant on each project:
-
-```{r}
-df %>%
-  glimpse()
-```
-
