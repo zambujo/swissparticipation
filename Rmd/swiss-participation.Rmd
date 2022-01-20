@@ -356,7 +356,7 @@ df %>%
   theme_minimal(base_size = 14) +
   labs(
     title = "Excellent Science is the primary source of funding for CH",
-    subtitle = "Swiss Research & Education organisations received a high share",
+    subtitle = "In which Research & Education organisations represent a high share",
     x = "Pillar",
     y = "EU Contribution in H2020 (MioEUR)"
   ) +
