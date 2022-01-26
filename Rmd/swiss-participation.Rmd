@@ -228,14 +228,17 @@ df %>%
       Pillar = colDef(footer = "Total"),
       `Participation Count` = colDef(
         aggregate = "sum", 
-        format = colFormat(separators = TRUE)),
+        format = colFormat(separators = TRUE),
+        footer = function(values) sum(values) %>% format(big.mark = ",")),
       `Nb Projects` = colDef(
         aggregate = "sum", 
-        format = colFormat(separators = TRUE)),
+        format = colFormat(separators = TRUE),
+        footer = function(values) sum(values) %>% format(big.mark = ",")),
       `EU Contribution` = colDef(
         aggregate = "sum",
         format = colFormat(currency = "EUR", separators = TRUE, digits = 2),
         footer = function(values) sum(values) %>% format(big.mark = ",") %>% str_c("€", .))),
+    defaultColDef = colDef(footerStyle = list(fontWeight = "bold")),
     highlight = TRUE,
     compact = TRUE
   )
@@ -354,14 +357,17 @@ df %>%
       Pillar = colDef(footer = "Total"),
       `Participation Count` = colDef(
         aggregate = "sum", 
-        format = colFormat(separators = TRUE)),
+        format = colFormat(separators = TRUE),
+        footer = function(values) sum(values) %>% format(big.mark = ",")),
       `Nb Projects` = colDef(
         aggregate = "sum", 
-        format = colFormat(separators = TRUE)),
+        format = colFormat(separators = TRUE),
+        footer = function(values) sum(values) %>% format(big.mark = ",")),
       `EU Contribution to R&Ed` = colDef(
         aggregate = "sum",
         format = colFormat(currency = "EUR", separators = TRUE, digits = 2),
         footer = function(values) sum(values) %>% format(big.mark = ",") %>% str_c("€", .))),
+    defaultColDef = colDef(footerStyle = list(fontWeight = "bold")),
     highlight = TRUE,
     compact = TRUE
   )
@@ -408,15 +414,15 @@ df %>%
   relocate(Priority) %>%
   reactable(
     columns = list(
+      Pillar = colDef(footer = "Total"),
       `EU Contribution` = colDef(
         format = colFormat(
           currency = "EUR",
           separators = TRUE, 
           digits = 10),
         footer = function(values) sum(values) %>% format(big.mark = ",") %>% str_c("€", .)),
-      Share = colDef(format = colFormat(percent = TRUE, digits = 1)),
-      Pillar = colDef(footer = "Total")
-    ),
+      Share = colDef(format = colFormat(percent = TRUE, digits = 1),
+                     footer = function(values) sum(100 * values) %>% str_c("%"))),
     defaultColDef = colDef(footerStyle = list(fontWeight = "bold")),
     highlight = TRUE,
     compact = TRUE
