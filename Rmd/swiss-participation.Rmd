@@ -1,5 +1,6 @@
 ---
-title: "🚧 Swiss Participation in EU Framework Programmes 🚧"
+title: "Swiss Participation in EU Framework Programmes"
+author: "João Martins"
 output: 
   html_document: 
     theme: cerulean
@@ -224,6 +225,7 @@ df %>%
   reactable(
     groupBy = c("Pillar", "Priority"),
     columns = list(
+      Pillar = colDef(footer = "Total"),
       `Participation Count` = colDef(
         aggregate = "sum", 
         format = colFormat(separators = TRUE)),
@@ -232,8 +234,8 @@ df %>%
         format = colFormat(separators = TRUE)),
       `EU Contribution` = colDef(
         aggregate = "sum",
-        format = colFormat(currency = "EUR", separators = TRUE, digits = 2))
-    ),
+        format = colFormat(currency = "EUR", separators = TRUE, digits = 2),
+        footer = function(values) sum(values) %>% format(big.mark = ",") %>% str_c("€", .))),
     highlight = TRUE,
     compact = TRUE
   )
@@ -327,7 +329,7 @@ df %>%
   )
 ```
 
-#### EU contributions commited to Swiss institutions in Research and Higher Education
+#### EU contributions commited to Swiss institutions in research and higher education
 
 ```{r overview-in-research}
 df %>%
@@ -349,6 +351,7 @@ df %>%
   reactable(
     groupBy = c("Pillar", "Priority"),
     columns = list(
+      Pillar = colDef(footer = "Total"),
       `Participation Count` = colDef(
         aggregate = "sum", 
         format = colFormat(separators = TRUE)),
@@ -357,11 +360,12 @@ df %>%
         format = colFormat(separators = TRUE)),
       `EU Contribution to R&Ed` = colDef(
         aggregate = "sum",
-        format = colFormat(currency = "EUR", separators = TRUE, digits = 2))
-    ),
+        format = colFormat(currency = "EUR", separators = TRUE, digits = 2),
+        footer = function(values) sum(values) %>% format(big.mark = ",") %>% str_c("€", .))),
     highlight = TRUE,
     compact = TRUE
   )
+
 ```
 
 
