@@ -27,8 +27,9 @@ chr <- function(x) as.character(x)
 roman <- function(x) as.roman(x)
 ```
 
-<!-- links to code repository and issues -->
+<!-- badges: start -->
 [![](https://img.shields.io/github/watchers/zambujo/swissparticipation?style=social)](https://github.com/zambujo/swissparticipation) [![](https://img.shields.io/github/issues/zambujo/swissparticipation)](https://github.com/zambujo/swissparticipation/issues)
+<!-- badges: end -->
 
 > Pease find related statistics on the SERI's page: [Facts and Figures on the Swiss Participation in the EU-Framework Programmes for Research and Innovation](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html).
 
@@ -323,7 +324,7 @@ df %>%
     title = "Pillar I is the primary source of funding for CH",
     subtitle = "With a high proportion of Research & Education organisations",
     x = "Pillar",
-    y = "EU Contribution to CH in H2020 (MioEUR)"
+    y = "EU Contribution to Swiss Institutions (MioEUR)"
   ) +
   theme(
     plot.title.position = "plot",
