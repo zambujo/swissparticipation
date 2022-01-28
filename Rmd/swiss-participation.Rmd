@@ -132,6 +132,8 @@ top_participants <- df %>%
   ungroup() %>%
   arrange(desc(contrib_country))
 
+ch_rank <- which(pull(top_participants, Country) == "Switzerland")
+
 # calculate further participation statistics
 country_participation <- df %>%
   group_by(
@@ -170,11 +172,10 @@ top_participants %>%
   )
 ```
 
-Switzerland ranks 8th by total EU contribution in H2020.
+Switzerland ranks `r ch_rank`th by total EU contribution in H2020.
 
 ```{r visual-countries, fig.asp=.5}
 # minimal plotting
-ch_rank <- which(pull(top_participants, Country) == "Switzerland")
 pal <- c(
   rep("gray85", ch_rank - 1),
   "goldenrod1",
@@ -200,7 +201,8 @@ top_participants %>%
   theme(
     plot.margin = margin(c(4, 2, 4, 8)),
     axis.text.y = element_text(size = 14, hjust = 1, family = "Fira Sans"))
-# inspired by: 
+
+# thanks: 
 # https://www.cedricscherer.com/2021/07/05/a-quick-how-to-on-labelling-bar-graphs-in-ggplot2/
 ```
 
