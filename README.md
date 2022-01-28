@@ -24,7 +24,7 @@ Start by modifying the R Markdown file in
 [`Rmd/swiss-participation.Rmd`](Rmd/swiss-participation.Rmd) and then
 run:
 
-    $ Rscript install.R
+    $ make
 
 Find the output in [`docs/index.html`](docs/index.html).
 
