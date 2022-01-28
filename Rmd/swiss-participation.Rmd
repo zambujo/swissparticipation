@@ -36,7 +36,7 @@ roman <- function(x) as.roman(x)
 
 ## Data
 
-Source: [**Horizon 2020 Dashboard data**](https://webgate.ec.europa.eu/dashboard/single/?appid=93297a69-09fd-4ef5-889f-b83c4e21d33e&sheet=c616ed33-064c-40c0-803a-e75045b78c05), last updated on 2021-12-06 (see glimpse in [Annex](#annex)).
+Source: [**Horizon 2020 Dashboard data**](https://webgate.ec.europa.eu/dashboard/single/?appid=93297a69-09fd-4ef5-889f-b83c4e21d33e&sheet=c616ed33-064c-40c0-803a-e75045b78c05), last updated on 2021-12-06 (see [Annex: Raw Data](#raw-data)).
 
 ```{r read-dashboard-data}
 # load xlsx table to a data frame
@@ -172,7 +172,7 @@ top_participants %>%
   )
 ```
 
-Switzerland ranks `r ch_rank`th by total EU contribution in H2020.
+Without excluding the CERN (see [Annex: CERN](#cern)), Switzerland ranks `r ch_rank`th by total EU contribution in H2020.
 
 ```{r visual-countries, fig.asp=.5}
 # minimal plotting
@@ -208,47 +208,63 @@ top_participants %>%
 
 ## Swiss participation: an overview
 
+```{r get-participation}
+get_participation <- function(x) {
+  x %>%
+    mutate(pillar = fct_rev(pillar)) %>%
+    group_by(Pillar = pillar,
+             Priority = thematic_priority_abbr,
+             `Call Year` = call_year) %>%
+    summarise(
+      `Participation Count` = n(),
+      `Nb Projects` = n_distinct(project_nbr),
+      `EU Contribution` = sum(eu_contribution, na.rm = TRUE)
+    ) %>%
+    ungroup() %>%
+    mutate(`EU Contribution` = round(`EU Contribution`, 1)) %>%
+    reactable(
+      groupBy = c("Pillar", "Priority"),
+      columns = list(
+        Pillar = colDef(footer = "Total"),
+        `Participation Count` = colDef(
+          aggregate = "sum",
+          format = colFormat(separators = TRUE),
+          footer = function(values)
+            sum(values) %>% format(big.mark = ",")
+        ),
+        `Nb Projects` = colDef(
+          aggregate = "sum",
+          format = colFormat(separators = TRUE),
+          footer = function(values)
+            sum(values) %>% format(big.mark = ",")
+        ),
+        `EU Contribution` = colDef(
+          aggregate = "sum",
+          format = colFormat(
+            currency = "EUR",
+            separators = TRUE,
+            digits = 2
+          ),
+          footer = function(values)
+            sum(values) %>% format(big.mark = ",") %>% str_c("€", .)
+        )
+      ),
+      defaultColDef = colDef(footerStyle = list(fontWeight = "bold")),
+      highlight = TRUE,
+      compact = TRUE
+    )
+}
+```
+
 Swiss participation in H2020: participation count, number of projects (distinct), total EU contribution by pillar, thematic priority, and call year.
 
 ```{r overview}
 df %>%
   filter(country_code == "CH") %>%
-  mutate(pillar = fct_rev(pillar)) %>%
-  group_by(
-    Pillar = pillar, 
-    Priority = thematic_priority_abbr, 
-    `Call Year` = call_year) %>%
-  summarise(
-    `Participation Count` = n(),
-    `Nb Projects` = n_distinct(project_nbr),
-    `EU Contribution` = sum(eu_contribution, na.rm = TRUE)) %>%
-  ungroup() %>%
-  mutate(
-    `EU Contribution` = round(`EU Contribution`, 1)
-  ) %>%
-  reactable(
-    groupBy = c("Pillar", "Priority"),
-    columns = list(
-      Pillar = colDef(footer = "Total"),
-      `Participation Count` = colDef(
-        aggregate = "sum", 
-        format = colFormat(separators = TRUE),
-        footer = function(values) sum(values) %>% format(big.mark = ",")),
-      `Nb Projects` = colDef(
-        aggregate = "sum", 
-        format = colFormat(separators = TRUE),
-        footer = function(values) sum(values) %>% format(big.mark = ",")),
-      `EU Contribution` = colDef(
-        aggregate = "sum",
-        format = colFormat(currency = "EUR", separators = TRUE, digits = 2),
-        footer = function(values) sum(values) %>% format(big.mark = ",") %>% str_c("€", .))),
-    defaultColDef = colDef(footerStyle = list(fontWeight = "bold")),
-    highlight = TRUE,
-    compact = TRUE
-  )
+  get_participation()
 ```
 
-```{r visual-overview}
+```{r visual-overview, eval=FALSE}
 # Differentiate pillars 1 to III
 stats_depth_1 <- 
   df %>%
@@ -299,13 +315,13 @@ bind_rows(stats_depth_1) %>%
 # plot with https://rawgraphs.io
 ```
 
-A treemap showing the overall H2020 EU contribution (MEUR) to Switzerland by Pillar and Thematic Priority. Only the three largest pillars are shown.
+Treemap showing the overall H2020 EU contribution (MEUR) to Switzerland by Pillar and Thematic Priority. Only the three largest pillars are shown.
 
 ![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-ch.svg "H2020 EU contribution to Swiss participants, by pillar and thematic priority.")
 
 ### Swiss participation by sector
 
-```{r ch-type-role, fig.asp=.6, fig.retina=TRUE}
+```{r ch-type-role, fig.asp=.6}
 df %>%
   filter(country_code == "CH") %>%
   mutate(
@@ -342,42 +358,8 @@ df %>%
 df %>%
   filter(country_code == "CH") %>%
   filter(org_type == "Research & Education") %>%
-  mutate(pillar = fct_rev(pillar)) %>%
-  group_by(
-    Pillar = pillar, 
-    Priority = thematic_priority_abbr, 
-    `Call Year` = call_year) %>%
-  summarise(
-    `Participation Count` = n(),
-    `Nb Projects` = n_distinct(project_nbr),
-    `EU Contribution to R&Ed` = sum(eu_contribution, na.rm = TRUE)) %>%
-  ungroup() %>%
-  mutate(
-    `EU Contribution to R&Ed` = round(`EU Contribution to R&Ed`, 1)
-  ) %>%
-  reactable(
-    groupBy = c("Pillar", "Priority"),
-    columns = list(
-      Pillar = colDef(footer = "Total"),
-      `Participation Count` = colDef(
-        aggregate = "sum", 
-        format = colFormat(separators = TRUE),
-        footer = function(values) sum(values) %>% format(big.mark = ",")),
-      `Nb Projects` = colDef(
-        aggregate = "sum", 
-        format = colFormat(separators = TRUE),
-        footer = function(values) sum(values) %>% format(big.mark = ",")),
-      `EU Contribution to R&Ed` = colDef(
-        aggregate = "sum",
-        format = colFormat(currency = "EUR", separators = TRUE, digits = 2),
-        footer = function(values) sum(values) %>% format(big.mark = ",") %>% str_c("€", .))),
-    defaultColDef = colDef(footerStyle = list(fontWeight = "bold")),
-    highlight = TRUE,
-    compact = TRUE
-  )
-
+  get_participation()
 ```
-
 
 ---
 
@@ -403,32 +385,11 @@ total_cern <- df %>%
   format(big.mark = ",", decimal.mark = ".", trim = TRUE, digits = 11)
 ```
 
-**Note**: EU Contribution to Switzerland include `r str_c("€", total_cern)` awarded to the CERN.  Please see the EU contribution to CERN detailed below:
+**Note**: EU Contribution to Switzerland include `r str_c("€", total_cern)` awarded to the CERN.  Please find the EU contribution to CERN in detail below:
 
 ```{r cern-detail}
 df %>%
   filter(country_code == "CH") %>%
   filter(legal_name == "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
-  mutate(pillar = fct_rev(pillar)) %>%
-  group_by(Pillar = pillar, Priority = thematic_priority_abbr) %>%
-  summarise(`EU Contribution` = sum(eu_contribution)) %>%
-  ungroup() %>%
-  mutate(Share = prop.table(`EU Contribution`)) %>%
-  arrange(desc(Share)) %>%
-  relocate(Priority) %>%
-  reactable(
-    columns = list(
-      Pillar = colDef(footer = "Total"),
-      `EU Contribution` = colDef(
-        format = colFormat(
-          currency = "EUR",
-          separators = TRUE, 
-          digits = 10),
-        footer = function(values) sum(values) %>% format(big.mark = ",") %>% str_c("€", .)),
-      Share = colDef(format = colFormat(percent = TRUE, digits = 1),
-                     footer = function(values) sum(100 * values) %>% str_c("%"))),
-    defaultColDef = colDef(footerStyle = list(fontWeight = "bold")),
-    highlight = TRUE,
-    compact = TRUE
-  )
+  get_participation()
 ```
