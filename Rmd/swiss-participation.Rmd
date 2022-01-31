@@ -172,7 +172,7 @@ top_participants %>%
   )
 ```
 
-Without excluding the CERN (see [Annex: CERN](#cern)), Switzerland ranks `r ch_rank`th by total EU contribution in H2020.
+Switzerland ranks `r ch_rank`th by total EU contribution in H2020 (incl. the CERN, see [Annex: CERN](#cern)).
 
 ```{r visual-countries, fig.asp=.5}
 # minimal plotting
