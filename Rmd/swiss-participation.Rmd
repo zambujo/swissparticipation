@@ -20,6 +20,7 @@ library(here)
 library(readxl)
 library(scales)
 library(ggsci)
+library(ggrepel)
 library(reactable)
 knitr::opts_chunk$set(message = FALSE)
 int <- function(x) as.integer(x)
@@ -177,34 +178,41 @@ Switzerland ranks `r ch_rank`th by total EU contribution in H2020 (incl. the CER
 ```{r visual-countries, fig.asp=.5}
 # minimal plotting
 pal <- c(
-  rep("gray85", ch_rank - 1),
-  "goldenrod1",
-  rep("gray85", 10 - ch_rank)) %>%
+  rep("gray75", ch_rank - 1),
+  "firebrick2",
+  rep("gray75", 10 - ch_rank)) %>%
   rev()
 
 top_participants %>%
-  mutate(
-    Country = fct_rev(fct_inorder(Country)),
-    share = 100 * prop.table(contrib_country)) %>%
+  mutate(Country = fct_rev(fct_inorder(Country)),
+         share = 100 * prop.table(contrib_country)) %>%
   head(10) %>%
   ggplot(aes(x = contrib_country, y = Country, fill = Country)) +
   geom_col() +
-  geom_text(aes(
-    label = sprintf("%.1f%%", share)),
+  geom_text(
+    aes(label = sprintf("%.1f%%", share)),
     hjust = 1.15,
     size = 4,
     fontface = "bold",
-    family = "Fira Sans") +
-  labs(x = NULL,y = NULL) +
+    family = "Gill Sans"
+  ) +
+  labs(x = NULL, y = NULL) +
   scale_fill_manual(values = pal, guide = "none") +
   theme_void() +
   theme(
     plot.margin = margin(c(4, 2, 4, 8)),
-    axis.text.y = element_text(size = 14, hjust = 1, family = "Fira Sans"))
+    axis.text.y = element_text(
+      size = 14,
+      family = "Gill Sans",
+      hjust = 1,
+      color = "gray10"
+    )
+  )
 
 # thanks: 
 # https://www.cedricscherer.com/2021/07/05/a-quick-how-to-on-labelling-bar-graphs-in-ggplot2/
 ```
+
 
 ## Swiss participation: an overview
 
@@ -324,9 +332,8 @@ Treemap showing the overall H2020 EU contribution (MEUR) to Switzerland by Pilla
 ```{r ch-type-role, fig.asp=.6}
 df %>%
   filter(country_code == "CH") %>%
-  mutate(
-    pillar = fct_other(pillar, keep = chr(roman(1:5))),
-    pillar = fct_relevel(pillar, "Other", after = 0)) %>%
+  mutate(pillar = fct_other(pillar, keep = chr(roman(1:5))),
+         pillar = fct_relevel(pillar, "Other", after = 0)) %>%
   group_by(pillar, org_type, role = partner_role) %>%
   summarise(contrib = sum(eu_contribution)) %>%
   ungroup() %>%
@@ -335,10 +342,14 @@ df %>%
   ggplot(aes(x = pillar, y = contrib, fill = org_type)) +
   geom_col(position = position_stack(reverse = FALSE)) +
   scale_fill_nejm(alpha = .5, guide = guide_legend(reverse = TRUE)) +
-  scale_y_continuous(labels=unit_format(suffix="", scale = 1e-6, big.mark = ",")) +
+  scale_y_continuous(labels = unit_format(
+    suffix = "",
+    scale = 1e-6,
+    big.mark = ","
+  )) +
   coord_flip() +
   facet_grid(role ~ .) +
-  theme_minimal(base_size = 14) +
+  theme_minimal() +
   labs(
     title = "Pillar I is the primary source of funding for CH",
     subtitle = "With a high proportion of Research & Education organisations",
@@ -346,6 +357,7 @@ df %>%
     y = "EU Contribution to Swiss Institutions (MioEUR)"
   ) +
   theme(
+    text = element_text(size = 14, family = "Gill Sans", color = "gray10"),
     plot.title.position = "plot",
     legend.position = "bottom",
     legend.title = element_blank()
@@ -367,12 +379,96 @@ df %>%
 
 ### Raw Data
 
-The raw data contains 176,512 rows with the following details on every participant on each project:
+The raw data set contains `r nrow(df) %>% format(big.mark = ",")` rows with the following attributes:
 
 ```{r}
 df %>%
   glimpse()
 ```
+
+
+### Top-10 Participation Topography
+
+```{r additional-context, fig.asp=1}
+pal <- c(
+  rep("gray45", ch_rank - 1),
+  "firebrick",
+  rep("gray45", 10 - ch_rank)) %>%
+  rev()
+
+## share to Pillar I
+contribution_share_pillar <- df %>%
+  # exclude (country_code == "CH" & call_year == 2014)
+  filter(
+    country_code != "CH" |
+      legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
+  filter(country_code != "CH" | call_year != 2014) %>%
+  semi_join(top_participants %>%
+              select(country = Country) %>%
+              head(10),
+            by = "country") %>%
+  group_by(
+    Country = country,
+    Pillar = pillar) %>%
+  summarise(`Contribution` = sum(eu_contribution)) %>%
+  mutate(share_pillar = 100 * prop.table(Contribution)) %>%
+  filter(Pillar == "I") %>%
+  select(-Pillar, -Contribution)
+
+## share to Resesearch and HigherEd
+contribution_share_reshed <- df %>%
+  # exclude (country_code == "CH" & call_year == 2014)
+  filter(
+    country_code != "CH" |
+      legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
+  filter(country_code != "CH" | call_year != 2014) %>%
+  semi_join(top_participants %>%
+              select(country = Country) %>%
+              head(10),
+            by = "country") %>%
+  group_by(
+    Country = country,
+    Type = org_type) %>%
+  summarise(`Contribution` = sum(eu_contribution)) %>%
+  mutate(share_reshed = 100 * prop.table(Contribution)) %>%
+  filter(Type == "Research & Education") %>%
+  select(-Type, -Contribution)
+
+top_participants %>%
+  inner_join(contribution_share_reshed, by = c("Country")) %>%
+  inner_join(contribution_share_pillar, by = c("Country")) %>%
+  mutate(Country = fct_rev(fct_inorder(Country)),
+         contrib_country = contrib_country / 1000000) %>%
+  ggplot(
+    aes(
+      x = share_pillar,
+      y = share_reshed,
+      label = Country,
+      col = Country,
+      size = contrib_country
+    )
+  ) +
+  geom_point(fill = NA) +
+  geom_text_repel(
+    size = 4,
+    show.legend = FALSE,
+    box.padding = .75,
+    family = "Gill Sans"
+  ) +
+  guides(size = guide_legend(
+    title = "Total EU Contribution (MioEUR) :",
+    override.aes = list(fill = "gray45", col = "gray45", shape = 21))) +
+  labs(x = "Contributions from Pillar I: Excellent Science (%)",
+       y = "Contribution to Institutions in Research and HigherEd (%)") +
+  scale_color_manual(values = pal, guide = "none") +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 15, family = "Gill Sans", color = "gray10"),
+    plot.title.position = "plot",
+    legend.position = "top"
+  )
+```
+
 
 ### CERN
 
