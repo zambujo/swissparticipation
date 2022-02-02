@@ -16,6 +16,7 @@ editor_options:
 # source code: https://github.com/zambujo/swissparticipation
 library(tidyverse)
 library(janitor)
+library(lubridate)
 library(here)
 library(readxl)
 library(scales)
@@ -80,7 +81,7 @@ df <- df %>%
   )
 ```
 
-## Total EU Contribution by Pillar (All Countries)
+## Total EU Contribution by Pillar: All Countries
 
 ```{r overview-pillar, eval=FALSE}
 ggp <- df %>%
@@ -121,7 +122,7 @@ ggsave("budget-allocation.svg",
 
 ![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/budget-allocation.svg "Total EU contribution to the different pillars in H2020.")
 
-## Top countries
+## Top Participating Countries
 
 Participation count, number of projects (distinct), and total EU contribution for the top 10 participating countries (by total EU contribution).
 
@@ -214,7 +215,7 @@ top_participants %>%
 ```
 
 
-## Swiss participation: an overview
+## Swiss Participation: An Overview
 
 ```{r get-participation}
 get_participation <- function(x) {
@@ -327,7 +328,7 @@ Treemap showing the overall H2020 EU contribution (MEUR) to Switzerland by Pilla
 
 ![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-ch.svg "H2020 EU contribution to Swiss participants, by pillar and thematic priority.")
 
-### Swiss participation by sector
+### Swiss Participation by Sector
 
 ```{r ch-type-role, fig.asp=.6}
 df %>%
@@ -364,7 +365,7 @@ df %>%
   )
 ```
 
-#### EU contributions commited to Swiss institutions in research and higher education
+#### EU Contribution to Swiss Institutions in Research and HigherEd
 
 ```{r overview-in-research}
 df %>%
@@ -377,22 +378,13 @@ df %>%
 
 ## Annex
 
-### Raw Data
 
-The raw data set contains `r nrow(df) %>% format(big.mark = ",")` rows with the following attributes:
-
-```{r}
-df %>%
-  glimpse()
-```
-
-
-### Top-10 Participation Topography
+### Typology of the Top-10 Participating Countries
 
 ```{r additional-context, fig.asp=1}
 pal <- c(
   rep("gray45", ch_rank - 1),
-  "firebrick",
+  "firebrick4",
   rep("gray45", 10 - ch_rank)) %>%
   rev()
 
@@ -401,7 +393,7 @@ contribution_share_pillar <- df %>%
   # exclude (country_code == "CH" & call_year == 2014)
   filter(
     country_code != "CH" |
-      legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
+      (!str_detect(legal_name, "EUROPEAN |WORLD | MONDIALE"))) %>%
   filter(country_code != "CH" | call_year != 2014) %>%
   semi_join(top_participants %>%
               select(country = Country) %>%
@@ -420,7 +412,7 @@ contribution_share_reshed <- df %>%
   # exclude (country_code == "CH" & call_year == 2014)
   filter(
     country_code != "CH" |
-      legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
+      (!str_detect(legal_name, "EUROPEAN |WORLD | MONDIALE"))) %>%
   filter(country_code != "CH" | call_year != 2014) %>%
   semi_join(top_participants %>%
               select(country = Country) %>%
@@ -450,7 +442,7 @@ top_participants %>%
   ) +
   geom_point(fill = NA) +
   geom_text_repel(
-    size = 4,
+    size = 5,
     show.legend = FALSE,
     box.padding = .75,
     family = "Gill Sans"
@@ -458,14 +450,130 @@ top_participants %>%
   guides(size = guide_legend(
     title = "Total EU Contribution (MioEUR) :",
     override.aes = list(fill = "gray45", col = "gray45", shape = 21))) +
-  labs(x = "Contributions from Pillar I: Excellent Science (%)",
-       y = "Contribution to Institutions in Research and HigherEd (%)") +
+  labs(
+    x = "Contributions to Pillar I: Excellent Science (%)",
+    y = "Contribution to Institutions in Research and HigherEd (%)"
+    ) +
   scale_color_manual(values = pal, guide = "none") +
   theme_minimal() +
   theme(
-    text = element_text(size = 15, family = "Gill Sans", color = "gray10"),
+    text = element_text(size = 16, family = "Gill Sans", color = "gray10"),
     plot.title.position = "plot",
     legend.position = "top"
+  )
+```
+
+### CH-UK: EU Contribution to Research & HigherEd
+
+```{r}
+pal <- c("firebrick4", "gray50")
+df %>%
+  # remove international organisations
+  filter(!str_detect(legal_name, "EUROPEAN |WORLD | MONDIALE")) %>%
+  # keep CH and the UK
+  filter(country_code %in% c("CH", "UK")) %>%
+  filter(org_type == "Research & Education") %>%
+  mutate(call_semester = floor_date(call_deadline_date, "6 months")) %>%
+  group_by(Country = country, Semester = call_semester) %>%
+  summarise(contrib = sum(eu_contribution)) %>%
+  mutate(Share = 100 * prop.table(contrib)) %>%
+  select(-contrib) %>%
+  filter(Semester < as.Date("2021-01-01")) %>%
+  ggplot(aes(x = Semester, y = Share)) +
+  geom_col(aes(fill = Country)) +
+  facet_grid(vars(Country)) +
+  labs(
+    title = "Relative Distribution of EU Contribution to Research and HigherEd",
+    subtitle = "Comparing Switzerland (Top) and the United Kingdom (Baseline)",
+    x = "Semester",
+    y = "%"
+  ) +
+  scale_fill_manual(values = pal, guide = "none") +
+  theme_minimal() +
+  theme(
+    plot.title.position = "plot",
+    text = element_text(
+      size = 14,
+      family = "Gill Sans",
+      color = "gray10"
+    )
+  )
+```
+
+
+### Top Recipients in Switzerland
+
+#### Top 30 in Research and Higher Education
+
+```{r}
+df %>%
+  filter(country_code == "CH") %>%
+  # remove international organisations
+  filter(!str_detect(legal_name, "EUROPEAN |WORLD | MONDIALE")) %>%
+  filter(org_type == "Research & Education") %>%
+  group_by(Institution = legal_name) %>%
+  summarise(
+    `Nb Projects` = n_distinct(project_nbr),
+    `EU Contribution` = sum(eu_contribution)
+  ) %>%
+  arrange(desc(`EU Contribution`)) %>%
+  mutate(Institution = str_to_title(Institution)) %>%
+  slice_head(n = 30) %>%
+  reactable(
+    columns = list(
+      `Nb Projects` = colDef(sortable = TRUE),
+      `EU Contribution` = colDef(
+        sortable = TRUE,
+        format = colFormat(
+          currency = "EUR",
+          separators = TRUE,
+          digits = 2
+        )
+      )
+    ),
+    highlight = TRUE,
+    searchable = TRUE,
+    sortable = FALSE,
+    showSortable = TRUE,
+    compact = TRUE,
+    minRows = 10
+  )
+```
+
+#### Top 30 not in Research and Higher Education
+
+```{r}
+df %>%
+  filter(country_code == "CH") %>%
+  # remove international organisations
+  filter(!str_detect(legal_name, "EUROPEAN |WORLD | MONDIALE")) %>%
+  filter(org_type == "Others (Excl. R&Ed)") %>%
+  group_by(Institution = legal_name) %>%
+  summarise(
+    `Nb Projects` = n_distinct(project_nbr),
+    `EU Contribution` = sum(eu_contribution)
+  ) %>%
+  arrange(desc(`EU Contribution`)) %>%
+  mutate(Institution = str_to_title(Institution)) %>%
+  slice_head(n = 30) %>%
+  reactable(
+    columns = list(
+      `Nb Projects` = colDef(sortable = TRUE),
+      `EU Contribution` = colDef(
+        sortable = TRUE,
+        format = colFormat(
+          currency = "EUR",
+          separators = TRUE,
+          digits = 2
+        )
+      )
+    ),
+    highlight = TRUE,
+    searchable = TRUE,
+    sortable = FALSE,
+    showSortable = TRUE,
+    compact = TRUE,
+    minRows = 10
   )
 ```
 
@@ -489,3 +597,13 @@ df %>%
   filter(legal_name == "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
   get_participation()
 ```
+
+### Raw Data
+
+The raw data set contains `r nrow(df) %>% format(big.mark = ",")` rows with the following attributes:
+
+```{r}
+df %>%
+  glimpse()
+```
+
