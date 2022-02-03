@@ -178,7 +178,7 @@ top_participants %>%
   )
 ```
 
-Switzerland ranks `r ch_rank`th by total EU contribution in H2020 (excl. the CERN, see [Annex: CERN](#cern)).
+Switzerland ranks `r ch_rank`th by total EU contribution in H2020 (the CERN is not taken into account, see [Annex: CERN](#cern)).
 
 ```{r visual-countries, fig.asp=.5}
 # minimal plotting
@@ -461,11 +461,11 @@ top_participants %>%
   )
 ```
 
-### CH-UK: EU Contribution to Research & HigherEd
+### Time Distribution of the Contribution to Research & HigherEd
 
-```{r}
-pal <- c("firebrick4", "gray50")
-df %>%
+```{r, time-distribution, fig.asp=1}
+pal <- c("firebrick4", "gray50", "gray65")
+ch_uk <- df %>%
   # remove international organisations
   filter(!str_detect(legal_name, "EUROPEAN |WORLD | MONDIALE")) %>%
   # keep CH and the UK
@@ -475,14 +475,29 @@ df %>%
   group_by(Country = country, Semester = call_semester) %>%
   summarise(contrib = sum(eu_contribution)) %>%
   mutate(Share = 100 * prop.table(contrib)) %>%
+  select(-contrib)
+rest <- df %>%
+  # remove CH and the UK
+  filter(!country_code %in% c("CH", "UK")) %>%
+  filter(org_type == "Research & Education") %>%
+  mutate(call_semester = floor_date(call_deadline_date, "6 months")) %>%
+  group_by(Semester = call_semester) %>%
+  summarise(contrib = sum(eu_contribution)) %>%
+  mutate(Share = 100 * prop.table(contrib)) %>%
   select(-contrib) %>%
-  filter(Semester < as.Date("2021-01-01")) %>%
+  mutate(Country = "Remaining") %>%
+  relocate(Country)
+
+ch_uk %>%
+  bind_rows(rest) %>%
+  mutate(Country = factor(Country, levels = c("Switzerland", "United Kingdom", "Remaining"))) %>%
+  # filter(Semester < as.Date("2021-01-01")) %>%
   ggplot(aes(x = Semester, y = Share)) +
   geom_col(aes(fill = Country)) +
   facet_grid(vars(Country)) +
   labs(
     title = "Relative Distribution of EU Contribution to Research and HigherEd",
-    subtitle = "Comparing Switzerland (Top) and the United Kingdom (Baseline)",
+    subtitle = "Comparing Switzerland (Top), the United Kingdom (Middle), and the Rest (Bottom)",
     x = "Semester",
     y = "%"
   ) +
