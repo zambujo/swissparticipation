@@ -18,6 +18,7 @@ library(tidyverse)
 library(janitor)
 library(lubridate)
 library(here)
+library(glue)
 library(readxl)
 library(scales)
 library(ggsci)
@@ -214,8 +215,7 @@ top_participants %>%
     )
   )
 
-# thanks: 
-# https://www.cedricscherer.com/2021/07/05/a-quick-how-to-on-labelling-bar-graphs-in-ggplot2/
+
 ```
 
 
@@ -279,8 +279,7 @@ df %>%
 
 ```{r visual-overview, eval=FALSE}
 # Differentiate pillars 1 to III
-stats_depth_1 <- 
-  df %>%
+stats_depth_1 <- df %>%
   filter(country_code == "CH") %>%
   filter(!pillar %in% chr(roman(1:3))) %>%
   mutate(pillar = fct_rev(pillar)) %>%
@@ -289,7 +288,7 @@ stats_depth_1 <-
   ungroup() %>%
   # for printing
   mutate(pillar_descr = ifelse(
-    chr(pillar) %in% chr(roman(4:5)), 
+    chr(pillar) %in% chr(roman(4:5)),
     str_c(pillar, ". ", pillar_descr),
     chr(pillar)),
     thematic_priority_abbr = NA) %>%
@@ -394,7 +393,7 @@ pal <- c(
 
 ## share to Pillar I
 contribution_share_pillar <- df %>%
-  # exclude (country_code == "CH" & call_year == 2014)
+  # excluding Switzerland in 2014
   filter(country_code != "CH" | call_year != 2014) %>%
   semi_join(top_participants %>%
               select(country = Country) %>%
@@ -410,7 +409,7 @@ contribution_share_pillar <- df %>%
 
 ## share to Resesearch and HigherEd
 contribution_share_reshed <- df %>%
-  # exclude (country_code == "CH" & call_year == 2014)
+  # excluding Switzerland in 2014
   filter(country_code != "CH" | call_year != 2014) %>%
   semi_join(top_participants %>%
               select(country = Country) %>%
@@ -463,7 +462,7 @@ top_participants %>%
 
 ### Time Distribution of the Contribution to Research & HigherEd
 
-```{r, time-distribution, fig.asp=1}
+```{r, time-distribution, fig.asp=.7}
 pal <- c("firebrick4", "gray50", "gray65")
 ch_uk <- df %>%
   # remove international organisations
@@ -490,14 +489,18 @@ rest <- df %>%
 
 ch_uk %>%
   bind_rows(rest) %>%
-  mutate(Country = factor(Country, levels = c("Switzerland", "United Kingdom", "Remaining"))) %>%
-  # filter(Semester < as.Date("2021-01-01")) %>%
+  mutate(Country = factor(
+    Country,
+    levels = c("Switzerland", "United Kingdom", "Remaining"))) %>%
   ggplot(aes(x = Semester, y = Share)) +
   geom_col(aes(fill = Country)) +
   facet_grid(vars(Country)) +
   labs(
     title = "Relative Distribution of EU Contribution to Research and HigherEd",
-    subtitle = "Comparing Switzerland (Top), the United Kingdom (Center), and the Rest (Bottom)",
+    subtitle = glue(
+      "Comparing Switzerland (Top), ",
+      "the United Kingdom (Center), ",
+      "and the Rest (Bottom)"),
     x = "Semester",
     y = "%"
   ) +
@@ -512,7 +515,6 @@ ch_uk %>%
     )
   )
 ```
-
 
 ### Top Recipients in Switzerland
 

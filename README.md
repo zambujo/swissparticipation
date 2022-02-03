@@ -12,11 +12,16 @@ development.
 
 ## Data
 
--   [**Horizon 2020 Dashboard**](https://webgate.ec.europa.eu/dashboard) 👉 `(Everyone)`
+-   [**Horizon 2020 Dashboard**](https://webgate.ec.europa.eu/dashboard)
     👉 `H2020 Projects` 👉 `Data Export` 👉 `Raw Data Export Sheet`  
     updated 2021-12-06
--   ~~[CORDIS](https://data.europa.eu/data/datasets/cordish2020projects?locale=en),
+-   ~~[CORDIS H2020
+    projects](https://data.europa.eu/data/datasets/cordish2020projects?locale=en),
     updated 2021-12-14~~
+    -   ~~[CORDIS FP7
+        projects](https://data.europa.eu/data/datasets/cordisfp7projects?locale=en)~~  
+    -   ~~[CORDIS reference
+        data](https://data.europa.eu/data/datasets/cordisref-data?locale=en)~~
 
 ## DIY
 
@@ -36,4 +41,6 @@ by the Swiss State Secretariat for Education, Research, and Innovation.
 
 ## Acknowledgements
 
-[RAWGraphs](https://rawgraphs.io/)
+-   [RAWGraphs](https://rawgraphs.io/)
+-   [Cédric
+    Scherer](https://www.cedricscherer.com/2021/07/05/a-quick-how-to-on-labelling-bar-graphs-in-ggplot2/)
