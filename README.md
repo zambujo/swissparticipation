@@ -12,7 +12,7 @@ development.
 
 ## Data
 
--   [**Horizon 2020 Dashboard**](https://webgate.ec.europa.eu/dashboard)
+-   [**Horizon 2020 Dashboard**](https://webgate.ec.europa.eu/dashboard) 👉 `(Everyone)`
     👉 `H2020 Projects` 👉 `Data Export` 👉 `Raw Data Export Sheet`  
     updated 2021-12-06
 -   ~~[CORDIS](https://data.europa.eu/data/datasets/cordish2020projects?locale=en),
