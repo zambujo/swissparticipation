@@ -497,7 +497,7 @@ ch_uk %>%
   facet_grid(vars(Country)) +
   labs(
     title = "Relative Distribution of EU Contribution to Research and HigherEd",
-    subtitle = "Comparing Switzerland (Top), the United Kingdom (Middle), and the Rest (Bottom)",
+    subtitle = "Comparing Switzerland (Top), the United Kingdom (Center), and the Rest (Bottom)",
     x = "Semester",
     y = "%"
   ) +
