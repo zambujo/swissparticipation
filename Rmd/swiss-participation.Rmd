@@ -42,13 +42,13 @@ Source: [**Horizon 2020 Dashboard data**](https://webgate.ec.europa.eu/dashboard
 
 ```{r read-dashboard-data}
 # load xlsx table to a data frame
-df <-
+df_raw <-
   here("data-raw", "horizon2020.xlsx") %>%
   read_excel() %>%
   clean_names()
 
 # minimal cleaning ----
-df <- df %>%
+df_raw <- df_raw %>%
   mutate(
     # rename role
     partner_role = str_to_title(partner_role),
@@ -79,12 +79,16 @@ df <- df %>%
     signature_year = as.integer(signature_year),
     call_year = as.integer(call_year)
   )
+
+df <- df_raw %>%
+  filter(legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH")
+
 ```
 
 ## Total EU Contribution by Pillar: All Countries
 
 ```{r overview-pillar, eval=FALSE}
-ggp <- df %>%
+ggp <- df_raw %>%
   mutate(
     pillar = fct_other(pillar, keep = chr(roman(1:5))),
     pillar = fct_relevel(pillar, "Other", after = 0)) %>%
@@ -174,7 +178,7 @@ top_participants %>%
   )
 ```
 
-Switzerland ranks `r ch_rank`th by total EU contribution in H2020 (incl. the CERN, see [Annex: CERN](#cern)).
+Switzerland ranks `r ch_rank`th by total EU contribution in H2020 (excl. the CERN, see [Annex: CERN](#cern)).
 
 ```{r visual-countries, fig.asp=.5}
 # minimal plotting
@@ -391,9 +395,6 @@ pal <- c(
 ## share to Pillar I
 contribution_share_pillar <- df %>%
   # exclude (country_code == "CH" & call_year == 2014)
-  filter(
-    country_code != "CH" |
-      (!str_detect(legal_name, "EUROPEAN |WORLD | MONDIALE"))) %>%
   filter(country_code != "CH" | call_year != 2014) %>%
   semi_join(top_participants %>%
               select(country = Country) %>%
@@ -410,9 +411,6 @@ contribution_share_pillar <- df %>%
 ## share to Resesearch and HigherEd
 contribution_share_reshed <- df %>%
   # exclude (country_code == "CH" & call_year == 2014)
-  filter(
-    country_code != "CH" |
-      (!str_detect(legal_name, "EUROPEAN |WORLD | MONDIALE"))) %>%
   filter(country_code != "CH" | call_year != 2014) %>%
   semi_join(top_participants %>%
               select(country = Country) %>%
@@ -581,7 +579,7 @@ df %>%
 ### CERN
 
 ```{r cern-total}
-total_cern <- df %>%
+total_cern <- df_raw %>%
   filter(country_code == "CH") %>%
   filter(legal_name == "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
   summarise(total_eu_contrib = sum(eu_contribution)) %>%
@@ -592,7 +590,7 @@ total_cern <- df %>%
 **Note**: EU Contribution to Switzerland include `r str_c("€", total_cern)` awarded to the CERN.  Please find the EU contribution to CERN in detail below:
 
 ```{r cern-detail}
-df %>%
+df_raw %>%
   filter(country_code == "CH") %>%
   filter(legal_name == "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
   get_participation()
@@ -603,7 +601,7 @@ df %>%
 The raw data set contains `r nrow(df) %>% format(big.mark = ",")` rows with the following attributes:
 
 ```{r}
-df %>%
+df_raw %>%
   glimpse()
 ```
 
