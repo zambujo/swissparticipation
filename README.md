@@ -13,15 +13,16 @@ development.
 ## Data
 
 -   [**Horizon 2020 Dashboard**](https://webgate.ec.europa.eu/dashboard)
-    👉 `H2020 Projects` 👉 `Data Export` 👉 `Raw Data Export Sheet`  
+    ➡ `Everyone` ➡ `H2020 Projects` ➡ `Data Export` ➡
+    `Raw Data Export Sheet`  
     updated 2021-12-06
--   ~~[CORDIS H2020
+-   [CORDIS H2020
     projects](https://data.europa.eu/data/datasets/cordish2020projects?locale=en),
-    updated 2021-12-14~~
-    -   ~~[CORDIS FP7
-        projects](https://data.europa.eu/data/datasets/cordisfp7projects?locale=en)~~  
-    -   ~~[CORDIS reference
-        data](https://data.europa.eu/data/datasets/cordisref-data?locale=en)~~
+    updated 2021-12-14
+    -   [CORDIS FP7
+        projects](https://data.europa.eu/data/datasets/cordisfp7projects?locale=en)  
+    -   [CORDIS reference
+        data](https://data.europa.eu/data/datasets/cordisref-data?locale=en)
 
 ## DIY
 
