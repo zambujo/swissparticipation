@@ -617,10 +617,10 @@ ch_res %>%
   ggplot(aes(x = Semester, y = Share, fill = Country, col = Country)) +
   geom_bar(stat = "identity", position = "dodge") + 
   labs(
-    title = "EU Contribution to Research and HigherEd: Distribution Over Time",
+    title = "EU Contribution to Research and HigherEd: Time Distribution",
     subtitle = glue(
-      "Comparing <span style='color:{pal[1]};'>Switzerland</span> ",
-      "to the <span style='color:{pal[2]};'>Remaining Countries</span>"),
+      "<span style='color:{pal[1]};'>Switzerland</span> ",
+      "versus <span style='color:{pal[2]};'>Remaining Countries</span>"),
     x = "Call Semester",
     y = "%"
   ) +
