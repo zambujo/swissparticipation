@@ -475,7 +475,7 @@ df %>%
   theme_minimal() +
   labs(
     title = "Distribution of EU Contribution to Swiss Institutions",
-    subtitle = "By Pillar,Institution Type, and Instituion Role",
+    subtitle = "By Pillar, Institution Sector, and Instituion Role",
     x = "Pillar",
     y = "EU Contribution to Swiss Institutions (MioEUR)"
   ) +
@@ -581,51 +581,51 @@ top_participants %>%
   )
 ```
 
-### Time Distribution of the Contribution to Research & HigherEd
+### Relative Semester Distribution of EU Contribution
 
 ```{r, time-distribution, fig.asp=.6}
 pal <- c("firebrick4", "gray55") %>%
   col2hcl()
 
-ch_res <- df %>%
+ch <- df %>%
   filter(!is.na(call_deadline_date)) %>%
+  filter(!is.na(org_type)) %>%
   filter(country_code == "CH") %>%
-  filter(org_type == "Research & Education") %>%
   mutate(call_semester = floor_date(call_deadline_date, "6 months")) %>%
-  group_by(Country = country, Semester = call_semester) %>%
+  group_by(Country = country, org_type, Semester = call_semester) %>%
   summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
   mutate(Share = 100 * prop.table(contrib)) %>%
   select(-contrib)
 
 rest <- df %>%
   filter(!is.na(call_deadline_date)) %>%
+  filter(!is.na(org_type)) %>%
   filter(!country_code %in% c("CH")) %>%
-  filter(org_type == "Research & Education") %>%
   mutate(call_semester = floor_date(call_deadline_date, "6 months")) %>%
-  group_by(Semester = call_semester) %>%
+  group_by(org_type, Semester = call_semester) %>%
   summarise(contrib = sum(eu_contribution)) %>%
   mutate(Share = 100 * prop.table(contrib)) %>%
   select(-contrib) %>%
-  mutate(Country = "Remaining") %>%
+  mutate(Country = "Remaining Countries") %>%
   relocate(Country)
 
-ch_res %>%
+ch %>%
   bind_rows(rest) %>%
   mutate(Country = factor(
     Country,
     levels = c("Switzerland", "Remaining"))) %>%
-  ggplot(aes(x = Semester, y = Share, fill = Country, col = Country)) +
-  geom_bar(stat = "identity", position = "dodge") + 
+  ggplot(aes(x = Semester, y = Share, fill = Country)) +
+  geom_bar(stat = "identity", width = 120, position = position_dodge(width = 128)) + 
   labs(
-    title = "EU Contribution to Research and HigherEd: Time Distribution",
+    title = "Time Distribution of EU Contribution by Institution Sector",
     subtitle = glue(
       "<span style='color:{pal[1]};'>Switzerland</span> ",
-      "versus <span style='color:{pal[2]};'>Remaining Countries</span>"),
+      "vs <span style='color:{pal[2]};'>Remaining Countries</span>"),
     x = "Call Semester",
     y = "%"
   ) +
-  scale_color_manual(values = c("white", "white"), guide = "none") +
   scale_fill_manual(values = pal, guide = "none") +
+  facet_wrap(org_type ~ ., ncol = 1, scales = "free_y") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
