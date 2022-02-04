@@ -1,5 +1,5 @@
 ---
-title: "Swiss Participation in EU Framework Programmes"
+title: "Swiss Participation in Horizon 2020"
 author: "João Martins"
 output: 
   html_document: 
@@ -23,8 +23,10 @@ library(readxl)
 library(scales)
 library(ggsci)
 library(ggrepel)
+library(ggtext)
 library(reactable)
-knitr::opts_chunk$set(message = FALSE)
+library(countrycode)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 int <- function(x) as.integer(x)
 chr <- function(x) as.character(x)
 roman <- function(x) as.roman(x)
@@ -41,15 +43,115 @@ roman <- function(x) as.roman(x)
 
 Source: [**Horizon 2020 Dashboard data**](https://webgate.ec.europa.eu/dashboard/single/?appid=93297a69-09fd-4ef5-889f-b83c4e21d33e&sheet=c616ed33-064c-40c0-803a-e75045b78c05), last updated on 2021-12-06 (see [Annex: Raw Data](#raw-data)).
 
-```{r read-dashboard-data}
-# load xlsx table to a data frame
-df_raw <-
-  here("data-raw", "horizon2020.xlsx") %>%
-  read_excel() %>%
-  clean_names()
+```{r download-cordis-data, eval=FALSE}
+# TODO: update main text
+# TODO: to separate script
+# INFO: Qlik Sense dashboard data need to be downloaded by hand
+"https://cordis.europa.eu/data/cordis-fp7projects-csv.zip" %>%
+  download.file(here("data-raw", "cordis-fp7projects-csv.zip"))
+unzip(
+  here("data-raw", "cordis-fp7projects-csv.zip"),
+  exdir = here("data-raw", "fp7"))  
 
-# minimal cleaning ----
-df_raw <- df_raw %>%
+"https://cordis.europa.eu/data/cordis-h2020projects-csv.zip" %>%
+  download.file(here("data-raw", "cordis-h2020projects-csv.zip"))
+unzip(
+  here("data-raw", "cordis-h2020projects-csv.zip"),
+  exdir = here("data-raw", "h2020"))  
+```
+
+
+```{r read-cordis-datahub}
+# TODO: to separate script
+fp7_dashboard <- here("data-raw", "fp7-projects.xlsx") %>%
+  read_excel() %>%
+  clean_names() %>%
+  select(
+    project_id = project_nbr,
+    thematic_priority = thematic_priority_descr,
+    topic_code,
+    topic_description)
+
+h2020_dashboard <- here("data-raw", "h2020-projects.xlsx") %>%
+  read_excel() %>%
+  clean_names() %>%
+  select(
+    project_id = project_nbr,
+    thematic_priority = thema,
+    topic_code,
+    topic_description)
+
+projects_dashboard <-
+  fp7_dashboard %>%
+  bind_rows(h2020_dashboard)
+
+projects_cordis <-
+  read_csv2(here("data-raw", "fp7", "csv", "project.csv")) %>%
+  bind_rows(read_csv2(here("data-raw", "h2020", "csv", "project.csv"))) %>%
+  clean_names() %>%
+  select(
+    project_id = id,
+    rcn,
+    proj_acronym = acronym,
+    start_date,
+    end_date,
+    legal_basis,
+    framework_programme,
+    funding_scheme
+  )
+
+projects <- projects_cordis %>%
+  left_join(projects_dashboard, by = "project_id")
+
+rm(fp7_dashboard, h2020_dashboard, projects_dashboard, projects_cordis)
+
+organizations_cordis <-
+  read_csv2(here("data-raw", "fp7", "csv", "organization.csv")) %>%
+  bind_rows(read_csv2(here(
+    "data-raw", "h2020", "csv", "organization.csv"
+  ))) %>%
+  clean_names() %>%
+  select(
+    project_id,
+    project_acronym,
+    pic = organisation_id,
+    legal_name = name,
+    legal_short_name = short_name,
+    legal_entity_type = activity_type,
+    country_code = country,
+    legal_url = organization_url,
+    partner_role = role,
+    ec_contribution,
+    net_ec_contribution
+  ) %>%
+  mutate(net_ec_contribution = if_else(
+    !is.na(net_ec_contribution),
+    net_ec_contribution,
+    ec_contribution
+  ))
+
+h2020_dashboard <- here("data-raw", "horizon2020.xlsx") %>%
+  read_excel() %>%
+  clean_names() %>%
+  select(
+    project_id = project_nbr,
+    pic = general_pic,
+    partner_role,
+    pillar_abbr,
+    pillar_descr,
+    thematic_priority_abbr,
+    signature_date,
+    call_deadline_date,
+    eu_contribution
+  ) %>%
+  mutate(partner_role = str_to_lower(partner_role))
+
+organizations <- organizations_cordis %>%
+  left_join(h2020_dashboard,
+            by = c("project_id", "pic", "partner_role"))
+
+df_raw <- organizations %>% 
+  left_join(projects, by = "project_id") %>%
   mutate(
     # rename role
     partner_role = str_to_title(partner_role),
@@ -63,6 +165,7 @@ df_raw <- df_raw %>%
     pillar = fct_recode(
       pillar, I = "1", II = "2", III = "3", IV = "4", V = "5"),
     # group entity types
+    legal_entity_type = str_sub(legal_entity_type, 1, 3),
     org_type = fct_collapse(
       legal_entity_type,
       `Research & Education` = c("HES", "REC"),
@@ -70,29 +173,38 @@ df_raw <- df_raw %>%
     # import EU contribution
     eu_contribution = str_replace(eu_contribution, fixed("-"), "0"),
     eu_contribution = as.numeric(eu_contribution),
+    # import country code
+    country_code = str_sub(country_code, 1, 2),
+    country = countrycode(country_code, "eurostat", "country.name.en"),
     # import dates
     signature_date = as.Date(signature_date, format = "%d/%m/%Y"),
     call_deadline_date = as.Date(call_deadline_date, format = "%d/%m/%Y"),
-    project_start_date = as.Date(project_start_date, format = "%d/%m/%Y"),
-    project_end_date = as.Date(project_end_date, format = "%d/%m/%Y"),
     signature_year = str_sub(signature_date, 1, 4),
     call_year = str_sub(call_deadline_date, 1, 4),
-    signature_year = as.integer(signature_year),
-    call_year = as.integer(call_year)
+    start_year = str_sub(start_date, 1, 4),
+    signature_year = int(signature_year),
+    call_year = int(call_year),
+    start_year = int(start_year)
   )
 
-df <- df_raw %>%
-  filter(legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH")
+# TODO: save file in data
+```
 
+
+```{r read-dashboard-data}
+df <- df_raw %>%
+  filter(framework_programme == "H2020") %>%
+  filter(legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH")
 ```
 
 ## Total EU Contribution by Pillar: All Countries
 
 ```{r overview-pillar, eval=FALSE}
-ggp <- df_raw %>%
+ggp <- df %>%
   mutate(
     pillar = fct_other(pillar, keep = chr(roman(1:5))),
     pillar = fct_relevel(pillar, "Other", after = 0)) %>%
+  filter(!is.na(pillar)) %>%
   group_by(pillar) %>%
   summarise(size_pillar = sum(eu_contribution)) %>%
   mutate(share = 100 * prop.table(size_pillar),
@@ -135,7 +247,7 @@ Participation count, number of projects (distinct), and total EU contribution fo
 # find and sort top participants
 top_participants <- df %>%
   group_by(Country = country) %>%
-  summarise(contrib_country = sum(eu_contribution)) %>%
+  summarise(contrib_country = sum(eu_contribution, na.rm = TRUE)) %>%
   ungroup() %>%
   arrange(desc(contrib_country))
 
@@ -149,7 +261,7 @@ country_participation <- df %>%
     Type = org_type) %>%
   summarise(
     `Participation Count` = n(),
-    `Nb Projects` = n_distinct(project_nbr),
+    `Nb Projects` = n_distinct(project_id),
     `EU Contribution` = sum(eu_contribution, na.rm = TRUE)) %>%
   ungroup() %>%
   arrange(`Type`, `Call Year`)
@@ -185,7 +297,7 @@ Switzerland ranks `r ch_rank`th by total EU contribution in H2020 (the CERN is n
 # minimal plotting
 pal <- c(
   rep("gray75", ch_rank - 1),
-  "firebrick2",
+  "firebrick4",
   rep("gray75", 10 - ch_rank)) %>%
   rev()
 
@@ -208,14 +320,13 @@ top_participants %>%
   theme(
     plot.margin = margin(c(4, 2, 4, 8)),
     axis.text.y = element_text(
+      margin = margin(t = 0, r = -10, b = 0, l = 5),
       size = 14,
       family = "Gill Sans",
       hjust = 1,
       color = "gray10"
     )
   )
-
-
 ```
 
 
@@ -224,13 +335,14 @@ top_participants %>%
 ```{r get-participation}
 get_participation <- function(x) {
   x %>%
+    filter(!is.na(pillar)) %>%
     mutate(pillar = fct_rev(pillar)) %>%
     group_by(Pillar = pillar,
              Priority = thematic_priority_abbr,
              `Call Year` = call_year) %>%
     summarise(
       `Participation Count` = n(),
-      `Nb Projects` = n_distinct(project_nbr),
+      `Nb Projects` = n_distinct(project_id),
       `EU Contribution` = sum(eu_contribution, na.rm = TRUE)
     ) %>%
     ungroup() %>%
@@ -280,6 +392,7 @@ df %>%
 ```{r visual-overview, eval=FALSE}
 # Differentiate pillars 1 to III
 stats_depth_1 <- df %>%
+  filter(!is.na(pillar)) %>%
   filter(country_code == "CH") %>%
   filter(!pillar %in% chr(roman(1:3))) %>%
   mutate(pillar = fct_rev(pillar)) %>%
@@ -298,6 +411,7 @@ stats_depth_1 <- df %>%
          contrib = total_eu_contrib)
 
 stats_depth_2 <- df %>%
+  filter(!is.na(pillar)) %>%
   filter(country_code == "CH") %>%
   filter(pillar %in% chr(roman(1:3))) %>%
   mutate(pillar = fct_rev(pillar)) %>%
@@ -333,38 +447,44 @@ Treemap showing the overall H2020 EU contribution (MEUR) to Switzerland by Pilla
 
 ### Swiss Participation by Sector
 
-```{r ch-type-role, fig.asp=.6}
+```{r ch-type-role, fig.asp=.7}
+pal <- c("firebrick4", "gray65") %>%
+  rev()
+
 df %>%
+  filter(!is.na(pillar)) %>%
   filter(country_code == "CH") %>%
   mutate(pillar = fct_other(pillar, keep = chr(roman(1:5))),
          pillar = fct_relevel(pillar, "Other", after = 0)) %>%
   group_by(pillar, org_type, role = partner_role) %>%
-  summarise(contrib = sum(eu_contribution)) %>%
+  summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
   ungroup() %>%
   mutate(org_type = fct_rev(org_type)) %>%
   arrange(pillar, org_type) %>%
   ggplot(aes(x = pillar, y = contrib, fill = org_type)) +
   geom_col(position = position_stack(reverse = FALSE)) +
-  scale_fill_nejm(alpha = .5, guide = guide_legend(reverse = TRUE)) +
+  scale_fill_manual(values = pal, guide = guide_legend(reverse = TRUE)) +
+  # scale_fill_nejm(alpha = .5, guide = guide_legend(reverse = TRUE)) +
   scale_y_continuous(labels = unit_format(
     suffix = "",
     scale = 1e-6,
     big.mark = ","
   )) +
   coord_flip() +
-  facet_grid(role ~ .) +
+  facet_wrap(role ~ ., ncol = 1) +
   theme_minimal() +
   labs(
-    title = "Pillar I is the primary source of funding for CH",
-    subtitle = "With a high proportion of Research & Education organisations",
+    title = "Distribution of EU Contribution to Swiss Institutions",
+    subtitle = "By Pillar,Institution Type, and Instituion Role",
     x = "Pillar",
     y = "EU Contribution to Swiss Institutions (MioEUR)"
   ) +
   theme(
-    text = element_text(size = 14, family = "Gill Sans", color = "gray10"),
+    text = element_text(size = 15, family = "Gill Sans", color = "gray10"),
     plot.title.position = "plot",
-    legend.position = "bottom",
-    legend.title = element_blank()
+    legend.position = "top",
+    legend.title = element_blank(),
+    axis.title.y = element_text(angle = 0, vjust = 1.05, margin = margin(r = -30))
   )
 ```
 
@@ -381,7 +501,6 @@ df %>%
 
 ## Annex
 
-
 ### Typology of the Top-10 Participating Countries
 
 ```{r additional-context, fig.asp=1}
@@ -393,6 +512,7 @@ pal <- c(
 
 ## share to Pillar I
 contribution_share_pillar <- df %>%
+  filter(!is.na(pillar)) %>%
   # excluding Switzerland in 2014
   filter(country_code != "CH" | call_year != 2014) %>%
   semi_join(top_participants %>%
@@ -409,6 +529,7 @@ contribution_share_pillar <- df %>%
 
 ## share to Resesearch and HigherEd
 contribution_share_reshed <- df %>%
+  filter(!is.na(pillar)) %>%
   # excluding Switzerland in 2014
   filter(country_code != "CH" | call_year != 2014) %>%
   semi_join(top_participants %>%
@@ -462,22 +583,23 @@ top_participants %>%
 
 ### Time Distribution of the Contribution to Research & HigherEd
 
-```{r, time-distribution, fig.asp=.7}
-pal <- c("firebrick4", "gray50", "gray65")
-ch_uk <- df %>%
-  # remove international organisations
-  filter(!str_detect(legal_name, "EUROPEAN |WORLD | MONDIALE")) %>%
-  # keep CH and the UK
-  filter(country_code %in% c("CH", "UK")) %>%
+```{r, time-distribution, fig.asp=.6}
+pal <- c("firebrick4", "gray55") %>%
+  col2hcl()
+
+ch_res <- df %>%
+  filter(!is.na(call_deadline_date)) %>%
+  filter(country_code == "CH") %>%
   filter(org_type == "Research & Education") %>%
   mutate(call_semester = floor_date(call_deadline_date, "6 months")) %>%
   group_by(Country = country, Semester = call_semester) %>%
-  summarise(contrib = sum(eu_contribution)) %>%
+  summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
   mutate(Share = 100 * prop.table(contrib)) %>%
   select(-contrib)
+
 rest <- df %>%
-  # remove CH and the UK
-  filter(!country_code %in% c("CH", "UK")) %>%
+  filter(!is.na(call_deadline_date)) %>%
+  filter(!country_code %in% c("CH")) %>%
   filter(org_type == "Research & Education") %>%
   mutate(call_semester = floor_date(call_deadline_date, "6 months")) %>%
   group_by(Semester = call_semester) %>%
@@ -487,33 +609,34 @@ rest <- df %>%
   mutate(Country = "Remaining") %>%
   relocate(Country)
 
-ch_uk %>%
+ch_res %>%
   bind_rows(rest) %>%
   mutate(Country = factor(
     Country,
-    levels = c("Switzerland", "United Kingdom", "Remaining"))) %>%
-  ggplot(aes(x = Semester, y = Share)) +
-  geom_col(aes(fill = Country)) +
-  facet_grid(vars(Country)) +
+    levels = c("Switzerland", "Remaining"))) %>%
+  ggplot(aes(x = Semester, y = Share, fill = Country, col = Country)) +
+  geom_bar(stat = "identity", position = "dodge") + 
   labs(
-    title = "Relative Distribution of EU Contribution to Research and HigherEd",
+    title = "EU Contribution to Research and HigherEd: Distribution Over Time",
     subtitle = glue(
-      "Comparing Switzerland (Top), ",
-      "the United Kingdom (Center), ",
-      "and the Rest (Bottom)"),
-    x = "Semester",
+      "Comparing <span style='color:{pal[1]};'>Switzerland</span> ",
+      "to the <span style='color:{pal[2]};'>Remaining Countries</span>"),
+    x = "Call Semester",
     y = "%"
   ) +
+  scale_color_manual(values = c("white", "white"), guide = "none") +
   scale_fill_manual(values = pal, guide = "none") +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
+    plot.subtitle = element_markdown(),
     text = element_text(
-      size = 14,
+      size = 13,
       family = "Gill Sans",
       color = "gray10"
     )
   )
+
 ```
 
 ### Top Recipients in Switzerland
@@ -523,13 +646,11 @@ ch_uk %>%
 ```{r}
 df %>%
   filter(country_code == "CH") %>%
-  # remove international organisations
-  filter(!str_detect(legal_name, "EUROPEAN |WORLD | MONDIALE")) %>%
   filter(org_type == "Research & Education") %>%
   group_by(Institution = legal_name) %>%
   summarise(
-    `Nb Projects` = n_distinct(project_nbr),
-    `EU Contribution` = sum(eu_contribution)
+    `Nb Projects` = n_distinct(project_id),
+    `EU Contribution` = sum(eu_contribution, na.rm = TRUE)
   ) %>%
   arrange(desc(`EU Contribution`)) %>%
   mutate(Institution = str_to_title(Institution)) %>%
@@ -561,12 +682,11 @@ df %>%
 df %>%
   filter(country_code == "CH") %>%
   # remove international organisations
-  filter(!str_detect(legal_name, "EUROPEAN |WORLD | MONDIALE")) %>%
   filter(org_type == "Others (Excl. R&Ed)") %>%
   group_by(Institution = legal_name) %>%
   summarise(
-    `Nb Projects` = n_distinct(project_nbr),
-    `EU Contribution` = sum(eu_contribution)
+    `Nb Projects` = n_distinct(project_id),
+    `EU Contribution` = sum(eu_contribution, na.rm = TRUE)
   ) %>%
   arrange(desc(`EU Contribution`)) %>%
   mutate(Institution = str_to_title(Institution)) %>%
@@ -599,7 +719,7 @@ df %>%
 total_cern <- df_raw %>%
   filter(country_code == "CH") %>%
   filter(legal_name == "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
-  summarise(total_eu_contrib = sum(eu_contribution)) %>%
+  summarise(total_eu_contrib = sum(eu_contribution, na.rm = TRUE)) %>%
   pull() %>%
   format(big.mark = ",", decimal.mark = ".", trim = TRUE, digits = 11)
 ```
@@ -619,6 +739,7 @@ The raw data set contains `r nrow(df) %>% format(big.mark = ",")` rows with the 
 
 ```{r}
 df_raw %>%
+  sample_n(100) %>%
   glimpse()
 ```
 
