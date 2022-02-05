@@ -51,13 +51,15 @@ Source: [**Horizon 2020 Dashboard data**](https://webgate.ec.europa.eu/dashboard
   download.file(here("data-raw", "cordis-fp7projects-csv.zip"))
 unzip(
   here("data-raw", "cordis-fp7projects-csv.zip"),
-  exdir = here("data-raw", "fp7"))  
+  exdir = here("data-raw", "fp7")
+)
 
 "https://cordis.europa.eu/data/cordis-h2020projects-csv.zip" %>%
   download.file(here("data-raw", "cordis-h2020projects-csv.zip"))
 unzip(
   here("data-raw", "cordis-h2020projects-csv.zip"),
-  exdir = here("data-raw", "h2020"))  
+  exdir = here("data-raw", "h2020")
+)
 ```
 
 
@@ -70,7 +72,8 @@ fp7_dashboard <- here("data-raw", "fp7-projects.xlsx") %>%
     project_id = project_nbr,
     thematic_priority = thematic_priority_descr,
     topic_code,
-    topic_description)
+    topic_description
+  )
 
 h2020_dashboard <- here("data-raw", "h2020-projects.xlsx") %>%
   read_excel() %>%
@@ -79,7 +82,8 @@ h2020_dashboard <- here("data-raw", "h2020-projects.xlsx") %>%
     project_id = project_nbr,
     thematic_priority = thema,
     topic_code,
-    topic_description)
+    topic_description
+  )
 
 projects_dashboard <-
   fp7_dashboard %>%
@@ -148,9 +152,10 @@ h2020_dashboard <- here("data-raw", "horizon2020.xlsx") %>%
 
 organizations <- organizations_cordis %>%
   left_join(h2020_dashboard,
-            by = c("project_id", "pic", "partner_role"))
+    by = c("project_id", "pic", "partner_role")
+  )
 
-df_raw <- organizations %>% 
+df_raw <- organizations %>%
   left_join(projects, by = "project_id") %>%
   mutate(
     # rename role
@@ -163,13 +168,16 @@ df_raw <- organizations %>%
     pillar = fct_rev(pillar),
     pillar = fct_relevel(pillar, "Cross-theme", after = 0),
     pillar = fct_recode(
-      pillar, I = "1", II = "2", III = "3", IV = "4", V = "5"),
+      pillar,
+      I = "1", II = "2", III = "3", IV = "4", V = "5"
+    ),
     # group entity types
     legal_entity_type = str_sub(legal_entity_type, 1, 3),
     org_type = fct_collapse(
       legal_entity_type,
       `Research & Education` = c("HES", "REC"),
-      `Others (Excl. R&Ed)` = c("PRC", "PUB", "OTH")),
+      `Others (Excl. R&Ed)` = c("PRC", "PUB", "OTH")
+    ),
     # import EU contribution
     eu_contribution = str_replace(eu_contribution, fixed("-"), "0"),
     eu_contribution = as.numeric(eu_contribution),
@@ -203,13 +211,16 @@ df <- df_raw %>%
 ggp <- df %>%
   mutate(
     pillar = fct_other(pillar, keep = chr(roman(1:5))),
-    pillar = fct_relevel(pillar, "Other", after = 0)) %>%
+    pillar = fct_relevel(pillar, "Other", after = 0)
+  ) %>%
   filter(!is.na(pillar)) %>%
   group_by(pillar) %>%
   summarise(size_pillar = sum(eu_contribution)) %>%
-  mutate(share = 100 * prop.table(size_pillar),
-         fp = "H2020") %>%
-  ggplot(aes(x = fp,  y = size_pillar, fill = pillar)) +
+  mutate(
+    share = 100 * prop.table(size_pillar),
+    fp = "H2020"
+  ) %>%
+  ggplot(aes(x = fp, y = size_pillar, fill = pillar)) +
   geom_col(position = position_stack()) +
   geom_text(
     aes(label = sprintf("%.1f%%", share)),
@@ -232,9 +243,10 @@ ggp <- df %>%
   )
 
 ggsave("budget-allocation.svg",
-       plot = ggp,
-       w = 12,
-       h = 3)
+  plot = ggp,
+  w = 12,
+  h = 3
+)
 ```
 
 ![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/budget-allocation.svg "Total EU contribution to the different pillars in H2020.")
@@ -258,11 +270,13 @@ country_participation <- df %>%
   group_by(
     Country = country,
     `Call Year` = call_year,
-    Type = org_type) %>%
+    Type = org_type
+  ) %>%
   summarise(
     `Participation Count` = n(),
     `Nb Projects` = n_distinct(project_id),
-    `EU Contribution` = sum(eu_contribution, na.rm = TRUE)) %>%
+    `EU Contribution` = sum(eu_contribution, na.rm = TRUE)
+  ) %>%
   ungroup() %>%
   arrange(`Type`, `Call Year`)
 
@@ -276,16 +290,21 @@ top_participants %>%
     columns = list(
       `Participation Count` = colDef(
         aggregate = "sum",
-        format = colFormat(separators = TRUE)),
+        format = colFormat(separators = TRUE)
+      ),
       `Nb Projects` = colDef(
         aggregate = "sum",
-        format = colFormat(separators = TRUE)),
+        format = colFormat(separators = TRUE)
+      ),
       `EU Contribution` = colDef(
         aggregate = "sum",
         format = colFormat(
           currency = "EUR",
           separators = TRUE,
-          digits = 2))),
+          digits = 2
+        )
+      )
+    ),
     highlight = TRUE,
     compact = TRUE
   )
@@ -298,12 +317,15 @@ Switzerland ranks `r ch_rank`th by total EU contribution in H2020 (the CERN is n
 pal <- c(
   rep("gray75", ch_rank - 1),
   "firebrick4",
-  rep("gray75", 10 - ch_rank)) %>%
+  rep("gray75", 10 - ch_rank)
+) %>%
   rev()
 
 top_participants %>%
-  mutate(Country = fct_rev(fct_inorder(Country)),
-         share = 100 * prop.table(contrib_country)) %>%
+  mutate(
+    Country = fct_rev(fct_inorder(Country)),
+    share = 100 * prop.table(contrib_country)
+  ) %>%
   head(10) %>%
   ggplot(aes(x = contrib_country, y = Country, fill = Country)) +
   geom_col() +
@@ -337,9 +359,11 @@ get_participation <- function(x) {
   x %>%
     filter(!is.na(pillar)) %>%
     mutate(pillar = fct_rev(pillar)) %>%
-    group_by(Pillar = pillar,
-             Priority = thematic_priority_abbr,
-             `Call Year` = call_year) %>%
+    group_by(
+      Pillar = pillar,
+      Priority = thematic_priority_abbr,
+      `Call Year` = call_year
+    ) %>%
     summarise(
       `Participation Count` = n(),
       `Nb Projects` = n_distinct(project_id),
@@ -354,14 +378,16 @@ get_participation <- function(x) {
         `Participation Count` = colDef(
           aggregate = "sum",
           format = colFormat(separators = TRUE),
-          footer = function(values)
+          footer = function(values) {
             sum(values) %>% format(big.mark = ",")
+          }
         ),
         `Nb Projects` = colDef(
           aggregate = "sum",
           format = colFormat(separators = TRUE),
-          footer = function(values)
+          footer = function(values) {
             sum(values) %>% format(big.mark = ",")
+          }
         ),
         `EU Contribution` = colDef(
           aggregate = "sum",
@@ -370,8 +396,11 @@ get_participation <- function(x) {
             separators = TRUE,
             digits = 2
           ),
-          footer = function(values)
-            sum(values) %>% format(big.mark = ",") %>% str_c("€", .)
+          footer = function(values) {
+            sum(values) %>%
+              format(big.mark = ",") %>%
+              str_c("€", .)
+          }
         )
       ),
       defaultColDef = colDef(footerStyle = list(fontWeight = "bold")),
@@ -400,15 +429,20 @@ stats_depth_1 <- df %>%
   summarise(total_eu_contrib = sum(eu_contribution)) %>%
   ungroup() %>%
   # for printing
-  mutate(pillar_descr = ifelse(
-    chr(pillar) %in% chr(roman(4:5)),
-    str_c(pillar, ". ", pillar_descr),
-    chr(pillar)),
-    thematic_priority_abbr = NA) %>%
+  mutate(
+    pillar_descr = ifelse(
+      chr(pillar) %in% chr(roman(4:5)),
+      str_c(pillar, ". ", pillar_descr),
+      chr(pillar)
+    ),
+    thematic_priority_abbr = NA
+  ) %>%
   # for binding
-  select(pillar = pillar_descr,
-         thematic_priority = thematic_priority_abbr,
-         contrib = total_eu_contrib)
+  select(
+    pillar = pillar_descr,
+    thematic_priority = thematic_priority_abbr,
+    contrib = total_eu_contrib
+  )
 
 stats_depth_2 <- df %>%
   filter(!is.na(pillar)) %>%
@@ -422,11 +456,12 @@ stats_depth_2 <- df %>%
   unite("pillar", starts_with("pillar"), sep = ". ") %>%
   # for binding
   select(pillar,
-         thematic_priority = thematic_priority_abbr,
-         contrib = total_eu_contrib)
+    thematic_priority = thematic_priority_abbr,
+    contrib = total_eu_contrib
+  )
 
 stats_depth_2 %>%
-bind_rows(stats_depth_1) %>%
+  bind_rows(stats_depth_1) %>%
   mutate(
     thematic_priority = replace_na(thematic_priority, ""),
     contrib_txt = contrib / 1000000,
@@ -435,8 +470,10 @@ bind_rows(stats_depth_1) %>%
       big.mark = ",",
       decimal.mark = ".",
       trim = TRUE,
-      digits = 2),
-    contrib_txt = str_c("M€", contrib_txt)) %>%
+      digits = 2
+    ),
+    contrib_txt = str_c("M€", contrib_txt)
+  ) %>%
   write_csv(here("data", "h2020-treemap.csv"))
 # plot with https://rawgraphs.io
 ```
@@ -454,8 +491,10 @@ pal <- c("firebrick4", "gray65") %>%
 df %>%
   filter(!is.na(pillar)) %>%
   filter(country_code == "CH") %>%
-  mutate(pillar = fct_other(pillar, keep = chr(roman(1:5))),
-         pillar = fct_relevel(pillar, "Other", after = 0)) %>%
+  mutate(
+    pillar = fct_other(pillar, keep = chr(roman(1:5))),
+    pillar = fct_relevel(pillar, "Other", after = 0)
+  ) %>%
   group_by(pillar, org_type, role = partner_role) %>%
   summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
   ungroup() %>%
@@ -507,7 +546,8 @@ df %>%
 pal <- c(
   rep("gray45", ch_rank - 1),
   "firebrick4",
-  rep("gray45", 10 - ch_rank)) %>%
+  rep("gray45", 10 - ch_rank)
+) %>%
   rev()
 
 ## share to Pillar I
@@ -516,12 +556,14 @@ contribution_share_pillar <- df %>%
   # excluding Switzerland in 2014
   filter(country_code != "CH" | call_year != 2014) %>%
   semi_join(top_participants %>%
-              select(country = Country) %>%
-              head(10),
-            by = "country") %>%
+    select(country = Country) %>%
+    head(10),
+  by = "country"
+  ) %>%
   group_by(
     Country = country,
-    Pillar = pillar) %>%
+    Pillar = pillar
+  ) %>%
   summarise(`Contribution` = sum(eu_contribution)) %>%
   mutate(share_pillar = 100 * prop.table(Contribution)) %>%
   filter(Pillar == "I") %>%
@@ -533,12 +575,14 @@ contribution_share_reshed <- df %>%
   # excluding Switzerland in 2014
   filter(country_code != "CH" | call_year != 2014) %>%
   semi_join(top_participants %>%
-              select(country = Country) %>%
-              head(10),
-            by = "country") %>%
+    select(country = Country) %>%
+    head(10),
+  by = "country"
+  ) %>%
   group_by(
     Country = country,
-    Type = org_type) %>%
+    Type = org_type
+  ) %>%
   summarise(`Contribution` = sum(eu_contribution)) %>%
   mutate(share_reshed = 100 * prop.table(Contribution)) %>%
   filter(Type == "Research & Education") %>%
@@ -547,8 +591,10 @@ contribution_share_reshed <- df %>%
 top_participants %>%
   inner_join(contribution_share_reshed, by = c("Country")) %>%
   inner_join(contribution_share_pillar, by = c("Country")) %>%
-  mutate(Country = fct_rev(fct_inorder(Country)),
-         contrib_country = contrib_country / 1000000) %>%
+  mutate(
+    Country = fct_rev(fct_inorder(Country)),
+    contrib_country = contrib_country / 1000000
+  ) %>%
   ggplot(
     aes(
       x = share_pillar,
@@ -567,11 +613,12 @@ top_participants %>%
   ) +
   guides(size = guide_legend(
     title = "Total EU Contribution (MioEUR) :",
-    override.aes = list(fill = "gray45", col = "gray45", shape = 21))) +
+    override.aes = list(fill = "gray45", col = "gray45", shape = 21)
+  )) +
   labs(
     x = "Contributions to Pillar I: Excellent Science (%)",
     y = "Contribution to Institutions in Research and HigherEd (%)"
-    ) +
+  ) +
   scale_color_manual(values = pal, guide = "none") +
   theme_minimal() +
   theme(
@@ -613,14 +660,16 @@ ch %>%
   bind_rows(rest) %>%
   mutate(Country = factor(
     Country,
-    levels = c("Switzerland", "Remaining"))) %>%
+    levels = c("Switzerland", "Remaining")
+  )) %>%
   ggplot(aes(x = Semester, y = Share, fill = Country)) +
-  geom_bar(stat = "identity", width = 120, position = position_dodge(width = 128)) + 
+  geom_bar(stat = "identity", width = 120, position = position_dodge(width = 128)) +
   labs(
     title = "Time Distribution of EU Contribution by Institution Sector",
     subtitle = glue(
       "<span style='color:{pal[1]};'>Switzerland</span> ",
-      "vs <span style='color:{pal[2]};'>Remaining Countries</span>"),
+      "vs <span style='color:{pal[2]};'>Remaining Countries</span>"
+    ),
     x = "Call Semester",
     y = "%"
   ) +
@@ -636,7 +685,6 @@ ch %>%
       color = "gray10"
     )
   )
-
 ```
 
 ### Top Recipients in Switzerland
