@@ -12,24 +12,20 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r boilerplate, message=FALSE}
+```{r boilerplate, message=FALSE, warning=FALSE}
 # source code: https://github.com/zambujo/swissparticipation
 library(tidyverse)
 library(janitor)
 library(lubridate)
 library(here)
 library(glue)
-library(readxl)
 library(scales)
 library(ggsci)
 library(ggrepel)
 library(ggtext)
 library(reactable)
-library(countrycode)
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
-int <- function(x) as.integer(x)
-chr <- function(x) as.character(x)
-roman <- function(x) as.roman(x)
+source(here("R", "utils.R"))
 ```
 
 <!-- badges: start -->
@@ -43,163 +39,12 @@ roman <- function(x) as.roman(x)
 
 Source: [**Horizon 2020 Dashboard data**](https://webgate.ec.europa.eu/dashboard/single/?appid=93297a69-09fd-4ef5-889f-b83c4e21d33e&sheet=c616ed33-064c-40c0-803a-e75045b78c05), last updated on 2021-12-06 (see [Annex: Raw Data](#raw-data)).
 
-```{r download-cordis-data, eval=FALSE}
-# TODO: update main text
-# TODO: to separate script
-# INFO: Qlik Sense dashboard data need to be downloaded by hand
-"https://cordis.europa.eu/data/cordis-fp7projects-csv.zip" %>%
-  download.file(here("data-raw", "cordis-fp7projects-csv.zip"))
-unzip(
-  here("data-raw", "cordis-fp7projects-csv.zip"),
-  exdir = here("data-raw", "fp7")
-)
-
-"https://cordis.europa.eu/data/cordis-h2020projects-csv.zip" %>%
-  download.file(here("data-raw", "cordis-h2020projects-csv.zip"))
-unzip(
-  here("data-raw", "cordis-h2020projects-csv.zip"),
-  exdir = here("data-raw", "h2020")
-)
-```
-
-
-```{r read-cordis-datahub}
-# TODO: to separate script
-fp7_dashboard <- here("data-raw", "fp7-projects.xlsx") %>%
-  read_excel() %>%
-  clean_names() %>%
-  select(
-    project_id = project_nbr,
-    thematic_priority = thematic_priority_descr,
-    topic_code,
-    topic_description
-  )
-
-h2020_dashboard <- here("data-raw", "h2020-projects.xlsx") %>%
-  read_excel() %>%
-  clean_names() %>%
-  select(
-    project_id = project_nbr,
-    thematic_priority = thema,
-    topic_code,
-    topic_description
-  )
-
-projects_dashboard <-
-  fp7_dashboard %>%
-  bind_rows(h2020_dashboard)
-
-projects_cordis <-
-  read_csv2(here("data-raw", "fp7", "csv", "project.csv")) %>%
-  bind_rows(read_csv2(here("data-raw", "h2020", "csv", "project.csv"))) %>%
-  clean_names() %>%
-  select(
-    project_id = id,
-    rcn,
-    proj_acronym = acronym,
-    start_date,
-    end_date,
-    legal_basis,
-    framework_programme,
-    funding_scheme
-  )
-
-projects <- projects_cordis %>%
-  left_join(projects_dashboard, by = "project_id")
-
-rm(fp7_dashboard, h2020_dashboard, projects_dashboard, projects_cordis)
-
-organizations_cordis <-
-  read_csv2(here("data-raw", "fp7", "csv", "organization.csv")) %>%
-  bind_rows(read_csv2(here(
-    "data-raw", "h2020", "csv", "organization.csv"
-  ))) %>%
-  clean_names() %>%
-  select(
-    project_id,
-    project_acronym,
-    pic = organisation_id,
-    legal_name = name,
-    legal_short_name = short_name,
-    legal_entity_type = activity_type,
-    country_code = country,
-    legal_url = organization_url,
-    partner_role = role,
-    ec_contribution,
-    net_ec_contribution
-  ) %>%
-  mutate(net_ec_contribution = if_else(
-    !is.na(net_ec_contribution),
-    net_ec_contribution,
-    ec_contribution
-  ))
-
-h2020_dashboard <- here("data-raw", "horizon2020.xlsx") %>%
-  read_excel() %>%
-  clean_names() %>%
-  select(
-    project_id = project_nbr,
-    pic = general_pic,
-    partner_role,
-    pillar_abbr,
-    pillar_descr,
-    thematic_priority_abbr,
-    signature_date,
-    call_deadline_date,
-    eu_contribution
-  ) %>%
-  mutate(partner_role = str_to_lower(partner_role))
-
-organizations <- organizations_cordis %>%
-  left_join(h2020_dashboard,
-    by = c("project_id", "pic", "partner_role")
-  )
-
-df_raw <- organizations %>%
-  left_join(projects, by = "project_id") %>%
-  mutate(
-    # rename role
-    partner_role = str_to_title(partner_role),
-    # factorize pillars
-    pillar = str_extract(pillar_abbr, "\\d"),
-    pillar = if_else(pillar_abbr == "EU.0.", "Cross-theme", pillar),
-    pillar = if_else(pillar_abbr == "Euratom", pillar_abbr, pillar),
-    pillar = fct_inseq(pillar),
-    pillar = fct_rev(pillar),
-    pillar = fct_relevel(pillar, "Cross-theme", after = 0),
-    pillar = fct_recode(
-      pillar,
-      I = "1", II = "2", III = "3", IV = "4", V = "5"
-    ),
-    # group entity types
-    legal_entity_type = str_sub(legal_entity_type, 1, 3),
-    org_type = fct_collapse(
-      legal_entity_type,
-      `Research & Education` = c("HES", "REC"),
-      `Others (Excl. R&Ed)` = c("PRC", "PUB", "OTH")
-    ),
-    # import EU contribution
-    eu_contribution = str_replace(eu_contribution, fixed("-"), "0"),
-    eu_contribution = as.numeric(eu_contribution),
-    # import country code
-    country_code = str_sub(country_code, 1, 2),
-    country = countrycode(country_code, "eurostat", "country.name.en"),
-    # import dates
-    signature_date = as.Date(signature_date, format = "%d/%m/%Y"),
-    call_deadline_date = as.Date(call_deadline_date, format = "%d/%m/%Y"),
-    signature_year = str_sub(signature_date, 1, 4),
-    call_year = str_sub(call_deadline_date, 1, 4),
-    start_year = str_sub(start_date, 1, 4),
-    signature_year = int(signature_year),
-    call_year = int(call_year),
-    start_year = int(start_year)
-  )
-
-# TODO: save file in data
-```
 
 
 ```{r read-dashboard-data}
+df_raw <- 
+  list.files(here("data"), pattern = "cordis-plus", full.names = TRUE) %>%
+  map_df(read_csv2)
 df <- df_raw %>%
   filter(framework_programme == "H2020") %>%
   filter(legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH")
@@ -316,7 +161,7 @@ Switzerland ranks `r ch_rank`th by total EU contribution in H2020 (the CERN is n
 # minimal plotting
 pal <- c(
   rep("gray75", ch_rank - 1),
-  "firebrick4",
+  "firebrick3",
   rep("gray75", 10 - ch_rank)
 ) %>%
   rev()
@@ -358,7 +203,6 @@ top_participants %>%
 get_participation <- function(x) {
   x %>%
     filter(!is.na(pillar)) %>%
-    mutate(pillar = fct_rev(pillar)) %>%
     group_by(
       Pillar = pillar,
       Priority = thematic_priority_abbr,
@@ -492,6 +336,8 @@ df %>%
   filter(!is.na(pillar)) %>%
   filter(country_code == "CH") %>%
   mutate(
+    org_type = fct_rev(org_type),
+    pillar = fct_rev(pillar),
     pillar = fct_other(pillar, keep = chr(roman(1:5))),
     pillar = fct_relevel(pillar, "Other", after = 0)
   ) %>%
@@ -638,7 +484,9 @@ ch <- df %>%
   filter(!is.na(call_deadline_date)) %>%
   filter(!is.na(org_type)) %>%
   filter(country_code == "CH") %>%
-  mutate(call_semester = floor_date(call_deadline_date, "6 months")) %>%
+  mutate(
+    org_type = fct_rev(org_type),
+    call_semester = floor_date(call_deadline_date, "6 months")) %>%
   group_by(Country = country, org_type, Semester = call_semester) %>%
   summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
   mutate(Share = 100 * prop.table(contrib)) %>%
@@ -648,7 +496,9 @@ rest <- df %>%
   filter(!is.na(call_deadline_date)) %>%
   filter(!is.na(org_type)) %>%
   filter(!country_code %in% c("CH")) %>%
-  mutate(call_semester = floor_date(call_deadline_date, "6 months")) %>%
+  mutate(
+    org_type = fct_rev(org_type),
+    call_semester = floor_date(call_deadline_date, "6 months")) %>%
   group_by(org_type, Semester = call_semester) %>%
   summarise(contrib = sum(eu_contribution)) %>%
   mutate(Share = 100 * prop.table(contrib)) %>%

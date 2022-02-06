@@ -1,5 +1,9 @@
 all: knit
 
+update:
+	cd R;\
+	Rscript run-elt.R;
+
 knit:
 	cd R;\
-	Rscript runme.R;
+	Rscript render-swiss-participation.R;
