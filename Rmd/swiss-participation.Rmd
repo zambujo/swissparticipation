@@ -180,10 +180,9 @@ Switzerland ranks `r ch_rank`th by total EU contribution in H2020 (the CERN is n
 ```{r visual-countries, fig.asp=.5}
 # minimal plotting
 pal <- c(
-  rep("gray75", ch_rank - 1),
-  "firebrick3",
-  rep("gray75", 10 - ch_rank)
-) %>%
+  rep("#DFD8CA", ch_rank - 1),
+  "#B91646",
+  rep("#DFD8CA", 10 - ch_rank)) %>%
   rev()
 
 top_participants %>%
@@ -350,7 +349,7 @@ Treemap showing the overall H2020 EU contribution (MEUR) to Switzerland by Pilla
 ### Swiss Participation by Sector
 
 ```{r ch-type-role, fig.asp=.7}
-pal <- c("firebrick4", "gray65") %>%
+pal <- c("#B91646", "#DFD8CA") %>%
   rev()
 
 df %>%
@@ -408,9 +407,9 @@ df %>%
 
 ```{r additional-context, fig.asp=1}
 pal <- c(
-  rep("gray45", ch_rank - 1),
-  "firebrick4",
-  rep("gray45", 10 - ch_rank)
+  rep("#DFD8CA", ch_rank - 1),
+  "#B91646",
+  rep("#DFD8CA", 10 - ch_rank)
 ) %>%
   rev()
 
@@ -495,8 +494,7 @@ top_participants %>%
 ### Relative Semester Distribution of EU Contribution
 
 ```{r, time-distribution, fig.asp=.6}
-pal <- c("firebrick4", "gray55") %>%
-  col2hcl()
+pal <- c("#B91646", "#DFD8CA")
 
 ch <- df %>%
   filter(!is.na(call_deadline_date)) %>%

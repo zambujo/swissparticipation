@@ -26,7 +26,7 @@ library(ggsci)
 library(ggrepel)
 library(ggtext)
 library(reactable)
-knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, comment = FALSE)
 source(here("R", "utils.R"))
 ```
 
@@ -57,6 +57,289 @@ df_raw <-
       `Others (Excl. R&Ed)` = c("PRC", "PUB", "OTH")))
 
 df <- df_raw %>%
-  filter(framework_programme == "H2020") %>%
-  filter(legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH")
+    mutate(start_semester = floor_date(start_date, "6 months")) %>%
+    filter(legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH")
 ```
+
+
+## Overview
+
+```{r plot-styling}
+# TODO: annotate the plot: 
+
+bar_plt <- function(plt) {
+  plt +
+  geom_col() +
+  theme_minimal() +
+  theme(
+    plot.title.position = "plot",
+    text = element_text(
+      size = 15,
+      family = "Gill Sans",
+      color = "gray15"
+    )
+  )
+}
+
+get_particip <- function(x, in_programme = "") {
+  if (in_programme == "FP7") {
+    x <- x %>%
+      filter(framework_programme == "FP7")
+  }
+  if (in_programme == "H2020") {
+    x <- x %>%
+      filter(framework_programme == "H2020")
+  }
+  total <- x %>%
+    count(Semester = start_semester, name = "n_total")
+  ch <- x %>%
+    filter(country_code == "CH") %>%
+    count(Semester = start_semester, name = "n_ch")
+  
+  left_join(total, ch, by = "Semester") %>%
+    mutate(year = year(Semester),
+           share_particip = 100 * n_ch / n_total)
+}
+
+get_contrib <- function(x, in_programme = "") {
+  if (in_programme == "FP7") {
+    x <- x %>%
+      filter(framework_programme == "FP7")
+  }
+  if (in_programme == "H2020") {
+    x <- x %>%
+      filter(framework_programme == "H2020")
+  }
+  to_all <- x %>%
+    group_by(Semester = start_semester) %>%
+    # summarise(contrib_all = sum(ec_contribution, na.rm = TRUE))
+    summarise(contrib_all = sum(net_ec_contribution, na.rm = TRUE))
+  to_ch <- x %>%
+    filter(country_code == "CH") %>%
+    group_by(Semester = start_semester) %>%
+    # summarise(contrib_ch = sum(ec_contribution, na.rm = TRUE))
+    summarise(contrib_ch = sum(net_ec_contribution, na.rm = TRUE))
+
+  left_join(to_all, to_ch, by = "Semester") %>%
+    mutate(year = year(Semester),
+           share_contrib = 100 * contrib_ch / contrib_all)
+}
+
+get_coord <- function(x, in_programme = "") {
+  if (in_programme == "FP7") {
+    x <- x %>%
+      filter(framework_programme == "FP7")
+  }
+  if (in_programme == "H2020") {
+    x <- x %>%
+      filter(framework_programme == "H2020")
+  }
+  
+  all <- x %>%
+    filter(partner_role == "Coordinator") %>%
+    count(Semester = start_semester, name = "coord_total")
+  ch <- x %>%
+    filter(country_code == "CH") %>%
+    filter(partner_role == "Coordinator") %>%
+    count(Semester = start_semester, name = "coord_ch")
+
+  left_join(all, ch, by = "Semester") %>%
+    mutate(year = year(Semester),
+           share_contrib = 100 * coord_ch / coord_total)
+}
+```
+
+
+### Share Swiss Participations
+
+```{r swiss-participations, fig.asp=.5}
+df %>%
+  get_particip() %>%
+  ggplot(aes(x = year, y = share_particip)) %>%
+  bar_plt() +
+  labs(
+    title = "Swiss Participation",
+    subtitle = "By project starting year, FP7 and H2020",
+    x = "Project Starting Year",
+    y = "%"
+  )
+```
+
+```{r swiss-participations-fp7}
+df %>%
+  get_particip(in_programme = "FP7") %>%
+  select(n_ch, n_total) %>%
+  summarise_all(sum, na.rm = TRUE) %>%
+  mutate(share = round(100 * n_ch / n_total, 1))
+```
+
+```{r swiss-participations-h2020}
+df %>%
+  get_particip(in_programme = "H2020") %>%
+  select(n_ch, n_total) %>%
+  summarise_all(sum, na.rm = TRUE) %>%
+  mutate(share = round(100 * n_ch / n_total, 1))
+```
+
+### Contribution to Swiss Participants
+
+```{r swiss-countributions, fig.asp=.5}
+df %>%
+  get_contrib() %>%
+  ggplot(aes(x = year, y = share_contrib)) %>%
+  bar_plt() +
+  labs(
+    title = "Contributions to Swiss Participants",
+    subtitle = "By project starting year, FP7 and H2020",
+    x = "Project Starting Year",
+    y = "%"
+  )
+```
+
+```{r contributions-ch-fp7}
+df %>%
+  get_contrib(in_programme = "FP7") %>%
+  select(contrib_ch, contrib_all) %>%
+  summarise_all(sum, na.rm = TRUE) %>%
+  mutate(share = round(100 * contrib_ch / contrib_all, 1))
+```
+
+```{r contributions-ch-h2020}
+df %>%
+  get_contrib(in_programme = "H2020") %>%
+  select(contrib_ch, contrib_all) %>%
+  summarise_all(sum, na.rm = TRUE) %>%
+  mutate(share = round(100 * contrib_ch / contrib_all, 1))
+```
+
+
+### Swiss Coordinations
+
+```{r coordinations-overview, fig.asp=.5}
+df %>%
+  get_coord() %>%
+  ggplot(aes(x = year, y = share_contrib)) %>%
+  bar_plt() +
+  labs(
+    title = "Swiss Coordinations",
+    subtitle = "By project starting year, FP7 and H2020",
+    x = "Project Starting Year",
+    y = "%"
+  )
+```
+
+```{r coordinations-ch-fp7}
+df %>%
+  get_coord(in_programme = "FP7") %>%
+  select(coord_ch, coord_total) %>%
+  summarise_all(sum, na.rm = TRUE) %>%
+  mutate(share = round(100 * coord_ch / coord_total, 1))
+```
+
+```{r coordinations-ch-h2020}
+df %>%
+  get_coord(in_programme = "H2020") %>%
+  select(coord_ch, coord_total) %>%
+  summarise_all(sum, na.rm = TRUE) %>%
+  mutate(share = round(100 * coord_ch / coord_total, 1))
+```
+
+> The SERI finds higher shares of contributions to Swiss participants.
+
+
+## H2020
+
+![](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation/_jcr_content/par/accordion_16708559/items/abbildung_4_beitr_ge/accordionpar/image_896504598/image.imagespooler.png/1629209007946/abb4_en.png "SERI Figure 4. Funding under by programme area (CHF m), in relation to total funding")
+
+The above figure updates [Figure 17 in page 30](https://www.sbfi.admin.ch/dam/sbfi/en/dokumente/webshop/2018/ch-frp.pdf.download.pdf/ch_beteiligung_frp_e.pdf#page=30) but the figures are difficult to compare. According to the H2020 dashboard, the figures are the following:
+
+```{r fig-four, fig.asp=1.5}
+get_contrib_area <- function(x) {
+  x <- x %>% 
+    filter(framework_programme == "H2020") %>%
+    filter(!is.na(thematic_priority_abbr))
+
+  to_all <- x %>%
+    group_by(Area = thematic_priority_abbr) %>%
+    summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
+    mutate(
+      share = contrib / sum(contrib),
+      context = "Total")
+  to_ch <- x %>%
+    filter(country_code == "CH") %>%
+    group_by(Area = thematic_priority_abbr) %>%
+    summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
+    mutate(
+      share = contrib / sum(contrib),
+      context = "CH")
+  bind_rows(to_all, to_ch)
+}
+
+pal <- c("#B91646", "#DFD8CA") %>% rev()
+
+pillar_area_lookup <- df %>%
+  filter(framework_programme == "H2020") %>%
+  count(Pillar = pillar, Area = thematic_priority_abbr) %>%
+  filter(!is.na(Area)) %>%
+  select(-n)
+
+area_labels <- df %>%
+  get_contrib_area() %>%
+  filter(context == "CH") %>%
+  left_join(pillar_area_lookup, by = "Area") %>%
+  arrange(desc(contrib)) %>%
+  slice_head(n = 20) %>%
+  arrange(desc(Pillar), desc(contrib)) %>%
+  select(Area)
+
+contribs <- df %>%
+  get_contrib_area() %>%
+  select(-share) %>%
+  mutate(
+    contrib = round(1e-6 * contrib, 1),
+    contrib = format(contrib, big.mark = ",", decimal.mark = ".", trim = TRUE))
+
+area_labels %>%
+  left_join(get_contrib_area(df), by = "Area") %>%
+  select(-contrib) %>%
+  pivot_wider(names_from = context, values_from = share) %>%
+  pivot_longer(cols = c("Total", "CH"), names_to = "context", values_to = "share") %>%
+  left_join(contribs, by = c("Area", "context")) %>%
+  mutate(
+    context = str_replace(context, "CH", "Switzerland"),
+    Area = str_remove(Area, "LEIT-"),
+    Area = str_remove(Area, "INNOSUP"),
+    Area = fct_inorder(Area),
+    Area = fct_rev(Area)) %>%
+  ggplot(aes(x = Area, y = share, fill = fct_rev(context))) +
+  geom_bar(stat = "identity", width = .7, position = "dodge") +
+  geom_text(
+    aes(label = contrib),
+    position = position_dodge(width = .9),
+    hjust = -.25,
+    size = 3.5,
+    family = "Gill Sans"
+  ) +
+  coord_flip() +
+  scale_fill_manual(values = pal, guide = guide_legend(reverse = TRUE)) +
+  scale_y_continuous(labels = percent_format(accuracy = 1), expand = c(.1, 0)) +
+  theme_minimal() +
+  labs(
+    title = "Funding by Programme Area Under H2020",
+    subtitle = "Values in MioEUR")+
+  theme(
+    text = element_text(size = 14, family = "Gill Sans", color = "gray10"),
+    plot.title.position = "plot",
+    legend.position = "top",
+    legend.title = element_blank(),
+    panel.grid.major.y = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    axis.text.y = element_text(margin = margin(0,-25,0,0)))
+```
+
+
+
+
+
+
