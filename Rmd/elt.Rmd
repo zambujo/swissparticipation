@@ -12,6 +12,8 @@ library(lubridate)
 library(here)
 library(glue)
 library(readxl)
+library(vroom)
+library(yaml)
 library(countrycode)
 source(here("R", "utils.R"))
 ```
@@ -36,8 +38,6 @@ unzip(
 > Qlik Sense dashboard data need to be downloaded by hand.  They contain useul attributes which are missing in the CORDIS records.
 
 ```{r load-dashboard-projects}
-# TODO: document how to download these data
-# TODO: add data to the repo
 fp7_dashboard <- here("data-raw", "fp7-projects.xlsx") %>%
   read_excel() %>%
   clean_names() %>%
@@ -144,24 +144,10 @@ df_raw <- df_raw %>%
   mutate(
     # rename role
     partner_role = str_to_title(partner_role),
-    # factorize pillars
     pillar = str_extract(pillar_abbr, "\\d"),
     pillar = if_else(pillar_abbr == "EU.0.", "Cross-theme", pillar),
     pillar = if_else(pillar_abbr == "Euratom", pillar_abbr, pillar),
-    pillar = fct_inseq(pillar),
-    pillar = fct_rev(pillar),
-    pillar = fct_relevel(pillar, "Cross-theme", after = 0),
-    pillar = fct_recode(
-      pillar,
-      I = "1", II = "2", III = "3", IV = "4", V = "5"
-    ),
-    # group entity types
     legal_entity_type = str_sub(legal_entity_type, 1, 3),
-    org_type = fct_collapse(
-      legal_entity_type,
-      `Research & Education` = c("HES", "REC"),
-      `Others (Excl. R&Ed)` = c("PRC", "PUB", "OTH")
-    ),
     # import EU contribution
     eu_contribution = str_replace(eu_contribution, fixed("-"), "0"),
     eu_contribution = as.numeric(eu_contribution),
@@ -181,6 +167,9 @@ df_raw <- df_raw %>%
 ```
 
 ```{r write}
+df_schema <- df_raw %>%
+  map_chr(class)
+
 df_years <-
   df_raw %>%
   distinct(start_year) %>%
@@ -193,7 +182,9 @@ df_raw <- df_raw %>%
   group_split() %>%
   setNames(df_years)
 
+write_yaml(df_schema, here("data", "schema-cordis-plus.yml"))
 file_names <- here("data", glue("cordis-plus-{df_years}.csv"))
-walk2(df_raw, file_names, write_csv2)
+walk2(df_raw, file_names, vroom_write, delim = ",")
+
 ```
 

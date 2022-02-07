@@ -15,9 +15,11 @@ editor_options:
 ```{r boilerplate, message=FALSE, warning=FALSE}
 # source code: https://github.com/zambujo/swissparticipation
 library(tidyverse)
+library(vroom)
 library(janitor)
 library(lubridate)
 library(here)
+library(yaml)
 library(glue)
 library(scales)
 library(ggsci)
@@ -42,9 +44,27 @@ Source: [**Horizon 2020 Dashboard data**](https://webgate.ec.europa.eu/dashboard
 
 
 ```{r read-dashboard-data}
-df_raw <- 
-  list.files(here("data"), pattern = "cordis-plus", full.names = TRUE) %>%
-  map_df(read_csv2)
+df_schema <- here("data", "schema-cordis-plus.yml") %>%
+  read_yaml() %>%
+  as.list()
+
+df_raw <-
+  list.files(here("data"), pattern = "cordis-plus-", full.names = TRUE) %>%
+  vroom(delim = ",", col_types = df_schema)
+  # map_df(read_csv2, col_types = df_schema)
+
+df_raw <- df_raw %>%
+  mutate(
+    pillar = fct_inseq(pillar),
+    pillar = fct_rev(pillar),
+    pillar = fct_relevel(pillar, "Cross-theme", after = 0),
+    pillar = fct_recode(
+      pillar, I = "1", II = "2", III = "3", IV = "4", V = "5"),
+    org_type = fct_collapse(
+      legal_entity_type,
+      `Research & Education` = c("HES", "REC"),
+      `Others (Excl. R&Ed)` = c("PRC", "PUB", "OTH")))
+
 df <- df_raw %>%
   filter(framework_programme == "H2020") %>%
   filter(legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH")
@@ -203,6 +223,7 @@ top_participants %>%
 get_participation <- function(x) {
   x %>%
     filter(!is.na(pillar)) %>%
+    mutate(pillar = fct_rev(pillar)) %>%
     group_by(
       Pillar = pillar,
       Priority = thematic_priority_abbr,
@@ -336,8 +357,6 @@ df %>%
   filter(!is.na(pillar)) %>%
   filter(country_code == "CH") %>%
   mutate(
-    org_type = fct_rev(org_type),
-    pillar = fct_rev(pillar),
     pillar = fct_other(pillar, keep = chr(roman(1:5))),
     pillar = fct_relevel(pillar, "Other", after = 0)
   ) %>%
@@ -349,7 +368,6 @@ df %>%
   ggplot(aes(x = pillar, y = contrib, fill = org_type)) +
   geom_col(position = position_stack(reverse = FALSE)) +
   scale_fill_manual(values = pal, guide = guide_legend(reverse = TRUE)) +
-  # scale_fill_nejm(alpha = .5, guide = guide_legend(reverse = TRUE)) +
   scale_y_continuous(labels = unit_format(
     suffix = "",
     scale = 1e-6,
@@ -485,7 +503,6 @@ ch <- df %>%
   filter(!is.na(org_type)) %>%
   filter(country_code == "CH") %>%
   mutate(
-    org_type = fct_rev(org_type),
     call_semester = floor_date(call_deadline_date, "6 months")) %>%
   group_by(Country = country, org_type, Semester = call_semester) %>%
   summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
@@ -497,7 +514,6 @@ rest <- df %>%
   filter(!is.na(org_type)) %>%
   filter(!country_code %in% c("CH")) %>%
   mutate(
-    org_type = fct_rev(org_type),
     call_semester = floor_date(call_deadline_date, "6 months")) %>%
   group_by(org_type, Semester = call_semester) %>%
   summarise(contrib = sum(eu_contribution)) %>%

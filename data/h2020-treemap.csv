@@ -1,12 +1,8 @@
 pillar,thematic_priority,contrib,contrib_txt
-III. Societal Challenges,ENERGY,86684380.63,M€86.68
-III. Societal Challenges,ENV,43520376.09,M€43.52
-III. Societal Challenges,FOOD,58467785.4,M€58.47
-III. Societal Challenges,HEALTH,137903032.25,M€137.90
-III. Societal Challenges,SECURITY,22590794.21,M€22.59
-III. Societal Challenges,SOCCHAL-CROSST,9022139.75,M€9.02
-III. Societal Challenges,SOCIETY,6620726.1,M€6.62
-III. Societal Challenges,TPT,55752292.45,M€55.75
+I. Excellent Science,ERC,935892135.37,M€935.89
+I. Excellent Science,FET,198847780.85,M€198.85
+I. Excellent Science,INFRA,59867843.84,M€59.87
+I. Excellent Science,MSCA,251217510.84,M€251.22
 II. Industrial Leadership,INNOSUPSME,100603444.52,M€100.60
 II. Industrial Leadership,LEIT,118125,M€0.12
 II. Industrial Leadership,LEIT-ADVMANU,42504462.27,M€42.50
@@ -16,11 +12,15 @@ II. Industrial Leadership,LEIT-ICT,130032522.11,M€130.03
 II. Industrial Leadership,LEIT-NMP,7698348.01,M€7.70
 II. Industrial Leadership,LEIT-SPACE,12169289.09,M€12.17
 II. Industrial Leadership,RISKFINANCE,0,M€0.00
-I. Excellent Science,ERC,935892135.37,M€935.89
-I. Excellent Science,FET,198847780.85,M€198.85
-I. Excellent Science,INFRA,59867843.84,M€59.87
-I. Excellent Science,MSCA,251217510.84,M€251.22
-V. Science with and for Society,,3886212.67,M€3.89
+III. Societal Challenges,ENERGY,86684380.63,M€86.68
+III. Societal Challenges,ENV,43520376.09,M€43.52
+III. Societal Challenges,FOOD,58467785.4,M€58.47
+III. Societal Challenges,HEALTH,137903032.25,M€137.90
+III. Societal Challenges,SECURITY,22590794.21,M€22.59
+III. Societal Challenges,SOCCHAL-CROSST,9022139.75,M€9.02
+III. Societal Challenges,SOCIETY,6620726.1,M€6.62
+III. Societal Challenges,TPT,55752292.45,M€55.75
 IV. Spreading excellence and widening participation,,5981840.5,M€5.98
+V. Science with and for Society,,3886212.67,M€3.89
 Euratom,,43117950.02,M€43.12
 Cross-theme,,10693671.42,M€10.69
