@@ -2,11 +2,11 @@ all: index
 
 update:
 	cd R;\
-	Rscript run-elt.R;
+	Rscript render-data-gathering.R;
 
 seri:
 	cd R;\
-	Rscript render-seri.R;
+	Rscript render-seri-figures.R;
 
 index:
 	cd R;\

@@ -41,8 +41,6 @@ source(here("R", "utils.R"))
 
 Source: [**Horizon 2020 Dashboard data**](https://webgate.ec.europa.eu/dashboard/single/?appid=93297a69-09fd-4ef5-889f-b83c4e21d33e&sheet=c616ed33-064c-40c0-803a-e75045b78c05), last updated on 2021-12-06 (see [Annex: Raw Data](#raw-data)).
 
-
-
 ```{r read-dashboard-data}
 df_schema <- here("data", "schema-cordis-plus.yml") %>%
   read_yaml() %>%

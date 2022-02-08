@@ -62,7 +62,7 @@ df <- df_raw %>%
 ```
 
 
-## Overview
+## Overview  {.tabset .tabset-fade .tabset-pills}
 
 ```{r plot-styling}
 # TODO: annotate the plot: 
@@ -149,6 +149,7 @@ get_coord <- function(x, in_programme = "") {
 }
 ```
 
+> The SERI finds higher shares of contributions to Swiss participants.
 
 ### Share Swiss Participations
 
@@ -212,7 +213,6 @@ df %>%
   mutate(share = round(100 * contrib_ch / contrib_all, 1))
 ```
 
-
 ### Swiss Coordinations
 
 ```{r coordinations-overview, fig.asp=.5}
@@ -244,14 +244,16 @@ df %>%
   mutate(share = round(100 * coord_ch / coord_total, 1))
 ```
 
-> The SERI finds higher shares of contributions to Swiss participants.
 
+## H2020 Figures {.tabset .tabset-fade .tabset-pills}
 
-## H2020
+### Figure 4 (Original)
 
 ![](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation/_jcr_content/par/accordion_16708559/items/abbildung_4_beitr_ge/accordionpar/image_896504598/image.imagespooler.png/1629209007946/abb4_en.png "SERI Figure 4. Funding under by programme area (CHF m), in relation to total funding")
 
 The above figure updates [Figure 17 in page 30](https://www.sbfi.admin.ch/dam/sbfi/en/dokumente/webshop/2018/ch-frp.pdf.download.pdf/ch_beteiligung_frp_e.pdf#page=30) but the figures are difficult to compare. According to the H2020 dashboard, the figures are the following:
+
+### Figure 4 (Updated)
 
 ```{r fig-four, fig.asp=1.5}
 get_contrib_area <- function(x) {

@@ -1,10 +1,16 @@
 ---
-title: "Extract, Load, and Transform"
+title: "Gathering FP Data for Analysis"
 author: "João Martins"
+output: 
+  html_document: 
+    theme: cerulean
+    code_folding: hide
+    toc: true
+    toc_float: true
+    self_contained: false
 editor_options: 
   chunk_output_type: console
 ---
-
 ```{r boilerplate}
 library(tidyverse)
 library(janitor)
@@ -18,6 +24,25 @@ library(countrycode)
 source(here("R", "utils.R"))
 ```
 
+## Data Sources
+
+The raw data is available at:
+
+- [CORDIS](https://cordis.europa.eu/)
+  - [CORDIS FP7 projects](https://data.europa.eu/data/datasets/cordisfp7projects)  
+  - [CORDIS H2020 projects](https://data.europa.eu/data/datasets/cordish2020projects), updated 2021-12-14
+  - [CORDIS reference data](https://data.europa.eu/data/datasets/cordisref-data)
+  - [Country data]()
+- [**Horizon Dashboard**](https://webgate.ec.europa.eu/dashboard) 
+ - ➡ `Everyone` ➡ `FP7 Projects` ➡ `FP7 Project Details` ➡ `Top Funded Projects`  
+ - ➡ `Everyone` ➡ `H2020 Projects` ➡ `H2020 Projects` ➡ `Top Funded Projects`  
+ - ➡ `Everyone` ➡ `H2020 Projects` ➡ `Data Export` ➡ `Raw Data Export Sheet`, updated 2021-12-06  
+
+> Horizon Europe project details have not yet been published.
+
+## CORDIS Data Collection
+
+CORDIS publishes snapshots of its public data in the [EU open data portal](https://data.europa.eu).  The data are provided by framework programme as a ZIP file containing a collection of CSV datasets.  We can download them automatically.
 
 ```{r extract-download-cordis-data, eval=FALSE}
 "https://cordis.europa.eu/data/cordis-fp7projects-csv.zip" %>%
@@ -35,7 +60,12 @@ unzip(
 )
 ```
 
-> Qlik Sense dashboard data need to be downloaded by hand.  They contain useul attributes which are missing in the CORDIS records.
+
+## Dashboard Data Collection
+
+Horizon Dashboard is built using the Qlik Sense App: data need to be downloaded by hand.  They contain useul attributes which are missing in the CORDIS records. (manual data export via Qlik Sense App)
+
+## Gathering Projects
 
 ```{r load-dashboard-projects}
 fp7_dashboard <- here("data-raw", "fp7-projects.xlsx") %>%
@@ -85,7 +115,13 @@ projects <- projects_cordis %>%
 rm(fp7_dashboard, h2020_dashboard, projects_dashboard, projects_cordis)
 ```
 
+## Gathering Participations
+
 ```{r, load-dashboard-organizations}
+# TODO: add country data from 
+# TODO: https://cordis.europa.eu/data/reference/cordisref-countries.csv
+# TODO: instead of the countrycode package
+
 organizations_cordis <-
   read_csv2(here("data-raw", "fp7", "csv", "organization.csv")) %>%
   bind_rows(read_csv2(here(
