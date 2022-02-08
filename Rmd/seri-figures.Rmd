@@ -1,5 +1,6 @@
 ---
-title: "Reproducibility analylsis of SERI figures"
+title: "Reproducibility analylsis of the SERI figures"
+subtitle: "On the Swiss Participation in the EU-Framework Programmes for Research and Innovation"
 author: "João Martins"
 output: 
   html_document: 
@@ -12,7 +13,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r boilerplate, message=FALSE, warning=FALSE}
+```{r boilerplate, message=FALSE, warning=FALSE, comment = FALSE}
 # source code: https://github.com/zambujo/swissparticipation
 library(tidyverse)
 library(vroom)
@@ -25,13 +26,12 @@ library(scales)
 library(ggsci)
 library(ggrepel)
 library(ggtext)
-library(reactable)
+library(kableExtra)
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, comment = FALSE)
 source(here("R", "utils.R"))
 ```
 
 > Pease find related statistics on the SERI's page: [Facts and Figures on the Swiss Participation in the EU-Framework Programmes for Research and Innovation](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html).
-
 
 ```{r read-dashboard-data}
 df_schema <- here("data", "schema-cordis-plus.yml") %>%
@@ -58,15 +58,13 @@ df_raw <-
 
 df <- df_raw %>%
     mutate(start_semester = floor_date(start_date, "6 months")) %>%
+    # remove the CERN
     filter(legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH")
 ```
-
 
 ## Overview  {.tabset .tabset-fade .tabset-pills}
 
 ```{r plot-styling}
-# TODO: annotate the plot: 
-
 bar_plt <- function(plt) {
   plt +
   geom_col() +
@@ -112,13 +110,11 @@ get_contrib <- function(x, in_programme = "") {
   }
   to_all <- x %>%
     group_by(Semester = start_semester) %>%
-    # summarise(contrib_all = sum(ec_contribution, na.rm = TRUE))
-    summarise(contrib_all = sum(net_ec_contribution, na.rm = TRUE))
+    summarise(contrib_all = sum(re_contribution, na.rm = TRUE))
   to_ch <- x %>%
     filter(country_code == "CH") %>%
     group_by(Semester = start_semester) %>%
-    # summarise(contrib_ch = sum(ec_contribution, na.rm = TRUE))
-    summarise(contrib_ch = sum(net_ec_contribution, na.rm = TRUE))
+    summarise(contrib_ch = sum(re_contribution, na.rm = TRUE))
 
   left_join(to_all, to_ch, by = "Semester") %>%
     mutate(year = year(Semester),
@@ -149,11 +145,11 @@ get_coord <- function(x, in_programme = "") {
 }
 ```
 
-> The SERI finds higher shares of contributions to Swiss participants.
+SERI figures show slightly higher shares of contributions to Swiss participants. They should, nevertheless, exclude the CERN, the UN, and UN-affiliated institutions.
 
 ### Share Swiss Participations
 
-```{r swiss-participations, fig.asp=.5}
+```{r swiss-participations}
 df %>%
   get_particip() %>%
   ggplot(aes(x = year, y = share_particip)) %>%
@@ -163,28 +159,55 @@ df %>%
     subtitle = "By project starting year, FP7 and H2020",
     x = "Project Starting Year",
     y = "%"
+  ) +
+  annotate(
+    "rect",
+    xmin = 2006.5,
+    xmax = 2014.5,
+    ymin = -.1,
+    ymax = 8.1,
+    fill = "#21325E",
+    alpha = .1
+  ) +
+  annotate(
+    "rect",
+    xmin = 2014.5,
+    xmax = 2022.5,
+    ymin = -.1,
+    ymax = 8.1,
+    fill = "#F1D00A",
+    alpha = .1
+  ) +
+  annotate(
+    "text",
+    x = c(2010, 2019),
+    y = c(8.4, 8.4),
+    label = c("FP7", "H2020"),
+    family = "Gill Sans"
   )
 ```
 
-```{r swiss-participations-fp7}
+```{r swiss-participations-fp7, include=FALSE}
 df %>%
   get_particip(in_programme = "FP7") %>%
   select(n_ch, n_total) %>%
   summarise_all(sum, na.rm = TRUE) %>%
-  mutate(share = round(100 * n_ch / n_total, 1))
+  mutate(share = round(100 * n_ch / n_total, 1)) %>%
+  kbl()
 ```
 
-```{r swiss-participations-h2020}
+```{r swiss-participations-h2020, include=FALSE}
 df %>%
   get_particip(in_programme = "H2020") %>%
   select(n_ch, n_total) %>%
   summarise_all(sum, na.rm = TRUE) %>%
-  mutate(share = round(100 * n_ch / n_total, 1))
+  mutate(share = round(100 * n_ch / n_total, 1)) %>%
+  kbl()
 ```
 
 ### Contribution to Swiss Participants
 
-```{r swiss-countributions, fig.asp=.5}
+```{r swiss-countributions}
 df %>%
   get_contrib() %>%
   ggplot(aes(x = year, y = share_contrib)) %>%
@@ -194,28 +217,55 @@ df %>%
     subtitle = "By project starting year, FP7 and H2020",
     x = "Project Starting Year",
     y = "%"
+  ) +
+  annotate(
+    "rect",
+    xmin = 2006.5,
+    xmax = 2014.5,
+    ymin = -.1,
+    ymax = 12.7,
+    fill = "#21325E",
+    alpha = .1
+  ) +
+  annotate(
+    "rect",
+    xmin = 2014.5,
+    xmax = 2022.5,
+    ymin = -.1,
+    ymax = 12.7,
+    fill = "#F1D00A",
+    alpha = .1
+  ) +
+  annotate(
+    "text",
+    x = c(2010, 2019),
+    y = c(13.1, 13.1),
+    label = c("FP7", "H2020"),
+    family = "Gill Sans"
   )
 ```
 
-```{r contributions-ch-fp7}
+```{r contributions-ch-fp7, include=FALSE}
 df %>%
   get_contrib(in_programme = "FP7") %>%
   select(contrib_ch, contrib_all) %>%
   summarise_all(sum, na.rm = TRUE) %>%
-  mutate(share = round(100 * contrib_ch / contrib_all, 1))
+  mutate(share = round(100 * contrib_ch / contrib_all, 1)) %>%
+  kbl()
 ```
 
-```{r contributions-ch-h2020}
+```{r contributions-ch-h2020, include=FALSE}
 df %>%
   get_contrib(in_programme = "H2020") %>%
   select(contrib_ch, contrib_all) %>%
   summarise_all(sum, na.rm = TRUE) %>%
-  mutate(share = round(100 * contrib_ch / contrib_all, 1))
+  mutate(share = round(100 * contrib_ch / contrib_all, 1)) %>%
+  kbl()
 ```
 
 ### Swiss Coordinations
 
-```{r coordinations-overview, fig.asp=.5}
+```{r coordinations-overviews}
 df %>%
   get_coord() %>%
   ggplot(aes(x = year, y = share_contrib)) %>%
@@ -225,33 +275,59 @@ df %>%
     subtitle = "By project starting year, FP7 and H2020",
     x = "Project Starting Year",
     y = "%"
+  ) +
+  annotate(
+    "rect",
+    xmin = 2006.5,
+    xmax = 2014.5,
+    ymin = -.1,
+    ymax = 11.1,
+    fill = "#21325E",
+    alpha = .1
+  ) +
+  annotate(
+    "rect",
+    xmin = 2014.5,
+    xmax = 2022.5,
+    ymin = -.1,
+    ymax = 11.1,
+    fill = "#F1D00A",
+    alpha = .1
+  ) +
+  annotate(
+    "text",
+    x = c(2010, 2019),
+    y = c(11.4, 11.4),
+    label = c("FP7", "H2020"),
+    family = "Gill Sans"
   )
 ```
 
-```{r coordinations-ch-fp7}
+```{r coordinations-ch-fp7, include=FALSE}
 df %>%
   get_coord(in_programme = "FP7") %>%
   select(coord_ch, coord_total) %>%
   summarise_all(sum, na.rm = TRUE) %>%
-  mutate(share = round(100 * coord_ch / coord_total, 1))
+  mutate(share = round(100 * coord_ch / coord_total, 1)) %>%
+  kbl()
 ```
 
-```{r coordinations-ch-h2020}
+```{r coordinations-ch-h2020, include=FALSE}
 df %>%
   get_coord(in_programme = "H2020") %>%
   select(coord_ch, coord_total) %>%
   summarise_all(sum, na.rm = TRUE) %>%
-  mutate(share = round(100 * coord_ch / coord_total, 1))
+  mutate(share = round(100 * coord_ch / coord_total, 1)) %>%
+  kbl()
 ```
 
-
 ## H2020 Figures {.tabset .tabset-fade .tabset-pills}
+
+The below *Figure 4* updates [Figure 17 in page 30](https://www.sbfi.admin.ch/dam/sbfi/en/dokumente/webshop/2018/ch-frp.pdf.download.pdf/ch_beteiligung_frp_e.pdf#page=30). *Figure 4 (Original)* corresponds to the latest update provided in the [SERI page](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html). *Figure 4 (Updated)* shows the latest H2020 dashboard data.  (Only the 20 top participation areas are shown.)
 
 ### Figure 4 (Original)
 
 ![](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation/_jcr_content/par/accordion_16708559/items/abbildung_4_beitr_ge/accordionpar/image_896504598/image.imagespooler.png/1629209007946/abb4_en.png "SERI Figure 4. Funding under by programme area (CHF m), in relation to total funding")
-
-The above figure updates [Figure 17 in page 30](https://www.sbfi.admin.ch/dam/sbfi/en/dokumente/webshop/2018/ch-frp.pdf.download.pdf/ch_beteiligung_frp_e.pdf#page=30) but the figures are difficult to compare. According to the H2020 dashboard, the figures are the following:
 
 ### Figure 4 (Updated)
 
@@ -339,9 +415,3 @@ area_labels %>%
     axis.title.y = element_blank(),
     axis.text.y = element_text(margin = margin(0,-25,0,0)))
 ```
-
-
-
-
-
-

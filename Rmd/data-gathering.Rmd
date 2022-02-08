@@ -4,14 +4,15 @@ author: "João Martins"
 output: 
   html_document: 
     theme: cerulean
-    code_folding: hide
+    code_folding: show
     toc: true
     toc_float: true
     self_contained: false
 editor_options: 
   chunk_output_type: console
 ---
-```{r boilerplate}
+
+```{r boilerplate, message=FALSE, warning=FALSE, comment = FALSE}
 library(tidyverse)
 library(janitor)
 library(lubridate)
@@ -20,7 +21,7 @@ library(glue)
 library(readxl)
 library(vroom)
 library(yaml)
-library(countrycode)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, comment = FALSE)
 source(here("R", "utils.R"))
 ```
 
@@ -34,13 +35,13 @@ The raw data is available at:
   - [CORDIS reference data](https://data.europa.eu/data/datasets/cordisref-data)
   - [Country data]()
 - [**Horizon Dashboard**](https://webgate.ec.europa.eu/dashboard) 
- - ➡ `Everyone` ➡ `FP7 Projects` ➡ `FP7 Project Details` ➡ `Top Funded Projects`  
- - ➡ `Everyone` ➡ `H2020 Projects` ➡ `H2020 Projects` ➡ `Top Funded Projects`  
- - ➡ `Everyone` ➡ `H2020 Projects` ➡ `Data Export` ➡ `Raw Data Export Sheet`, updated 2021-12-06  
+ - `Everyone` ➡ `FP7 Projects` ➡ `FP7 Project Details` ➡ `Top Funded Projects`  
+ - `Everyone` ➡ `H2020 Projects` ➡ `H2020 Projects` ➡ `Top Funded Projects`  
+ - `Everyone` ➡ `H2020 Projects` ➡ `Data Export` ➡ `Raw Data Export Sheet`, updated 2021-12-06  
 
 > Horizon Europe project details have not yet been published.
 
-## CORDIS Data Collection
+## Collecting CORDIS Data
 
 CORDIS publishes snapshots of its public data in the [EU open data portal](https://data.europa.eu).  The data are provided by framework programme as a ZIP file containing a collection of CSV datasets.  We can download them automatically.
 
@@ -60,12 +61,11 @@ unzip(
 )
 ```
 
+## Collecting Dashboard Data
 
-## Dashboard Data Collection
+Horizon Dashboard is built on Qlik Sense which prevents users from downloading the raw data automatically. The data can nevertheless be exported manually.
 
-Horizon Dashboard is built using the Qlik Sense App: data need to be downloaded by hand.  They contain useul attributes which are missing in the CORDIS records. (manual data export via Qlik Sense App)
-
-## Gathering Projects
+### Gathering Projects
 
 ```{r load-dashboard-projects}
 fp7_dashboard <- here("data-raw", "fp7-projects.xlsx") %>%
@@ -115,13 +115,9 @@ projects <- projects_cordis %>%
 rm(fp7_dashboard, h2020_dashboard, projects_dashboard, projects_cordis)
 ```
 
-## Gathering Participations
+### Gathering Participations
 
 ```{r, load-dashboard-organizations}
-# TODO: add country data from 
-# TODO: https://cordis.europa.eu/data/reference/cordisref-countries.csv
-# TODO: instead of the countrycode package
-
 organizations_cordis <-
   read_csv2(here("data-raw", "fp7", "csv", "organization.csv")) %>%
   bind_rows(read_csv2(here(
@@ -141,11 +137,9 @@ organizations_cordis <-
     ec_contribution,
     net_ec_contribution
   ) %>%
-  mutate(net_ec_contribution = if_else(
-    !is.na(net_ec_contribution),
-    net_ec_contribution,
-    ec_contribution
-  ))
+  mutate(
+    net_ec_contribution = if_else(
+      !is.na(net_ec_contribution), net_ec_contribution, ec_contribution))
 
 h2020_dashboard <- here("data-raw", "horizon2020.xlsx") %>%
   read_excel() %>%
@@ -171,10 +165,20 @@ organizations <- organizations_cordis %>%
 rm(organizations_cordis, h2020_dashboard)
 ```
 
+### Combining project and participation data
 
 ```{r transform}
 df_raw <- organizations %>%
   left_join(projects, by = "project_id")
+
+# download CORDIS country codes
+country_codes <-
+  "https://cordis.europa.eu/data/reference/cordisref-countries.csv" %>%
+  read_csv2() %>%
+  clean_names() %>%
+  filter(language == "en") %>%
+  distinct(eu_code, name) %>%
+  rename(country_code = eu_code, country = name)
 
 df_raw <- df_raw %>%
   mutate(
@@ -187,9 +191,12 @@ df_raw <- df_raw %>%
     # import EU contribution
     eu_contribution = str_replace(eu_contribution, fixed("-"), "0"),
     eu_contribution = as.numeric(eu_contribution),
-    # import country code
+    # reconcile FP7 and H2020 contribution data
+    re_contribution = if_else(
+      is.na(eu_contribution), ec_contribution, eu_contribution),
+    # country code
     country_code = str_sub(country_code, 1, 2),
-    country = countrycode(country_code, "eurostat", "country.name.en"),
+    country_code = str_replace(country_code, "KO", "XK"),
     # import dates
     signature_date = as.Date(signature_date, format = "%d/%m/%Y"),
     call_deadline_date = as.Date(call_deadline_date, format = "%d/%m/%Y"),
@@ -199,28 +206,32 @@ df_raw <- df_raw %>%
     signature_year = int(signature_year),
     call_year = int(call_year),
     start_year = int(start_year)) %>%
+  left_join(country_codes, by = "country_code") %>%
   filter(!is.na(start_date))
 ```
 
+## Exporting data for analysis
+
 ```{r write}
+# store data types
 df_schema <- df_raw %>%
   map_chr(class)
 
+# split CSV by year
 df_years <-
   df_raw %>%
   distinct(start_year) %>%
   pull() %>%
   sort()
-
 df_raw <- df_raw %>%
   arrange(start_year) %>%
   group_by(start_year) %>%
   group_split() %>%
   setNames(df_years)
 
-write_yaml(df_schema, here("data", "schema-cordis-plus.yml"))
+# write to ./data/
 file_names <- here("data", glue("cordis-plus-{df_years}.csv"))
 walk2(df_raw, file_names, vroom_write, delim = ",")
-
+write_yaml(df_schema, here("data", "schema-cordis-plus.yml"))
 ```
 

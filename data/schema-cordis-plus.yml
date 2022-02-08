@@ -27,7 +27,8 @@
 - character
 - numeric
 - character
+- numeric
+- integer
+- integer
+- integer
 - character
-- integer
-- integer
-- integer

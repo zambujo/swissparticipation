@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="João Martins" />
+
+
+<title>Gathering FP Data for Analysis</title>
+
+<script src="data-gathering_files/header-attrs-2.11/header-attrs.js"></script>
+<script src="data-gathering_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="data-gathering_files/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="data-gathering_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="data-gathering_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="data-gathering_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="data-gathering_files/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="data-gathering_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="data-gathering_files/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="data-gathering_files/navigation-1.1/tabsets.js"></script>
+<script src="data-gathering_files/navigation-1.1/codefolding.js"></script>
+<link href="data-gathering_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="data-gathering_files/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Gathering FP Data for Analysis</h1>
+<h4 class="author">João Martins</h4>
+
+</div>
+
+
+<pre class="r"><code>library(tidyverse)
+library(janitor)
+library(lubridate)
+library(here)
+library(glue)
+library(readxl)
+library(vroom)
+library(yaml)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, comment = FALSE)
+source(here(&quot;R&quot;, &quot;utils.R&quot;))</code></pre>
+<div id="data-sources" class="section level2">
+<h2>Data Sources</h2>
+<p>The raw data is available at:</p>
+<ul>
+<li><a href="https://cordis.europa.eu/">CORDIS</a>
+<ul>
+<li><a
+href="https://data.europa.eu/data/datasets/cordisfp7projects">CORDIS FP7
+projects</a><br />
+</li>
+<li><a
+href="https://data.europa.eu/data/datasets/cordish2020projects">CORDIS
+H2020 projects</a>, updated 2021-12-14</li>
+<li><a href="https://data.europa.eu/data/datasets/cordisref-data">CORDIS
+reference data</a></li>
+<li><a href="">Country data</a></li>
+</ul></li>
+<li><a href="https://webgate.ec.europa.eu/dashboard"><strong>Horizon
+Dashboard</strong></a></li>
+<li><code>Everyone</code> ➡ <code>FP7 Projects</code> ➡ <code>FP7
+Project Details</code> ➡ <code>Top Funded Projects</code><br />
+</li>
+<li><code>Everyone</code> ➡ <code>H2020 Projects</code> ➡ <code>H2020
+Projects</code> ➡ <code>Top Funded Projects</code><br />
+</li>
+<li><code>Everyone</code> ➡ <code>H2020 Projects</code> ➡ <code>Data
+Export</code> ➡ <code>Raw Data Export Sheet</code>, updated
+2021-12-06</li>
+</ul>
+<blockquote>
+<p>Horizon Europe project details have not yet been published.</p>
+</blockquote>
+</div>
+<div id="collecting-cordis-data" class="section level2">
+<h2>Collecting CORDIS Data</h2>
+<p>CORDIS publishes snapshots of its public data in the <a
+href="https://data.europa.eu">EU open data portal</a>. The data are
+provided by framework programme as a ZIP file containing a collection of
+CSV datasets. We can download them automatically.</p>
+<pre class="r"><code>&quot;https://cordis.europa.eu/data/cordis-fp7projects-csv.zip&quot; %&gt;%
+  download.file(here(&quot;data-raw&quot;, &quot;cordis-fp7projects-csv.zip&quot;))
+unzip(
+  here(&quot;data-raw&quot;, &quot;cordis-fp7projects-csv.zip&quot;),
+  exdir = here(&quot;data-raw&quot;, &quot;fp7&quot;)
+)
+
+&quot;https://cordis.europa.eu/data/cordis-h2020projects-csv.zip&quot; %&gt;%
+  download.file(here(&quot;data-raw&quot;, &quot;cordis-h2020projects-csv.zip&quot;))
+unzip(
+  here(&quot;data-raw&quot;, &quot;cordis-h2020projects-csv.zip&quot;),
+  exdir = here(&quot;data-raw&quot;, &quot;h2020&quot;)
+)</code></pre>
+</div>
+<div id="collecting-dashboard-data" class="section level2">
+<h2>Collecting Dashboard Data</h2>
+<p>Horizon Dashboard is built on Qlik Sense which prevents users from
+downloading the raw data automatically. The data can nevertheless be
+exported manually.</p>
+<div id="gathering-projects" class="section level3">
+<h3>Gathering Projects</h3>
+<pre class="r"><code>fp7_dashboard &lt;- here(&quot;data-raw&quot;, &quot;fp7-projects.xlsx&quot;) %&gt;%
+  read_excel() %&gt;%
+  clean_names() %&gt;%
+  select(
+    project_id = project_nbr,
+    thematic_priority = thematic_priority_descr,
+    topic_code,
+    topic_description,
+    participations
+  )
+
+h2020_dashboard &lt;- here(&quot;data-raw&quot;, &quot;h2020-projects.xlsx&quot;) %&gt;%
+  read_excel() %&gt;%
+  clean_names() %&gt;%
+  select(
+    project_id = project_nbr,
+    thematic_priority = thema,
+    topic_code,
+    topic_description,
+    participations = h2020_participations
+  )
+
+projects_dashboard &lt;-
+  fp7_dashboard %&gt;%
+  bind_rows(h2020_dashboard)
+
+projects_cordis &lt;-
+  read_csv2(here(&quot;data-raw&quot;, &quot;fp7&quot;, &quot;csv&quot;, &quot;project.csv&quot;)) %&gt;%
+  bind_rows(read_csv2(here(&quot;data-raw&quot;, &quot;h2020&quot;, &quot;csv&quot;, &quot;project.csv&quot;))) %&gt;%
+  clean_names() %&gt;%
+  select(
+    project_id = id,
+    rcn,
+    proj_acronym = acronym,
+    start_date,
+    end_date,
+    legal_basis,
+    framework_programme,
+    funding_scheme
+  )
+
+projects &lt;- projects_cordis %&gt;%
+  left_join(projects_dashboard, by = &quot;project_id&quot;)
+
+rm(fp7_dashboard, h2020_dashboard, projects_dashboard, projects_cordis)</code></pre>
+</div>
+<div id="gathering-participations" class="section level3">
+<h3>Gathering Participations</h3>
+<pre class="r"><code>organizations_cordis &lt;-
+  read_csv2(here(&quot;data-raw&quot;, &quot;fp7&quot;, &quot;csv&quot;, &quot;organization.csv&quot;)) %&gt;%
+  bind_rows(read_csv2(here(
+    &quot;data-raw&quot;, &quot;h2020&quot;, &quot;csv&quot;, &quot;organization.csv&quot;
+  ))) %&gt;%
+  clean_names() %&gt;%
+  select(
+    project_id,
+    project_acronym,
+    pic = organisation_id,
+    legal_name = name,
+    legal_short_name = short_name,
+    legal_entity_type = activity_type,
+    country_code = country,
+    legal_url = organization_url,
+    partner_role = role,
+    ec_contribution,
+    net_ec_contribution
+  ) %&gt;%
+  mutate(
+    net_ec_contribution = if_else(
+      !is.na(net_ec_contribution), net_ec_contribution, ec_contribution))
+
+h2020_dashboard &lt;- here(&quot;data-raw&quot;, &quot;horizon2020.xlsx&quot;) %&gt;%
+  read_excel() %&gt;%
+  clean_names() %&gt;%
+  select(
+    project_id = project_nbr,
+    pic = general_pic,
+    partner_role,
+    pillar_abbr,
+    pillar_descr,
+    thematic_priority_abbr,
+    signature_date,
+    call_deadline_date,
+    eu_contribution
+  ) %&gt;%
+  mutate(partner_role = str_to_lower(partner_role))
+
+organizations &lt;- organizations_cordis %&gt;%
+  left_join(h2020_dashboard,
+    by = c(&quot;project_id&quot;, &quot;pic&quot;, &quot;partner_role&quot;)
+  )
+
+rm(organizations_cordis, h2020_dashboard)</code></pre>
+</div>
+<div id="combining-project-and-participation-data"
+class="section level3">
+<h3>Combining project and participation data</h3>
+<pre class="r"><code>df_raw &lt;- organizations %&gt;%
+  left_join(projects, by = &quot;project_id&quot;)
+
+# download CORDIS country codes
+country_codes &lt;-
+  &quot;https://cordis.europa.eu/data/reference/cordisref-countries.csv&quot; %&gt;%
+  read_csv2() %&gt;%
+  clean_names() %&gt;%
+  filter(language == &quot;en&quot;) %&gt;%
+  distinct(eu_code, name) %&gt;%
+  rename(country_code = eu_code, country = name)
+
+df_raw &lt;- df_raw %&gt;%
+  mutate(
+    # rename role
+    partner_role = str_to_title(partner_role),
+    pillar = str_extract(pillar_abbr, &quot;\\d&quot;),
+    pillar = if_else(pillar_abbr == &quot;EU.0.&quot;, &quot;Cross-theme&quot;, pillar),
+    pillar = if_else(pillar_abbr == &quot;Euratom&quot;, pillar_abbr, pillar),
+    legal_entity_type = str_sub(legal_entity_type, 1, 3),
+    # import EU contribution
+    eu_contribution = str_replace(eu_contribution, fixed(&quot;-&quot;), &quot;0&quot;),
+    eu_contribution = as.numeric(eu_contribution),
+    # reconcile FP7 and H2020 contribution data
+    re_contribution = if_else(
+      is.na(eu_contribution), ec_contribution, eu_contribution),
+    # country code
+    country_code = str_sub(country_code, 1, 2),
+    country_code = str_replace(country_code, &quot;KO&quot;, &quot;XK&quot;),
+    # import dates
+    signature_date = as.Date(signature_date, format = &quot;%d/%m/%Y&quot;),
+    call_deadline_date = as.Date(call_deadline_date, format = &quot;%d/%m/%Y&quot;),
+    signature_year = str_sub(signature_date, 1, 4),
+    call_year = str_sub(call_deadline_date, 1, 4),
+    start_year = str_sub(start_date, 1, 4),
+    signature_year = int(signature_year),
+    call_year = int(call_year),
+    start_year = int(start_year)) %&gt;%
+  left_join(country_codes, by = &quot;country_code&quot;) %&gt;%
+  filter(!is.na(start_date))</code></pre>
+</div>
+</div>
+<div id="exporting-data-for-analysis" class="section level2">
+<h2>Exporting data for analysis</h2>
+<pre class="r"><code># store data types
+df_schema &lt;- df_raw %&gt;%
+  map_chr(class)
+
+# split CSV by year
+df_years &lt;-
+  df_raw %&gt;%
+  distinct(start_year) %&gt;%
+  pull() %&gt;%
+  sort()
+df_raw &lt;- df_raw %&gt;%
+  arrange(start_year) %&gt;%
+  group_by(start_year) %&gt;%
+  group_split() %&gt;%
+  setNames(df_years)
+
+# write to ./data/
+file_names &lt;- here(&quot;data&quot;, glue(&quot;cordis-plus-{df_years}.csv&quot;))
+walk2(df_raw, file_names, vroom_write, delim = &quot;,&quot;)
+write_yaml(df_schema, here(&quot;data&quot;, &quot;schema-cordis-plus.yml&quot;))</code></pre>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
