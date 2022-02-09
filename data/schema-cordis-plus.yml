@@ -1,5 +1,4 @@
 - numeric
-- character
 - numeric
 - character
 - character
@@ -15,17 +14,16 @@
 - Date
 - Date
 - numeric
+- character
+- character
+- character
+- character
 - numeric
 - character
 - Date
 - Date
 - character
 - character
-- character
-- character
-- character
-- character
-- numeric
 - character
 - numeric
 - integer

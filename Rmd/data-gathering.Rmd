@@ -21,6 +21,7 @@ library(glue)
 library(readxl)
 library(vroom)
 library(yaml)
+library(httr)
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, comment = FALSE)
 source(here("R", "utils.R"))
 ```
@@ -43,22 +44,95 @@ The raw data is available at:
 
 ## Collecting CORDIS Data
 
-CORDIS publishes snapshots of its public data in the [EU open data portal](https://data.europa.eu).  The data are provided by framework programme as a ZIP file containing a collection of CSV datasets.  We can download them automatically.
+CORDIS publishes snapshots of its public data in the [EU open data portal](https://data.europa.eu).  The data are provided by framework programme.  For FP7 and H2020, the latest data are now packed in ZIP files containing a collection of CSV datasets.  We can see the details of how to download them in the code.
 
 ```{r extract-download-cordis-data, eval=FALSE}
+end_points <-
+  expand_grid(c("fp6", "fp7", "h2020"),
+              c("projects", "organizations")) %>%
+  setNames(c("programme",
+             "dataset")) %>%
+  mutate(dataset_name = sprintf("cordis-%s%s.csv", programme, dataset)) %>%
+  pull(dataset_name)
+
+# updated 09 Mar 2020 ----
+glue("https://cordis.europa.eu/data/FP6/",
+     "{end_points[1]}") %>%
+  httr::HEAD() %>%
+  httr::headers() %>%
+  pluck("last-modified")
+glue("https://cordis.europa.eu/data/FP6/",
+     "{end_points[2]}") %>%
+  httr::HEAD() %>%
+  httr::headers() %>%
+  pluck("last-modified")
+
+glue("https://cordis.europa.eu/data/FP6/",
+     "{end_points[1]}") %>%
+  download.file(here("data-raw", end_points[1]))
+glue("https://cordis.europa.eu/data/FP6/",
+     "{end_points[2]}") %>%
+  download.file(here("data-raw", end_points[2]))
+
+# updated 17 Aug 2021 ----
+glue("https://cordis.europa.eu/data/",
+     "{end_points[3]}") %>%
+  httr::HEAD() %>%
+  httr::headers() %>%
+  pluck("last-modified")
+glue("https://cordis.europa.eu/data/",
+     "{end_points[4]}") %>%
+  httr::HEAD() %>%
+  httr::headers() %>%
+  pluck("last-modified")
+glue("https://cordis.europa.eu/data/",
+     "{end_points[5]}") %>%
+  httr::HEAD() %>%
+  httr::headers() %>%
+  pluck("last-modified")
+glue("https://cordis.europa.eu/data/",
+     "{end_points[6]}") %>%
+  httr::HEAD() %>%
+  httr::headers() %>%
+  pluck("last-modified")
+
+glue("https://cordis.europa.eu/data/",
+     "{end_points[3]}") %>%
+  download.file(here("data-raw", end_points[3]))
+glue("https://cordis.europa.eu/data/",
+     "{end_points[4]}") %>%
+  download.file(here("data-raw", end_points[4]))
+glue("https://cordis.europa.eu/data/",
+     "{end_points[5]}") %>%
+  download.file(here("data-raw", end_points[5]))
+glue("https://cordis.europa.eu/data/",
+     "{end_points[6]}") %>%
+  download.file(here("data-raw", end_points[6]))
+
+# updated 18 Jan 2022 ----
+"https://cordis.europa.eu/data/cordis-fp7projects-csv.zip" %>%
+  httr::HEAD() %>%
+  httr::headers() %>%
+  pluck("last-modified")
+"https://cordis.europa.eu/data/cordis-h2020projects-csv.zip" %>%
+  httr::HEAD() %>%
+  httr::headers() %>%
+  pluck("last-modified")
 "https://cordis.europa.eu/data/cordis-fp7projects-csv.zip" %>%
   download.file(here("data-raw", "cordis-fp7projects-csv.zip"))
+"https://cordis.europa.eu/data/cordis-h2020projects-csv.zip" %>%
+  download.file(here("data-raw", "cordis-h2020projects-csv.zip"))
 unzip(
   here("data-raw", "cordis-fp7projects-csv.zip"),
   exdir = here("data-raw", "fp7")
 )
-
-"https://cordis.europa.eu/data/cordis-h2020projects-csv.zip" %>%
-  download.file(here("data-raw", "cordis-h2020projects-csv.zip"))
 unzip(
   here("data-raw", "cordis-h2020projects-csv.zip"),
   exdir = here("data-raw", "h2020")
 )
+
+# clanup
+rm(end_points)
 ```
 
 ## Collecting Dashboard Data
@@ -67,36 +141,81 @@ Horizon Dashboard is built on Qlik Sense which prevents users from downloading t
 
 ### Gathering Projects
 
-```{r load-dashboard-projects}
-fp7_dashboard <- here("data-raw", "fp7-projects.xlsx") %>%
-  read_excel() %>%
-  clean_names() %>%
-  select(
-    project_id = project_nbr,
-    thematic_priority = thematic_priority_descr,
-    topic_code,
-    topic_description,
-    participations
-  )
-
+```{r load-projects-data}
+# Dashboard data (FP7, H2020 only) ----
 h2020_dashboard <- here("data-raw", "h2020-projects.xlsx") %>%
-  read_excel() %>%
+  read_excel(guess_max = 20000) %>%
   clean_names() %>%
   select(
     project_id = project_nbr,
+    project_acronym,
     thematic_priority = thema,
     topic_code,
     topic_description,
-    participations = h2020_participations
-  )
+    participations = h2020_participations) %>%
+  mutate(framework_programme = "H2020")
+
+fp7_dashboard <- here("data-raw", "fp7-projects.xlsx") %>%
+  read_excel(guess_max = 20000) %>%
+  clean_names() %>%
+  select(
+    project_id = project_nbr,
+    project_acronym,
+    thematic_priority = thematic_priority_descr,
+    topic_code,
+    topic_description,
+    participations) %>%
+  mutate(framework_programme = "FP7")
 
 projects_dashboard <-
   fp7_dashboard %>%
   bind_rows(h2020_dashboard)
 
+# CORDIS data ----
+
+# reconcile schemas (using latest schema as reference )
+projects_cordis_h2020 <- 
+  read_csv2(here("data-raw", "h2020", "csv", "project.csv")) %>%
+  mutate(contentUpdateDate = as.Date(contentUpdateDate))
+
+projects_cordis_fp7 <-
+  readr::read_csv2(here("data-raw", "fp7", "csv", "project.csv")) %>%
+  mutate(
+    contentUpdateDate = as.Date(contentUpdateDate),
+    ecSignatureDate = as.Date(ecSignatureDate), # missing
+    masterCall = as.character(masterCall)) # missing
+
 projects_cordis <-
-  read_csv2(here("data-raw", "fp7", "csv", "project.csv")) %>%
-  bind_rows(read_csv2(here("data-raw", "h2020", "csv", "project.csv"))) %>%
+  projects_cordis_fp7 %>%
+  bind_rows(projects_cordis_h2020) %>%
+  clean_names() %>%
+  select(
+    project_id = id,
+    start_date,
+    end_date,
+    legal_basis,
+    funding_scheme)
+
+projects <-
+  projects_dashboard %>%
+  left_join(projects_cordis, by = "project_id")
+
+# cleanup
+rm(
+  fp7_dashboard,
+  h2020_dashboard,
+  projects_dashboard,
+  projects_cordis,
+  projects_cordis_fp7,
+  projects_cordis_h2020
+)
+```
+
+Unfortunately, FP6 data are very incomplete. Individual contribution details are provided in 2,621 (out of 75,241) cases only.
+
+```{r fp6, eval=FALSE}
+projects_cordis_fp6 <-
+  readr::read_csv2(here("data-raw", "cordis-fp6projects.csv")) %>%
   clean_names() %>%
   select(
     project_id = id,
@@ -104,29 +223,32 @@ projects_cordis <-
     proj_acronym = acronym,
     start_date,
     end_date,
-    legal_basis,
+    legal_basis = call,
     framework_programme,
     funding_scheme
   )
 
-projects <- projects_cordis %>%
-  left_join(projects_dashboard, by = "project_id")
-
-rm(fp7_dashboard, h2020_dashboard, projects_dashboard, projects_cordis)
+organizations_cordis_fp6 <-
+  read_tsv(here("data-raw", "cordis-fp6organizations.csv"))
 ```
 
 ### Gathering Participations
 
-```{r, load-dashboard-organizations}
+```{r, load-organizations-data}
+organizations_cordis_h2020 <- 
+  read_csv2(here("data-raw", "h2020", "csv", "organization.csv"), guess_max = 100000) %>%
+  select(-contentUpdateDate, -SME, -nutsCode, -endOfParticipation, -active, -totalCost, -rcn)
+
+organizations_cordis_fp7 <- 
+  read_csv2(here("data-raw", "fp7", "csv", "organization.csv"), guess_max = 130000) %>%
+  select(-contentUpdateDate, -SME, -nutsCode, -endOfParticipation, -active, -totalCost, -rcn)
+  
 organizations_cordis <-
-  read_csv2(here("data-raw", "fp7", "csv", "organization.csv")) %>%
-  bind_rows(read_csv2(here(
-    "data-raw", "h2020", "csv", "organization.csv"
-  ))) %>%
+  organizations_cordis_fp7 %>%
+  bind_rows(organizations_cordis_h2020) %>%
   clean_names() %>%
   select(
     project_id,
-    project_acronym,
     pic = organisation_id,
     legal_name = name,
     legal_short_name = short_name,
@@ -135,13 +257,11 @@ organizations_cordis <-
     legal_url = organization_url,
     partner_role = role,
     ec_contribution,
-    net_ec_contribution
-  ) %>%
-  mutate(
-    net_ec_contribution = if_else(
-      !is.na(net_ec_contribution), net_ec_contribution, ec_contribution))
+    net_ec_contribution)
+  # ! 3 cases where (project_id, pic) appear 2x w/ different partner_role
 
-h2020_dashboard <- here("data-raw", "horizon2020.xlsx") %>%
+organizations_dashboard_h2020 <-
+  here("data-raw", "horizon2020.xlsx") %>%
   read_excel() %>%
   clean_names() %>%
   select(
@@ -158,11 +278,41 @@ h2020_dashboard <- here("data-raw", "horizon2020.xlsx") %>%
   mutate(partner_role = str_to_lower(partner_role))
 
 organizations <- organizations_cordis %>%
-  left_join(h2020_dashboard,
-    by = c("project_id", "pic", "partner_role")
-  )
+  left_join(organizations_dashboard_h2020,
+    by = c("project_id", "pic", "partner_role"))
 
-rm(organizations_cordis, h2020_dashboard)
+rm(organizations_cordis, organizations_dashboard_h2020)
+```
+
+```{r viz-contributions, eval=FALSE}
+dfsample <- organizations %>%
+  filter(!is.na(net_ec_contribution)) %>%
+  sample_n(10000)
+plot(
+  dfsample$ec_contribution,
+  dfsample$eu_contribution,
+  type = "p",
+  pch = 19,
+  cex = .5,
+  log = 'xy'
+)
+plot(
+  dfsample$net_ec_contribution,
+  dfsample$eu_contribution,
+  type = "p",
+  pch = 19,
+  cex = .5,
+  log = 'xy'
+)
+plot(
+  dfsample$net_ec_contribution,
+  dfsample$ec_contribution,
+  type = "p",
+  pch = 19,
+  cex = .5,
+  log = 'xy'
+)
+
 ```
 
 ### Combining project and participation data
@@ -182,20 +332,31 @@ country_codes <-
 
 df_raw <- df_raw %>%
   mutate(
+    legal_entity_type = str_sub(legal_entity_type, 1, 3),
+    country_code = str_sub(country_code, 1, 2),
     # rename role
     partner_role = str_to_title(partner_role),
     pillar = str_extract(pillar_abbr, "\\d"),
     pillar = if_else(pillar_abbr == "EU.0.", "Cross-theme", pillar),
     pillar = if_else(pillar_abbr == "Euratom", pillar_abbr, pillar),
-    legal_entity_type = str_sub(legal_entity_type, 1, 3),
-    # import EU contribution
+    # clean contributions
+    ec_contribution = str_replace(ec_contribution, ",", "."),
+    ec_contribution = str_replace(ec_contribution,
+                                  fixed("xxxxx"), 
+                                  NA_character_),
     eu_contribution = str_replace(eu_contribution, fixed("-"), "0"),
+    ec_contribution = as.numeric(ec_contribution),
+    net_ec_contribution = as.numeric(net_ec_contribution),
     eu_contribution = as.numeric(eu_contribution),
     # reconcile FP7 and H2020 contribution data
-    re_contribution = if_else(
-      is.na(eu_contribution), ec_contribution, eu_contribution),
+    re_contribution = eu_contribution,
+    re_contribution = if_else(is.na(re_contribution),
+                              net_ec_contribution,
+                              re_contribution),
+    re_contribution = if_else(is.na(re_contribution),
+                              ec_contribution,
+                              re_contribution),
     # country code
-    country_code = str_sub(country_code, 1, 2),
     country_code = str_replace(country_code, "KO", "XK"),
     # import dates
     signature_date = as.Date(signature_date, format = "%d/%m/%Y"),
@@ -205,9 +366,11 @@ df_raw <- df_raw %>%
     start_year = str_sub(start_date, 1, 4),
     signature_year = int(signature_year),
     call_year = int(call_year),
-    start_year = int(start_year)) %>%
+    start_year = int(start_year)
+  ) %>%
   left_join(country_codes, by = "country_code") %>%
   filter(!is.na(start_date))
+
 ```
 
 ## Exporting data for analysis
@@ -233,5 +396,6 @@ df_raw <- df_raw %>%
 file_names <- here("data", glue("cordis-plus-{df_years}.csv"))
 walk2(df_raw, file_names, vroom_write, delim = ",")
 write_yaml(df_schema, here("data", "schema-cordis-plus.yml"))
+
 ```
 
