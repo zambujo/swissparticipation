@@ -284,6 +284,9 @@ organizations <- organizations_cordis %>%
 rm(organizations_cordis, organizations_dashboard_h2020)
 ```
 
+
+### Combining project and participation data
+
 ```{r viz-contributions, eval=FALSE}
 dfsample <- organizations %>%
   filter(!is.na(net_ec_contribution)) %>%
@@ -314,8 +317,6 @@ plot(
 )
 
 ```
-
-### Combining project and participation data
 
 ```{r transform}
 df_raw <- organizations %>%

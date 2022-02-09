@@ -337,14 +337,13 @@ get_particip &lt;- function(x, in_programme = &quot;&quot;) {
       filter(framework_programme == &quot;H2020&quot;)
   }
   total &lt;- x %&gt;%
-    count(Semester = start_semester, name = &quot;n_total&quot;)
+    count(year = start_year, name = &quot;n_total&quot;)
   ch &lt;- x %&gt;%
     filter(country_code == &quot;CH&quot;) %&gt;%
-    count(Semester = start_semester, name = &quot;n_ch&quot;)
-  
-  left_join(total, ch, by = &quot;Semester&quot;) %&gt;%
-    mutate(year = year(Semester),
-           share_particip = 100 * n_ch / n_total)
+    count(year = start_year, name = &quot;n_ch&quot;)
+
+  left_join(total, ch, by = &quot;year&quot;) %&gt;%
+    mutate(share_particip = 100 * n_ch / n_total)
 }
 
 get_contrib &lt;- function(x, in_programme = &quot;&quot;) {
@@ -357,16 +356,15 @@ get_contrib &lt;- function(x, in_programme = &quot;&quot;) {
       filter(framework_programme == &quot;H2020&quot;)
   }
   to_all &lt;- x %&gt;%
-    group_by(Semester = start_semester) %&gt;%
+    group_by(year = start_year) %&gt;%
     summarise(contrib_all = sum(re_contribution, na.rm = TRUE))
   to_ch &lt;- x %&gt;%
     filter(country_code == &quot;CH&quot;) %&gt;%
-    group_by(Semester = start_semester) %&gt;%
+    group_by(year = start_year) %&gt;%
     summarise(contrib_ch = sum(re_contribution, na.rm = TRUE))
 
-  left_join(to_all, to_ch, by = &quot;Semester&quot;) %&gt;%
-    mutate(year = year(Semester),
-           share_contrib = 100 * contrib_ch / contrib_all)
+  left_join(to_all, to_ch, by = &quot;year&quot;) %&gt;%
+    mutate(share_contrib = 100 * contrib_ch / contrib_all)
 }
 
 get_coord &lt;- function(x, in_programme = &quot;&quot;) {
@@ -381,15 +379,14 @@ get_coord &lt;- function(x, in_programme = &quot;&quot;) {
   
   all &lt;- x %&gt;%
     filter(partner_role == &quot;Coordinator&quot;) %&gt;%
-    count(Semester = start_semester, name = &quot;coord_total&quot;)
+    count(year = start_year, name = &quot;coord_total&quot;)
   ch &lt;- x %&gt;%
     filter(country_code == &quot;CH&quot;) %&gt;%
     filter(partner_role == &quot;Coordinator&quot;) %&gt;%
-    count(Semester = start_semester, name = &quot;coord_ch&quot;)
+    count(year = start_year, name = &quot;coord_ch&quot;)
 
-  left_join(all, ch, by = &quot;Semester&quot;) %&gt;%
-    mutate(year = year(Semester),
-           share_contrib = 100 * coord_ch / coord_total)
+  left_join(all, ch, by = &quot;year&quot;) %&gt;%
+    mutate(share_contrib = 100 * coord_ch / coord_total)
 }</code></pre>
 <p>SERI figures show slightly higher shares of contributions to Swiss
 participants. They should, nevertheless, exclude the CERN, the UN, and
@@ -411,7 +408,7 @@ UN-affiliated institutions.</p>
     xmin = 2006.5,
     xmax = 2014.5,
     ymin = -.1,
-    ymax = 8.1,
+    ymax = 3.55,
     fill = &quot;#21325E&quot;,
     alpha = .1
   ) +
@@ -420,14 +417,14 @@ UN-affiliated institutions.</p>
     xmin = 2014.5,
     xmax = 2022.5,
     ymin = -.1,
-    ymax = 8.1,
+    ymax = 3.55,
     fill = &quot;#F1D00A&quot;,
     alpha = .1
   ) +
   annotate(
     &quot;text&quot;,
     x = c(2010, 2019),
-    y = c(8.4, 8.4),
+    y = c(3.65, 3.65),
     label = c(&quot;FP7&quot;, &quot;H2020&quot;),
     family = &quot;Gill Sans&quot;
   )</code></pre>
@@ -450,7 +447,7 @@ UN-affiliated institutions.</p>
     xmin = 2006.5,
     xmax = 2014.5,
     ymin = -.1,
-    ymax = 12.7,
+    ymax = 5.75,
     fill = &quot;#21325E&quot;,
     alpha = .1
   ) +
@@ -459,14 +456,14 @@ UN-affiliated institutions.</p>
     xmin = 2014.5,
     xmax = 2022.5,
     ymin = -.1,
-    ymax = 12.7,
+    ymax = 5.75,
     fill = &quot;#F1D00A&quot;,
     alpha = .1
   ) +
   annotate(
     &quot;text&quot;,
     x = c(2010, 2019),
-    y = c(13.1, 13.1),
+    y = c(6, 6),
     label = c(&quot;FP7&quot;, &quot;H2020&quot;),
     family = &quot;Gill Sans&quot;
   )</code></pre>
@@ -489,7 +486,7 @@ UN-affiliated institutions.</p>
     xmin = 2006.5,
     xmax = 2014.5,
     ymin = -.1,
-    ymax = 11.1,
+    ymax = 5.6,
     fill = &quot;#21325E&quot;,
     alpha = .1
   ) +
@@ -498,14 +495,14 @@ UN-affiliated institutions.</p>
     xmin = 2014.5,
     xmax = 2022.5,
     ymin = -.1,
-    ymax = 11.1,
+    ymax = 5.6,
     fill = &quot;#F1D00A&quot;,
     alpha = .1
   ) +
   annotate(
     &quot;text&quot;,
     x = c(2010, 2019),
-    y = c(11.4, 11.4),
+    y = c(5.8, 5.8),
     label = c(&quot;FP7&quot;, &quot;H2020&quot;),
     family = &quot;Gill Sans&quot;
   )</code></pre>

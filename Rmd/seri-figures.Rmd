@@ -89,14 +89,13 @@ get_particip <- function(x, in_programme = "") {
       filter(framework_programme == "H2020")
   }
   total <- x %>%
-    count(Semester = start_semester, name = "n_total")
+    count(year = start_year, name = "n_total")
   ch <- x %>%
     filter(country_code == "CH") %>%
-    count(Semester = start_semester, name = "n_ch")
-  
-  left_join(total, ch, by = "Semester") %>%
-    mutate(year = year(Semester),
-           share_particip = 100 * n_ch / n_total)
+    count(year = start_year, name = "n_ch")
+
+  left_join(total, ch, by = "year") %>%
+    mutate(share_particip = 100 * n_ch / n_total)
 }
 
 get_contrib <- function(x, in_programme = "") {
@@ -109,16 +108,15 @@ get_contrib <- function(x, in_programme = "") {
       filter(framework_programme == "H2020")
   }
   to_all <- x %>%
-    group_by(Semester = start_semester) %>%
+    group_by(year = start_year) %>%
     summarise(contrib_all = sum(re_contribution, na.rm = TRUE))
   to_ch <- x %>%
     filter(country_code == "CH") %>%
-    group_by(Semester = start_semester) %>%
+    group_by(year = start_year) %>%
     summarise(contrib_ch = sum(re_contribution, na.rm = TRUE))
 
-  left_join(to_all, to_ch, by = "Semester") %>%
-    mutate(year = year(Semester),
-           share_contrib = 100 * contrib_ch / contrib_all)
+  left_join(to_all, to_ch, by = "year") %>%
+    mutate(share_contrib = 100 * contrib_ch / contrib_all)
 }
 
 get_coord <- function(x, in_programme = "") {
@@ -133,15 +131,14 @@ get_coord <- function(x, in_programme = "") {
   
   all <- x %>%
     filter(partner_role == "Coordinator") %>%
-    count(Semester = start_semester, name = "coord_total")
+    count(year = start_year, name = "coord_total")
   ch <- x %>%
     filter(country_code == "CH") %>%
     filter(partner_role == "Coordinator") %>%
-    count(Semester = start_semester, name = "coord_ch")
+    count(year = start_year, name = "coord_ch")
 
-  left_join(all, ch, by = "Semester") %>%
-    mutate(year = year(Semester),
-           share_contrib = 100 * coord_ch / coord_total)
+  left_join(all, ch, by = "year") %>%
+    mutate(share_contrib = 100 * coord_ch / coord_total)
 }
 ```
 
@@ -165,7 +162,7 @@ df %>%
     xmin = 2006.5,
     xmax = 2014.5,
     ymin = -.1,
-    ymax = 8.1,
+    ymax = 3.55,
     fill = "#21325E",
     alpha = .1
   ) +
@@ -174,14 +171,14 @@ df %>%
     xmin = 2014.5,
     xmax = 2022.5,
     ymin = -.1,
-    ymax = 8.1,
+    ymax = 3.55,
     fill = "#F1D00A",
     alpha = .1
   ) +
   annotate(
     "text",
     x = c(2010, 2019),
-    y = c(8.4, 8.4),
+    y = c(3.65, 3.65),
     label = c("FP7", "H2020"),
     family = "Gill Sans"
   )
@@ -223,7 +220,7 @@ df %>%
     xmin = 2006.5,
     xmax = 2014.5,
     ymin = -.1,
-    ymax = 12.7,
+    ymax = 5.75,
     fill = "#21325E",
     alpha = .1
   ) +
@@ -232,14 +229,14 @@ df %>%
     xmin = 2014.5,
     xmax = 2022.5,
     ymin = -.1,
-    ymax = 12.7,
+    ymax = 5.75,
     fill = "#F1D00A",
     alpha = .1
   ) +
   annotate(
     "text",
     x = c(2010, 2019),
-    y = c(13.1, 13.1),
+    y = c(6, 6),
     label = c("FP7", "H2020"),
     family = "Gill Sans"
   )
@@ -281,7 +278,7 @@ df %>%
     xmin = 2006.5,
     xmax = 2014.5,
     ymin = -.1,
-    ymax = 11.1,
+    ymax = 5.6,
     fill = "#21325E",
     alpha = .1
   ) +
@@ -290,14 +287,14 @@ df %>%
     xmin = 2014.5,
     xmax = 2022.5,
     ymin = -.1,
-    ymax = 11.1,
+    ymax = 5.6,
     fill = "#F1D00A",
     alpha = .1
   ) +
   annotate(
     "text",
     x = c(2010, 2019),
-    y = c(11.4, 11.4),
+    y = c(5.8, 5.8),
     label = c("FP7", "H2020"),
     family = "Gill Sans"
   )
