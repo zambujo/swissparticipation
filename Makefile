@@ -1,4 +1,4 @@
-all: index
+all: site
 
 update:
 	cd R;\
@@ -11,3 +11,8 @@ seri:
 index:
 	cd R;\
 	Rscript render-swiss-participation.R;
+
+site:
+	cd R;\
+	Rscript render-site.R;
+

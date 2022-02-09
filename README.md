@@ -3,9 +3,6 @@
 
 # Swiss Participation
 
-<!-- badges: start -->
-<!-- badges: end -->
-
 [**R notebook**](Rmd/swiss-participation.Rmd) summarizing participation
 statistics of Switzerland in EU-Framework programmes in research and
 development.

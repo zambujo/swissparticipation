@@ -9,18 +9,17 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="João Martins" />
 
 
 <title>Gathering FP Data for Analysis</title>
 
-<script src="data-gathering_files/header-attrs-2.11/header-attrs.js"></script>
-<script src="data-gathering_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="data-gathering_files/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
-<script src="data-gathering_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="data-gathering_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="data-gathering_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <style>h1 {font-size: 34px;}
        h1.title {font-size: 38px;}
        h2 {font-size: 30px;}
@@ -30,13 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="data-gathering_files/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="data-gathering_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="data-gathering_files/tocify-1.9.1/jquery.tocify.js"></script>
-<script src="data-gathering_files/navigation-1.1/tabsets.js"></script>
-<script src="data-gathering_files/navigation-1.1/codefolding.js"></script>
-<link href="data-gathering_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="data-gathering_files/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -47,17 +42,101 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
 
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
@@ -92,6 +171,76 @@ pre code {
 </style>
 
 
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
 
 <!-- tabsets -->
 
@@ -150,73 +299,7 @@ pre code {
 </style>
 
 <!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
 
-
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
 
 
 
@@ -228,46 +311,51 @@ div.tocify {
 <div class="container-fluid main-container">
 
 
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
-
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Swiss FP Participation Figures</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="swiss-participation.html">H2020</a>
+</li>
+<li>
+  <a href="seri-figures.html">FP7 &amp; H2020</a>
+</li>
+<li>
+  <a href="data-gathering.html">Data</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/zambujo/swissparticipation">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
 
 <div id="header">
-
-<div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
 
 
 
 <h1 class="title toc-ignore">Gathering FP Data for Analysis</h1>
-<h4 class="author">João Martins</h4>
 
 </div>
 
 
-<pre class="r"><code>library(tidyverse)
-library(janitor)
-library(lubridate)
-library(here)
-library(glue)
-library(readxl)
-library(vroom)
-library(yaml)
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, comment = FALSE)
-source(here(&quot;R&quot;, &quot;utils.R&quot;))</code></pre>
 <div id="data-sources" class="section level2">
 <h2>Data Sources</h2>
 <p>The raw data is available at:</p>
@@ -300,26 +388,111 @@ Export</code> ➡ <code>Raw Data Export Sheet</code>, updated
 <blockquote>
 <p>Horizon Europe project details have not yet been published.</p>
 </blockquote>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vroom)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(yaml)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">message =</span> <span class="cn">FALSE</span>, <span class="at">warning =</span> <span class="cn">FALSE</span>, <span class="at">comment =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">&quot;R&quot;</span>, <span class="st">&quot;utils.R&quot;</span>))</span></code></pre></div>
 </div>
 <div id="collecting-cordis-data" class="section level2">
 <h2>Collecting CORDIS Data</h2>
 <p>CORDIS publishes snapshots of its public data in the <a
 href="https://data.europa.eu">EU open data portal</a>. The data are
-provided by framework programme as a ZIP file containing a collection of
-CSV datasets. We can download them automatically.</p>
-<pre class="r"><code>&quot;https://cordis.europa.eu/data/cordis-fp7projects-csv.zip&quot; %&gt;%
-  download.file(here(&quot;data-raw&quot;, &quot;cordis-fp7projects-csv.zip&quot;))
-unzip(
-  here(&quot;data-raw&quot;, &quot;cordis-fp7projects-csv.zip&quot;),
-  exdir = here(&quot;data-raw&quot;, &quot;fp7&quot;)
-)
-
-&quot;https://cordis.europa.eu/data/cordis-h2020projects-csv.zip&quot; %&gt;%
-  download.file(here(&quot;data-raw&quot;, &quot;cordis-h2020projects-csv.zip&quot;))
-unzip(
-  here(&quot;data-raw&quot;, &quot;cordis-h2020projects-csv.zip&quot;),
-  exdir = here(&quot;data-raw&quot;, &quot;h2020&quot;)
-)</code></pre>
+provided by framework programme. For FP7 and H2020, the latest data are
+now packed in ZIP files containing a collection of CSV datasets. We can
+see the details of how to download them in the code.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>end_points <span class="ot">&lt;-</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_grid</span>(<span class="fu">c</span>(<span class="st">&quot;fp6&quot;</span>, <span class="st">&quot;fp7&quot;</span>, <span class="st">&quot;h2020&quot;</span>),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">c</span>(<span class="st">&quot;projects&quot;</span>, <span class="st">&quot;organizations&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;programme&quot;</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;dataset&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dataset_name =</span> <span class="fu">sprintf</span>(<span class="st">&quot;cordis-%s%s.csv&quot;</span>, programme, dataset)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(dataset_name)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># updated 09 Mar 2020 ----</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">glue</span>(<span class="st">&quot;https://cordis.europa.eu/data/FP6/&quot;</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;{end_points[1]}&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">HEAD</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">headers</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">&quot;last-modified&quot;</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">glue</span>(<span class="st">&quot;https://cordis.europa.eu/data/FP6/&quot;</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;{end_points[2]}&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">HEAD</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">headers</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">&quot;last-modified&quot;</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="fu">glue</span>(<span class="st">&quot;https://cordis.europa.eu/data/FP6/&quot;</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;{end_points[1]}&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(<span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, end_points[<span class="dv">1</span>]))</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">glue</span>(<span class="st">&quot;https://cordis.europa.eu/data/FP6/&quot;</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;{end_points[2]}&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(<span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, end_points[<span class="dv">2</span>]))</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co"># updated 17 Aug 2021 ----</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="fu">glue</span>(<span class="st">&quot;https://cordis.europa.eu/data/&quot;</span>,</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;{end_points[3]}&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">HEAD</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">headers</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">&quot;last-modified&quot;</span>)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="fu">glue</span>(<span class="st">&quot;https://cordis.europa.eu/data/&quot;</span>,</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;{end_points[4]}&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">HEAD</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">headers</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">&quot;last-modified&quot;</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="fu">glue</span>(<span class="st">&quot;https://cordis.europa.eu/data/&quot;</span>,</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;{end_points[5]}&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">HEAD</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">headers</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">&quot;last-modified&quot;</span>)</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="fu">glue</span>(<span class="st">&quot;https://cordis.europa.eu/data/&quot;</span>,</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;{end_points[6]}&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">HEAD</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">headers</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">&quot;last-modified&quot;</span>)</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="fu">glue</span>(<span class="st">&quot;https://cordis.europa.eu/data/&quot;</span>,</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;{end_points[3]}&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(<span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, end_points[<span class="dv">3</span>]))</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="fu">glue</span>(<span class="st">&quot;https://cordis.europa.eu/data/&quot;</span>,</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;{end_points[4]}&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(<span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, end_points[<span class="dv">4</span>]))</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="fu">glue</span>(<span class="st">&quot;https://cordis.europa.eu/data/&quot;</span>,</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;{end_points[5]}&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(<span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, end_points[<span class="dv">5</span>]))</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="fu">glue</span>(<span class="st">&quot;https://cordis.europa.eu/data/&quot;</span>,</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;{end_points[6]}&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(<span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, end_points[<span class="dv">6</span>]))</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="co"># updated 18 Jan 2022 ----</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;https://cordis.europa.eu/data/cordis-fp7projects-csv.zip&quot;</span> <span class="sc">%&gt;%</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">HEAD</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">headers</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">&quot;last-modified&quot;</span>)</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;https://cordis.europa.eu/data/cordis-h2020projects-csv.zip&quot;</span> <span class="sc">%&gt;%</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">HEAD</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">headers</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">&quot;last-modified&quot;</span>)</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;https://cordis.europa.eu/data/cordis-fp7projects-csv.zip&quot;</span> <span class="sc">%&gt;%</span></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(<span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;cordis-fp7projects-csv.zip&quot;</span>))</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;https://cordis.europa.eu/data/cordis-h2020projects-csv.zip&quot;</span> <span class="sc">%&gt;%</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(<span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;cordis-h2020projects-csv.zip&quot;</span>))</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span>(</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;cordis-fp7projects-csv.zip&quot;</span>),</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>  <span class="at">exdir =</span> <span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;fp7&quot;</span>)</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span>(</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;cordis-h2020projects-csv.zip&quot;</span>),</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>  <span class="at">exdir =</span> <span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;h2020&quot;</span>)</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="co"># clanup</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(end_points)</span></code></pre></div>
 </div>
 <div id="collecting-dashboard-data" class="section level2">
 <h2>Collecting Dashboard Data</h2>
@@ -328,173 +501,294 @@ downloading the raw data automatically. The data can nevertheless be
 exported manually.</p>
 <div id="gathering-projects" class="section level3">
 <h3>Gathering Projects</h3>
-<pre class="r"><code>fp7_dashboard &lt;- here(&quot;data-raw&quot;, &quot;fp7-projects.xlsx&quot;) %&gt;%
-  read_excel() %&gt;%
-  clean_names() %&gt;%
-  select(
-    project_id = project_nbr,
-    thematic_priority = thematic_priority_descr,
-    topic_code,
-    topic_description,
-    participations
-  )
-
-h2020_dashboard &lt;- here(&quot;data-raw&quot;, &quot;h2020-projects.xlsx&quot;) %&gt;%
-  read_excel() %&gt;%
-  clean_names() %&gt;%
-  select(
-    project_id = project_nbr,
-    thematic_priority = thema,
-    topic_code,
-    topic_description,
-    participations = h2020_participations
-  )
-
-projects_dashboard &lt;-
-  fp7_dashboard %&gt;%
-  bind_rows(h2020_dashboard)
-
-projects_cordis &lt;-
-  read_csv2(here(&quot;data-raw&quot;, &quot;fp7&quot;, &quot;csv&quot;, &quot;project.csv&quot;)) %&gt;%
-  bind_rows(read_csv2(here(&quot;data-raw&quot;, &quot;h2020&quot;, &quot;csv&quot;, &quot;project.csv&quot;))) %&gt;%
-  clean_names() %&gt;%
-  select(
-    project_id = id,
-    rcn,
-    proj_acronym = acronym,
-    start_date,
-    end_date,
-    legal_basis,
-    framework_programme,
-    funding_scheme
-  )
-
-projects &lt;- projects_cordis %&gt;%
-  left_join(projects_dashboard, by = &quot;project_id&quot;)
-
-rm(fp7_dashboard, h2020_dashboard, projects_dashboard, projects_cordis)</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dashboard data (FP7, H2020 only) ----</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>h2020_dashboard <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;h2020-projects.xlsx&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_excel</span>(<span class="at">guess_max =</span> <span class="dv">20000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">project_id =</span> project_nbr,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    project_acronym,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">thematic_priority =</span> thema,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    topic_code,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    topic_description,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">participations =</span> h2020_participations) <span class="sc">%&gt;%</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">framework_programme =</span> <span class="st">&quot;H2020&quot;</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>fp7_dashboard <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;fp7-projects.xlsx&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_excel</span>(<span class="at">guess_max =</span> <span class="dv">20000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">project_id =</span> project_nbr,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    project_acronym,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">thematic_priority =</span> thematic_priority_descr,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    topic_code,</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    topic_description,</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    participations) <span class="sc">%&gt;%</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">framework_programme =</span> <span class="st">&quot;FP7&quot;</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>projects_dashboard <span class="ot">&lt;-</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  fp7_dashboard <span class="sc">%&gt;%</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(h2020_dashboard)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co"># CORDIS data ----</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co"># reconcile schemas (using latest schema as reference )</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>projects_cordis_h2020 <span class="ot">&lt;-</span> </span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv2</span>(<span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;h2020&quot;</span>, <span class="st">&quot;csv&quot;</span>, <span class="st">&quot;project.csv&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">contentUpdateDate =</span> <span class="fu">as.Date</span>(contentUpdateDate))</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>projects_cordis_fp7 <span class="ot">&lt;-</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">read_csv2</span>(<span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;fp7&quot;</span>, <span class="st">&quot;csv&quot;</span>, <span class="st">&quot;project.csv&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">contentUpdateDate =</span> <span class="fu">as.Date</span>(contentUpdateDate),</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">ecSignatureDate =</span> <span class="fu">as.Date</span>(ecSignatureDate), <span class="co"># missing</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">masterCall =</span> <span class="fu">as.character</span>(masterCall)) <span class="co"># missing</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>projects_cordis <span class="ot">&lt;-</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  projects_cordis_fp7 <span class="sc">%&gt;%</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(projects_cordis_h2020) <span class="sc">%&gt;%</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">project_id =</span> id,</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    start_date,</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    end_date,</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>    legal_basis,</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>    funding_scheme)</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>projects <span class="ot">&lt;-</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>  projects_dashboard <span class="sc">%&gt;%</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(projects_cordis, <span class="at">by =</span> <span class="st">&quot;project_id&quot;</span>)</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="co"># cleanup</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>  fp7_dashboard,</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>  h2020_dashboard,</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>  projects_dashboard,</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>  projects_cordis,</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>  projects_cordis_fp7,</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>  projects_cordis_h2020</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Unfortunately, FP6 data are very incomplete. Individual contribution
+details are provided in 2,621 (out of 75,241) cases only.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>projects_cordis_fp6 <span class="ot">&lt;-</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">read_csv2</span>(<span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;cordis-fp6projects.csv&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">project_id =</span> id,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    rcn,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">proj_acronym =</span> acronym,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    start_date,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    end_date,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">legal_basis =</span> call,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    framework_programme,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    funding_scheme</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>organizations_cordis_fp6 <span class="ot">&lt;-</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_tsv</span>(<span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;cordis-fp6organizations.csv&quot;</span>))</span></code></pre></div>
 </div>
 <div id="gathering-participations" class="section level3">
 <h3>Gathering Participations</h3>
-<pre class="r"><code>organizations_cordis &lt;-
-  read_csv2(here(&quot;data-raw&quot;, &quot;fp7&quot;, &quot;csv&quot;, &quot;organization.csv&quot;)) %&gt;%
-  bind_rows(read_csv2(here(
-    &quot;data-raw&quot;, &quot;h2020&quot;, &quot;csv&quot;, &quot;organization.csv&quot;
-  ))) %&gt;%
-  clean_names() %&gt;%
-  select(
-    project_id,
-    project_acronym,
-    pic = organisation_id,
-    legal_name = name,
-    legal_short_name = short_name,
-    legal_entity_type = activity_type,
-    country_code = country,
-    legal_url = organization_url,
-    partner_role = role,
-    ec_contribution,
-    net_ec_contribution
-  ) %&gt;%
-  mutate(
-    net_ec_contribution = if_else(
-      !is.na(net_ec_contribution), net_ec_contribution, ec_contribution))
-
-h2020_dashboard &lt;- here(&quot;data-raw&quot;, &quot;horizon2020.xlsx&quot;) %&gt;%
-  read_excel() %&gt;%
-  clean_names() %&gt;%
-  select(
-    project_id = project_nbr,
-    pic = general_pic,
-    partner_role,
-    pillar_abbr,
-    pillar_descr,
-    thematic_priority_abbr,
-    signature_date,
-    call_deadline_date,
-    eu_contribution
-  ) %&gt;%
-  mutate(partner_role = str_to_lower(partner_role))
-
-organizations &lt;- organizations_cordis %&gt;%
-  left_join(h2020_dashboard,
-    by = c(&quot;project_id&quot;, &quot;pic&quot;, &quot;partner_role&quot;)
-  )
-
-rm(organizations_cordis, h2020_dashboard)</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>organizations_cordis_h2020 <span class="ot">&lt;-</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv2</span>(<span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;h2020&quot;</span>, <span class="st">&quot;csv&quot;</span>, <span class="st">&quot;organization.csv&quot;</span>), <span class="at">guess_max =</span> <span class="dv">100000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>contentUpdateDate, <span class="sc">-</span>SME, <span class="sc">-</span>nutsCode, <span class="sc">-</span>endOfParticipation, <span class="sc">-</span>active, <span class="sc">-</span>totalCost, <span class="sc">-</span>rcn)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>organizations_cordis_fp7 <span class="ot">&lt;-</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv2</span>(<span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;fp7&quot;</span>, <span class="st">&quot;csv&quot;</span>, <span class="st">&quot;organization.csv&quot;</span>), <span class="at">guess_max =</span> <span class="dv">130000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>contentUpdateDate, <span class="sc">-</span>SME, <span class="sc">-</span>nutsCode, <span class="sc">-</span>endOfParticipation, <span class="sc">-</span>active, <span class="sc">-</span>totalCost, <span class="sc">-</span>rcn)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>organizations_cordis <span class="ot">&lt;-</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  organizations_cordis_fp7 <span class="sc">%&gt;%</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(organizations_cordis_h2020) <span class="sc">%&gt;%</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    project_id,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">pic =</span> organisation_id,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">legal_name =</span> name,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">legal_short_name =</span> short_name,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">legal_entity_type =</span> activity_type,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">country_code =</span> country,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">legal_url =</span> organization_url,</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">partner_role =</span> role,</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    ec_contribution,</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    net_ec_contribution)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ! 3 cases where (project_id, pic) appear 2x w/ different partner_role</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>organizations_dashboard_h2020 <span class="ot">&lt;-</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;horizon2020.xlsx&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_excel</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">project_id =</span> project_nbr,</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">pic =</span> general_pic,</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    partner_role,</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    pillar_abbr,</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    pillar_descr,</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    thematic_priority_abbr,</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    signature_date,</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    call_deadline_date,</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    eu_contribution</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">partner_role =</span> <span class="fu">str_to_lower</span>(partner_role))</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>organizations <span class="ot">&lt;-</span> organizations_cordis <span class="sc">%&gt;%</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(organizations_dashboard_h2020,</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;project_id&quot;</span>, <span class="st">&quot;pic&quot;</span>, <span class="st">&quot;partner_role&quot;</span>))</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(organizations_cordis, organizations_dashboard_h2020)</span></code></pre></div>
 </div>
 <div id="combining-project-and-participation-data"
 class="section level3">
 <h3>Combining project and participation data</h3>
-<pre class="r"><code>df_raw &lt;- organizations %&gt;%
-  left_join(projects, by = &quot;project_id&quot;)
-
-# download CORDIS country codes
-country_codes &lt;-
-  &quot;https://cordis.europa.eu/data/reference/cordisref-countries.csv&quot; %&gt;%
-  read_csv2() %&gt;%
-  clean_names() %&gt;%
-  filter(language == &quot;en&quot;) %&gt;%
-  distinct(eu_code, name) %&gt;%
-  rename(country_code = eu_code, country = name)
-
-df_raw &lt;- df_raw %&gt;%
-  mutate(
-    # rename role
-    partner_role = str_to_title(partner_role),
-    pillar = str_extract(pillar_abbr, &quot;\\d&quot;),
-    pillar = if_else(pillar_abbr == &quot;EU.0.&quot;, &quot;Cross-theme&quot;, pillar),
-    pillar = if_else(pillar_abbr == &quot;Euratom&quot;, pillar_abbr, pillar),
-    legal_entity_type = str_sub(legal_entity_type, 1, 3),
-    # import EU contribution
-    eu_contribution = str_replace(eu_contribution, fixed(&quot;-&quot;), &quot;0&quot;),
-    eu_contribution = as.numeric(eu_contribution),
-    # reconcile FP7 and H2020 contribution data
-    re_contribution = if_else(
-      is.na(eu_contribution), ec_contribution, eu_contribution),
-    # country code
-    country_code = str_sub(country_code, 1, 2),
-    country_code = str_replace(country_code, &quot;KO&quot;, &quot;XK&quot;),
-    # import dates
-    signature_date = as.Date(signature_date, format = &quot;%d/%m/%Y&quot;),
-    call_deadline_date = as.Date(call_deadline_date, format = &quot;%d/%m/%Y&quot;),
-    signature_year = str_sub(signature_date, 1, 4),
-    call_year = str_sub(call_deadline_date, 1, 4),
-    start_year = str_sub(start_date, 1, 4),
-    signature_year = int(signature_year),
-    call_year = int(call_year),
-    start_year = int(start_year)) %&gt;%
-  left_join(country_codes, by = &quot;country_code&quot;) %&gt;%
-  filter(!is.na(start_date))</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dfsample <span class="ot">&lt;-</span> organizations <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(net_ec_contribution)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">10000</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  dfsample<span class="sc">$</span>ec_contribution,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  dfsample<span class="sc">$</span>eu_contribution,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;p&quot;</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> .<span class="dv">5</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">log =</span> <span class="st">&#39;xy&#39;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  dfsample<span class="sc">$</span>net_ec_contribution,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  dfsample<span class="sc">$</span>eu_contribution,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;p&quot;</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> .<span class="dv">5</span>,</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">log =</span> <span class="st">&#39;xy&#39;</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  dfsample<span class="sc">$</span>net_ec_contribution,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  dfsample<span class="sc">$</span>ec_contribution,</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;p&quot;</span>,</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> .<span class="dv">5</span>,</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">log =</span> <span class="st">&#39;xy&#39;</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_raw <span class="ot">&lt;-</span> organizations <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(projects, <span class="at">by =</span> <span class="st">&quot;project_id&quot;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># download CORDIS country codes</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>country_codes <span class="ot">&lt;-</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://cordis.europa.eu/data/reference/cordisref-countries.csv&quot;</span> <span class="sc">%&gt;%</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv2</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(language <span class="sc">==</span> <span class="st">&quot;en&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(eu_code, name) <span class="sc">%&gt;%</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">country_code =</span> eu_code, <span class="at">country =</span> name)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>df_raw <span class="ot">&lt;-</span> df_raw <span class="sc">%&gt;%</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">legal_entity_type =</span> <span class="fu">str_sub</span>(legal_entity_type, <span class="dv">1</span>, <span class="dv">3</span>),</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">country_code =</span> <span class="fu">str_sub</span>(country_code, <span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># rename role</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">partner_role =</span> <span class="fu">str_to_title</span>(partner_role),</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">pillar =</span> <span class="fu">str_extract</span>(pillar_abbr, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">d&quot;</span>),</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">pillar =</span> <span class="fu">if_else</span>(pillar_abbr <span class="sc">==</span> <span class="st">&quot;EU.0.&quot;</span>, <span class="st">&quot;Cross-theme&quot;</span>, pillar),</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">pillar =</span> <span class="fu">if_else</span>(pillar_abbr <span class="sc">==</span> <span class="st">&quot;Euratom&quot;</span>, pillar_abbr, pillar),</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># clean contributions</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">ec_contribution =</span> <span class="fu">str_replace</span>(ec_contribution, <span class="st">&quot;,&quot;</span>, <span class="st">&quot;.&quot;</span>),</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">ec_contribution =</span> <span class="fu">str_replace</span>(ec_contribution,</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">fixed</span>(<span class="st">&quot;xxxxx&quot;</span>), </span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>                                  <span class="cn">NA_character_</span>),</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">eu_contribution =</span> <span class="fu">str_replace</span>(eu_contribution, <span class="fu">fixed</span>(<span class="st">&quot;-&quot;</span>), <span class="st">&quot;0&quot;</span>),</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">ec_contribution =</span> <span class="fu">as.numeric</span>(ec_contribution),</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">net_ec_contribution =</span> <span class="fu">as.numeric</span>(net_ec_contribution),</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">eu_contribution =</span> <span class="fu">as.numeric</span>(eu_contribution),</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># reconcile FP7 and H2020 contribution data</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">re_contribution =</span> eu_contribution,</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">re_contribution =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(re_contribution),</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>                              net_ec_contribution,</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>                              re_contribution),</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">re_contribution =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(re_contribution),</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>                              ec_contribution,</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>                              re_contribution),</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    <span class="co"># country code</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">country_code =</span> <span class="fu">str_replace</span>(country_code, <span class="st">&quot;KO&quot;</span>, <span class="st">&quot;XK&quot;</span>),</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># import dates</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">signature_date =</span> <span class="fu">as.Date</span>(signature_date, <span class="at">format =</span> <span class="st">&quot;%d/%m/%Y&quot;</span>),</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">call_deadline_date =</span> <span class="fu">as.Date</span>(call_deadline_date, <span class="at">format =</span> <span class="st">&quot;%d/%m/%Y&quot;</span>),</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">signature_year =</span> <span class="fu">str_sub</span>(signature_date, <span class="dv">1</span>, <span class="dv">4</span>),</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">call_year =</span> <span class="fu">str_sub</span>(call_deadline_date, <span class="dv">1</span>, <span class="dv">4</span>),</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">start_year =</span> <span class="fu">str_sub</span>(start_date, <span class="dv">1</span>, <span class="dv">4</span>),</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">signature_year =</span> <span class="fu">int</span>(signature_year),</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">call_year =</span> <span class="fu">int</span>(call_year),</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">start_year =</span> <span class="fu">int</span>(start_year)</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(country_codes, <span class="at">by =</span> <span class="st">&quot;country_code&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(start_date))</span></code></pre></div>
+</div>
+<div id="raw-data" class="section level3">
+<h3>Raw Data</h3>
+<p>The raw data set contains NULL rows with the following
+attributes:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df_raw <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<pre><code>FALSE Rows: 100
+FALSE Columns: 32
+FALSE $ project_id             &lt;dbl&gt; 201413, 654808, 899417, 731148, 328421, 266723,…
+FALSE $ pic                    &lt;dbl&gt; 999531748, 996383904, 999654744, 999977851, 998…
+FALSE $ legal_name             &lt;chr&gt; &quot;QUEENSLAND INSTITUTE OF MEDICAL RESEARCH&quot;, &quot;YA…
+FALSE $ legal_short_name       &lt;chr&gt; &quot;QIMR&quot;, &quot;YALE UNIVERSITY&quot;, &quot;REGIONH&quot;, &quot;NTNU&quot;, &quot;…
+FALSE $ legal_entity_type      &lt;chr&gt; &quot;REC&quot;, &quot;HES&quot;, &quot;PUB&quot;, &quot;HES&quot;, &quot;REC&quot;, &quot;HES&quot;, &quot;PRC&quot;…
+FALSE $ country_code           &lt;chr&gt; &quot;AU&quot;, &quot;US&quot;, &quot;DK&quot;, &quot;NO&quot;, &quot;PT&quot;, &quot;ES&quot;, &quot;IT&quot;, &quot;DE&quot;,…
+FALSE $ legal_url              &lt;chr&gt; &quot;www.qimr.edu.au&quot;, NA, &quot;http://www.regionh.dk&quot;,…
+FALSE $ partner_role           &lt;chr&gt; &quot;Participant&quot;, &quot;Partner&quot;, &quot;Participant&quot;, &quot;Parti…
+FALSE $ ec_contribution        &lt;dbl&gt; NA, NA, 164166.2, 1169155.0, 202630.0, 25000.0,…
+FALSE $ net_ec_contribution    &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, 0.0, 103503.8, …
+FALSE $ pillar_abbr            &lt;chr&gt; NA, NA, &quot;EU.1.&quot;, &quot;EU.3.&quot;, NA, NA, &quot;EU.1.&quot;, &quot;EU.…
+FALSE $ pillar_descr           &lt;chr&gt; NA, NA, &quot;Excellent Science&quot;, &quot;Societal Challeng…
+FALSE $ thematic_priority_abbr &lt;chr&gt; NA, NA, &quot;FET&quot;, &quot;ENERGY&quot;, NA, NA, &quot;MSCA&quot;, &quot;MSCA&quot;…
+FALSE $ signature_date         &lt;date&gt; NA, NA, 2020-07-28, 2016-11-10, NA, NA, 2014-1…
+FALSE $ call_deadline_date     &lt;date&gt; NA, NA, 2019-09-18, 2016-04-05, NA, NA, 2014-0…
+FALSE $ eu_contribution        &lt;dbl&gt; NA, NA, 164166.2, 1169155.0, NA, NA, 258061.3, …
+FALSE $ project_acronym        &lt;chr&gt; &quot;ENGAGE&quot;, &quot;PSYCHOCONTEXT&quot;, &quot;CIRCULAR VISION&quot;, &quot;…
+FALSE $ thematic_priority      &lt;chr&gt; &quot;Health&quot;, &quot;Marie Sklodowska-Curie actions&quot;, &quot;Fu…
+FALSE $ topic_code             &lt;chr&gt; &quot;HEALTH-2007-2.1.1-2&quot;, &quot;MSCA-IF-2014-GF&quot;, &quot;FETO…
+FALSE $ topic_description      &lt;chr&gt; &quot;Molecular epidemiological studies in existing …
+FALSE $ participations         &lt;dbl&gt; 26, 2, 8, 21, 1, 13, 14, 1, 20, 29, 10, 4, 1, 1…
+FALSE $ framework_programme    &lt;chr&gt; &quot;FP7&quot;, &quot;H2020&quot;, &quot;H2020&quot;, &quot;H2020&quot;, &quot;FP7&quot;, &quot;FP7&quot;,…
+FALSE $ start_date             &lt;date&gt; 2008-01-01, 2016-06-01, 2020-10-01, 2017-01-01…
+FALSE $ end_date               &lt;date&gt; 2012-12-31, 2019-07-05, 2024-03-31, 2019-12-31…
+FALSE $ legal_basis            &lt;chr&gt; &quot;FP7-HEALTH&quot;, NA, NA, NA, &quot;FP7-PEOPLE&quot;, &quot;FP7-IC…
+FALSE $ funding_scheme         &lt;chr&gt; &quot;CP-IP&quot;, &quot;MSCA-IF-GF&quot;, &quot;RIA&quot;, &quot;IA&quot;, &quot;MC-IIF&quot;, &quot;…
+FALSE $ pillar                 &lt;chr&gt; NA, NA, &quot;1&quot;, &quot;3&quot;, NA, NA, &quot;1&quot;, &quot;1&quot;, NA, NA, NA,…
+FALSE $ re_contribution        &lt;dbl&gt; NA, NA, 164166.2, 1169155.0, 202630.0, 25000.0,…
+FALSE $ signature_year         &lt;int&gt; NA, NA, 2020, 2016, NA, NA, 2014, 2019, NA, NA,…
+FALSE $ call_year              &lt;int&gt; NA, NA, 2019, 2016, NA, NA, 2014, 2018, NA, NA,…
+FALSE $ start_year             &lt;int&gt; 2008, 2016, 2020, 2017, 2013, 2010, 2015, 2019,…
+FALSE $ country                &lt;chr&gt; &quot;Australia&quot;, &quot;United States&quot;, &quot;Denmark&quot;, &quot;Norwa…</code></pre>
 </div>
 </div>
 <div id="exporting-data-for-analysis" class="section level2">
 <h2>Exporting data for analysis</h2>
-<pre class="r"><code># store data types
-df_schema &lt;- df_raw %&gt;%
-  map_chr(class)
-
-# split CSV by year
-df_years &lt;-
-  df_raw %&gt;%
-  distinct(start_year) %&gt;%
-  pull() %&gt;%
-  sort()
-df_raw &lt;- df_raw %&gt;%
-  arrange(start_year) %&gt;%
-  group_by(start_year) %&gt;%
-  group_split() %&gt;%
-  setNames(df_years)
-
-# write to ./data/
-file_names &lt;- here(&quot;data&quot;, glue(&quot;cordis-plus-{df_years}.csv&quot;))
-walk2(df_raw, file_names, vroom_write, delim = &quot;,&quot;)
-write_yaml(df_schema, here(&quot;data&quot;, &quot;schema-cordis-plus.yml&quot;))</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># store data types</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df_schema <span class="ot">&lt;-</span> df_raw <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_chr</span>(class)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># split CSV by year</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>df_years <span class="ot">&lt;-</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  df_raw <span class="sc">%&gt;%</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(start_year) <span class="sc">%&gt;%</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span>()</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>df_raw <span class="ot">&lt;-</span> df_raw <span class="sc">%&gt;%</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(start_year) <span class="sc">%&gt;%</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(start_year) <span class="sc">%&gt;%</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_split</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(df_years)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co"># write to ./data/</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>file_names <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="fu">glue</span>(<span class="st">&quot;cordis-plus-{df_years}.csv&quot;</span>))</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="fu">walk2</span>(df_raw, file_names, vroom_write, <span class="at">delim =</span> <span class="st">&quot;,&quot;</span>)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="fu">write_yaml</span>(df_schema, <span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;schema-cordis-plus.yml&quot;</span>))</span></code></pre></div>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -526,41 +820,7 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("show" === "show");
-});
-</script>
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

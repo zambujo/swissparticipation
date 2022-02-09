@@ -1,19 +1,11 @@
 ---
-title: "Reproducibility analylsis of the SERI figures"
-subtitle: "On the Swiss Participation in the EU-Framework Programmes for Research and Innovation"
-author: "João Martins"
+title: "FP7 & H2020 Figures"
 output: 
-  html_document: 
-    theme: cerulean
-    code_folding: hide
-    toc: true
-    toc_float: true
-    self_contained: false
-editor_options: 
-  chunk_output_type: console
+  html_document:
+    self_contained: no
 ---
 
-```{r boilerplate, message=FALSE, warning=FALSE, comment = FALSE}
+```{r boilerplate, include=FALSE}
 # source code: https://github.com/zambujo/swissparticipation
 library(tidyverse)
 library(vroom)
@@ -27,11 +19,10 @@ library(ggsci)
 library(ggrepel)
 library(ggtext)
 library(kableExtra)
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, comment = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, comment = FALSE)
 source(here("R", "utils.R"))
 ```
 
-> Pease find related statistics on the SERI's page: [Facts and Figures on the Swiss Participation in the EU-Framework Programmes for Research and Innovation](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html).
 
 ```{r read-dashboard-data}
 df_schema <- here("data", "schema-cordis-plus.yml") %>%
@@ -62,7 +53,7 @@ df <- df_raw %>%
     filter(legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH")
 ```
 
-## Overview  {.tabset .tabset-fade .tabset-pills}
+## An Overview of Swiss Participation  {.tabset .tabset-fade .tabset-pills}
 
 ```{r plot-styling}
 bar_plt <- function(plt) {
@@ -318,97 +309,3 @@ df %>%
   kbl()
 ```
 
-## H2020 Figures {.tabset .tabset-fade .tabset-pills}
-
-The below *Figure 4* updates [Figure 17 in page 30](https://www.sbfi.admin.ch/dam/sbfi/en/dokumente/webshop/2018/ch-frp.pdf.download.pdf/ch_beteiligung_frp_e.pdf#page=30). *Figure 4 (Original)* corresponds to the latest update provided in the [SERI page](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html). *Figure 4 (Updated)* shows the latest H2020 dashboard data.  (Only the 20 top participation areas are shown.)
-
-### Figure 4 (Original)
-
-![](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation/_jcr_content/par/accordion_16708559/items/abbildung_4_beitr_ge/accordionpar/image_896504598/image.imagespooler.png/1629209007946/abb4_en.png "SERI Figure 4. Funding under by programme area (CHF m), in relation to total funding")
-
-### Figure 4 (Updated)
-
-```{r fig-four, fig.asp=1.5}
-get_contrib_area <- function(x) {
-  x <- x %>% 
-    filter(framework_programme == "H2020") %>%
-    filter(!is.na(thematic_priority_abbr))
-
-  to_all <- x %>%
-    group_by(Area = thematic_priority_abbr) %>%
-    summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
-    mutate(
-      share = contrib / sum(contrib),
-      context = "Total")
-  to_ch <- x %>%
-    filter(country_code == "CH") %>%
-    group_by(Area = thematic_priority_abbr) %>%
-    summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
-    mutate(
-      share = contrib / sum(contrib),
-      context = "CH")
-  bind_rows(to_all, to_ch)
-}
-
-pal <- c("#B91646", "#DFD8CA") %>% rev()
-
-pillar_area_lookup <- df %>%
-  filter(framework_programme == "H2020") %>%
-  count(Pillar = pillar, Area = thematic_priority_abbr) %>%
-  filter(!is.na(Area)) %>%
-  select(-n)
-
-area_labels <- df %>%
-  get_contrib_area() %>%
-  filter(context == "CH") %>%
-  left_join(pillar_area_lookup, by = "Area") %>%
-  arrange(desc(contrib)) %>%
-  slice_head(n = 20) %>%
-  arrange(desc(Pillar), desc(contrib)) %>%
-  select(Area)
-
-contribs <- df %>%
-  get_contrib_area() %>%
-  select(-share) %>%
-  mutate(
-    contrib = round(1e-6 * contrib, 1),
-    contrib = format(contrib, big.mark = ",", decimal.mark = ".", trim = TRUE))
-
-area_labels %>%
-  left_join(get_contrib_area(df), by = "Area") %>%
-  select(-contrib) %>%
-  pivot_wider(names_from = context, values_from = share) %>%
-  pivot_longer(cols = c("Total", "CH"), names_to = "context", values_to = "share") %>%
-  left_join(contribs, by = c("Area", "context")) %>%
-  mutate(
-    context = str_replace(context, "CH", "Switzerland"),
-    Area = str_remove(Area, "LEIT-"),
-    Area = str_remove(Area, "INNOSUP"),
-    Area = fct_inorder(Area),
-    Area = fct_rev(Area)) %>%
-  ggplot(aes(x = Area, y = share, fill = fct_rev(context))) +
-  geom_bar(stat = "identity", width = .7, position = "dodge") +
-  geom_text(
-    aes(label = contrib),
-    position = position_dodge(width = .9),
-    hjust = -.25,
-    size = 3.5,
-    family = "Gill Sans"
-  ) +
-  coord_flip() +
-  scale_fill_manual(values = pal, guide = guide_legend(reverse = TRUE)) +
-  scale_y_continuous(labels = percent_format(accuracy = 1), expand = c(.1, 0)) +
-  theme_minimal() +
-  labs(
-    title = "Funding by Programme Area Under H2020",
-    subtitle = "Values in MioEUR")+
-  theme(
-    text = element_text(size = 14, family = "Gill Sans", color = "gray10"),
-    plot.title.position = "plot",
-    legend.position = "top",
-    legend.title = element_blank(),
-    panel.grid.major.y = element_blank(),
-    axis.title.x = element_blank(),
-    axis.title.y = element_blank(),
-    axis.text.y = element_text(margin = margin(0,-25,0,0)))
-```

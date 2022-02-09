@@ -1,0 +1,23 @@
+name: "ch-fp-participation"
+description: |
+  Swiss Participation in FP7 and Horizon 2020
+output_dir: "../docs"
+navbar:
+  title: "Swiss FP Participation Figures"
+  type: inverse
+  left:
+    - text: "H2020"
+      href: swiss-participation.html
+    - text: "FP7 & H2020"
+      href: seri-figures.html
+    - text: "Data"
+      href: data-gathering.html
+  right:
+    - icon: fa-github fa-lg
+      href: https://github.com/zambujo/swissparticipation
+output:
+  html_document:
+    self_contained: no
+    theme: cosmo
+    highlight: tango
+    toc: false

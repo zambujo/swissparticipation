@@ -1,0 +1,44 @@
+---
+title: "Swiss Participation in FP7 and Horizon 2020"
+output:
+  html_document:
+    toc: false
+---
+
+```{r, include=FALSE, results='asis'}
+library(metathis)
+meta() %>%
+  meta_description(
+    "Swiss Participation in FP7 and Horizon 2020"
+  ) %>% 
+  meta_name("github-repo" = "zambujo/swissparticipation") %>% 
+  meta_viewport() %>% 
+  meta_social(
+    title = "Switzerland in FP7&H2020",
+    url = "https://zambujo.github.io/swissparticipation",
+    image = "https://zambujo.github.io/assets/images/treemap.jpg",
+    image_alt = "CH H2020 Participation",
+    og_type = "website",
+    og_author = "João Martins",
+    twitter_card_type = "summary",
+    twitter_creator = "@whereisjoao"
+  )
+```
+
+<!-- badges: start -->
+[![](https://img.shields.io/github/watchers/zambujo/swissparticipation?style=social)](https://github.com/zambujo/swissparticipation)
+[![](https://img.shields.io/github/issues/zambujo/swissparticipation)](https://github.com/zambujo/swissparticipation/issues)
+<!-- badges: end -->
+
+<div class="row" style="padding-top: 30px;">
+<div class="col-sm-12">
+
+A portrait of the participation of Switzerland in FP7 and Horizon 2020 using [data.europa.eu](https://data.europa.eu) public datasets.
+
+<br />
+<br />
+
+> For official statistics, please visit [Facts and Figures on the Swiss Participation in the EU-Framework Programmes for Research and Innovation](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html).
+
+</div></div>
+

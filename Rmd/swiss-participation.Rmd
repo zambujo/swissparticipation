@@ -1,19 +1,11 @@
 ---
 title: "Swiss Participation in Horizon 2020"
-author: "João Martins"
 output: 
-  html_document: 
-    theme: cerulean
-    code_folding: hide
-    toc: true
-    toc_float: true
-    self_contained: false
-editor_options: 
-  chunk_output_type: console
+  html_document:
+    self_contained: no
 ---
 
-```{r boilerplate, message=FALSE, warning=FALSE}
-# source code: https://github.com/zambujo/swissparticipation
+```{r boilerplate, include=FALSE}
 library(tidyverse)
 library(vroom)
 library(janitor)
@@ -26,20 +18,9 @@ library(ggsci)
 library(ggrepel)
 library(ggtext)
 library(reactable)
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, comment = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, comment = FALSE)
 source(here("R", "utils.R"))
 ```
-
-<!-- badges: start -->
-[![](https://img.shields.io/github/watchers/zambujo/swissparticipation?style=social)](https://github.com/zambujo/swissparticipation)
-[![](https://img.shields.io/github/issues/zambujo/swissparticipation)](https://github.com/zambujo/swissparticipation/issues)
-<!-- badges: end -->
-
-> Pease find related statistics on the SERI's page: [Facts and Figures on the Swiss Participation in the EU-Framework Programmes for Research and Innovation](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html).
-
-## Data
-
-Source: [**Horizon 2020 Dashboard data**](https://webgate.ec.europa.eu/dashboard/single/?appid=93297a69-09fd-4ef5-889f-b83c4e21d33e&sheet=c616ed33-064c-40c0-803a-e75045b78c05), last updated on 2021-12-06 (see [Annex: Raw Data](#raw-data)).
 
 ```{r read-dashboard-data}
 df_schema <- here("data", "schema-cordis-plus.yml") %>%
@@ -68,7 +49,7 @@ df <- df_raw %>%
   filter(legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH")
 ```
 
-## Total EU Contribution by Pillar: All Countries
+## Total EU Contribution by Pillar (All Countries)
 
 ```{r overview-pillar, eval=FALSE}
 ggp <- df %>%
@@ -113,6 +94,7 @@ ggsave("budget-allocation.svg",
 ```
 
 ![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/budget-allocation.svg "Total EU contribution to the different pillars in H2020.")
+
 
 ## Top Participating Countries
 
@@ -344,7 +326,102 @@ Treemap showing the overall H2020 EU contribution (MEUR) to Switzerland by Pilla
 
 ![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-ch.svg "H2020 EU contribution to Swiss participants, by pillar and thematic priority.")
 
-### Swiss Participation by Sector
+## Alternative representation {.tabset .tabset-fade .tabset-pills}
+
+The below *Figure 4* updates [Figure 17 in page 30](https://www.sbfi.admin.ch/dam/sbfi/en/dokumente/webshop/2018/ch-frp.pdf.download.pdf/ch_beteiligung_frp_e.pdf#page=30). **Figure 4 (Original)** is the latest update provided in the [SERI page](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html). **Figure 4 (Updated)** shows the latest H2020 dashboard data. (For comparison, only the 20 top participation areas are shown.)
+
+### Figure 4 (Original)
+
+![](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation/_jcr_content/par/accordion_16708559/items/abbildung_4_beitr_ge/accordionpar/image_896504598/image.imagespooler.png/1629209007946/abb4_en.png "SERI Figure 4. Funding under by programme area (CHF m), in relation to total funding")
+
+### Figure 4 (Updated)
+
+```{r fig-four, fig.asp=1.5}
+get_contrib_area <- function(x) {
+  x <- x %>% 
+    filter(framework_programme == "H2020") %>%
+    filter(!is.na(thematic_priority_abbr))
+
+  to_all <- x %>%
+    group_by(Area = thematic_priority_abbr) %>%
+    summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
+    mutate(
+      share = contrib / sum(contrib),
+      context = "Total")
+  to_ch <- x %>%
+    filter(country_code == "CH") %>%
+    group_by(Area = thematic_priority_abbr) %>%
+    summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
+    mutate(
+      share = contrib / sum(contrib),
+      context = "CH")
+  bind_rows(to_all, to_ch)
+}
+
+pal <- c("#B91646", "#DFD8CA") %>% rev()
+
+pillar_area_lookup <- df %>%
+  filter(framework_programme == "H2020") %>%
+  count(Pillar = pillar, Area = thematic_priority_abbr) %>%
+  filter(!is.na(Area)) %>%
+  select(-n)
+
+area_labels <- df %>%
+  get_contrib_area() %>%
+  filter(context == "CH") %>%
+  left_join(pillar_area_lookup, by = "Area") %>%
+  arrange(desc(contrib)) %>%
+  slice_head(n = 20) %>%
+  arrange(desc(Pillar), desc(contrib)) %>%
+  select(Area)
+
+contribs <- df %>%
+  get_contrib_area() %>%
+  select(-share) %>%
+  mutate(
+    contrib = round(1e-6 * contrib, 1),
+    contrib = format(contrib, big.mark = ",", decimal.mark = ".", trim = TRUE))
+
+area_labels %>%
+  left_join(get_contrib_area(df), by = "Area") %>%
+  select(-contrib) %>%
+  pivot_wider(names_from = context, values_from = share) %>%
+  pivot_longer(cols = c("Total", "CH"), names_to = "context", values_to = "share") %>%
+  left_join(contribs, by = c("Area", "context")) %>%
+  mutate(
+    context = str_replace(context, "CH", "Switzerland"),
+    Area = str_remove(Area, "LEIT-"),
+    Area = str_remove(Area, "INNOSUP"),
+    Area = fct_inorder(Area),
+    Area = fct_rev(Area)) %>%
+  ggplot(aes(x = Area, y = share, fill = fct_rev(context))) +
+  geom_bar(stat = "identity", width = .7, position = "dodge") +
+  geom_text(
+    aes(label = contrib),
+    position = position_dodge(width = .9),
+    hjust = -.25,
+    size = 3.5,
+    family = "Gill Sans"
+  ) +
+  coord_flip() +
+  scale_fill_manual(values = pal, guide = guide_legend(reverse = TRUE)) +
+  scale_y_continuous(labels = percent_format(accuracy = 1), expand = c(.1, 0)) +
+  theme_minimal() +
+  labs(
+    title = "Funding by Programme Area Under H2020",
+    subtitle = "Values in MioEUR")+
+  theme(
+    text = element_text(size = 14, family = "Gill Sans", color = "gray10"),
+    plot.title.position = "plot",
+    legend.position = "top",
+    legend.title = element_blank(),
+    panel.grid.major.y = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    axis.text.y = element_text(margin = margin(0,-25,0,0)))
+```
+
+## Swiss Participation by Sector
 
 ```{r ch-type-role, fig.asp=.7}
 pal <- c("#B91646", "#DFD8CA") %>%
@@ -396,10 +473,6 @@ df %>%
   filter(org_type == "Research & Education") %>%
   get_participation()
 ```
-
----
-
-## Annex
 
 ### Typology of the Top-10 Participating Countries
 
@@ -622,6 +695,9 @@ df %>%
   )
 ```
 
+---
+
+## Annex
 
 ### CERN
 
@@ -643,13 +719,4 @@ df_raw %>%
   get_participation()
 ```
 
-### Raw Data
-
-The raw data set contains `r nrow(df) %>% format(big.mark = ",")` rows with the following attributes:
-
-```{r}
-df_raw %>%
-  sample_n(100) %>%
-  glimpse()
-```
 

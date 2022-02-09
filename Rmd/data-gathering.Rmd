@@ -1,30 +1,9 @@
 ---
 title: "Gathering FP Data for Analysis"
-author: "João Martins"
 output: 
-  html_document: 
-    theme: cerulean
-    code_folding: show
-    toc: true
-    toc_float: true
-    self_contained: false
-editor_options: 
-  chunk_output_type: console
+  html_document:
+    self_contained: no
 ---
-
-```{r boilerplate, message=FALSE, warning=FALSE, comment = FALSE}
-library(tidyverse)
-library(janitor)
-library(lubridate)
-library(here)
-library(glue)
-library(readxl)
-library(vroom)
-library(yaml)
-library(httr)
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, comment = FALSE)
-source(here("R", "utils.R"))
-```
 
 ## Data Sources
 
@@ -41,6 +20,20 @@ The raw data is available at:
  - `Everyone` ➡ `H2020 Projects` ➡ `Data Export` ➡ `Raw Data Export Sheet`, updated 2021-12-06  
 
 > Horizon Europe project details have not yet been published.
+
+```{r boilerplate, message=FALSE, warning=FALSE, comment = FALSE}
+library(tidyverse)
+library(janitor)
+library(lubridate)
+library(here)
+library(glue)
+library(readxl)
+library(vroom)
+library(yaml)
+library(httr)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, comment = FALSE)
+source(here("R", "utils.R"))
+```
 
 ## Collecting CORDIS Data
 
@@ -373,6 +366,19 @@ df_raw <- df_raw %>%
   filter(!is.na(start_date))
 
 ```
+
+
+### Raw Data
+
+The raw data set contains `r nrow(df) %>% format(big.mark = ",")` rows with the following attributes:
+
+```{r}
+df_raw %>%
+  sample_n(100) %>%
+  glimpse()
+```
+
+
 
 ## Exporting data for analysis
 
