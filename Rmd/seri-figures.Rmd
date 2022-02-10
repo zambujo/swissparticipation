@@ -59,9 +59,115 @@ df <- df_raw %>%
 ## An Overview of Swiss Participation  {.tabset .tabset-fade .tabset-pills}
 
 ```{r plot-styling}
-bar_plt <- function(plt) {
-  plt +
-  geom_col() +
+get_particip <- function(x) {
+  total <- x %>%
+    group_by(year = start_year) %>%
+    summarise(n_total = n(),
+              contrib_all = sum(re_contribution, na.rm = TRUE))
+  
+  ch <- x %>%
+    filter(country_code == "CH") %>%
+    group_by(framework_programme, year = start_year) %>%
+    summarise(n_ch = n(),
+              contrib_ch = sum(re_contribution, na.rm = TRUE))
+  
+  # coordinations
+  total2 <- x %>%
+    filter(partner_role == "Coordinator") %>%
+    count(year = start_year, name = "coord_total")
+  ch2 <- x %>%
+    filter(country_code == "CH") %>%
+    filter(partner_role == "Coordinator") %>%
+    group_by(framework_programme, year = start_year) %>%
+    summarise(coord_ch = n())
+  coord <- left_join(total2, ch2, by = "year") %>%
+    mutate(share_coord = 100 * coord_ch / coord_total)
+  
+  left_join(total, ch, by = "year") %>%
+    mutate(
+      share_particip = 100 * n_ch / n_total,
+      share_contrib = 100 * contrib_ch / contrib_all
+    ) %>%
+    left_join(coord, by = c("year", "framework_programme")) %>%
+    filter(!is.na(framework_programme))
+}
+
+get_avg_particip <- function(x) {
+  x <- x %>% 
+    filter(!is.na(framework_programme))
+  
+  total <- x %>%
+    group_by(framework_programme) %>%
+    summarise(n_total = n(),
+              contrib_all = sum(re_contribution, na.rm = TRUE))
+  ch <- x %>%
+    filter(country_code == "CH") %>%
+    group_by(framework_programme) %>%
+    summarise(n_ch = n(),
+              contrib_ch = sum(re_contribution, na.rm = TRUE))
+  
+  # coordinations
+  total2 <- x %>%
+    filter(partner_role == "Coordinator") %>%
+    count(framework_programme, name = "coord_total")
+  ch2 <- x %>%
+    filter(country_code == "CH") %>%
+    filter(partner_role == "Coordinator") %>%
+    group_by(framework_programme) %>%
+    summarise(coord_ch = n())
+  coord <- left_join(total2, ch2, by = "framework_programme") %>%
+    mutate(avg_share_coord = 100 * coord_ch / coord_total)
+  
+  left_join(total, ch, by = "framework_programme") %>%
+    mutate(
+      avg_share_particip = 100 * n_ch / n_total,
+      avg_share_contrib = 100 * contrib_ch / contrib_all
+    ) %>%
+    left_join(coord, by = c("framework_programme"))
+}
+
+participation <- get_particip(df)
+pal <- c("#6B7AA1","#11324D")
+
+get_avg_particip(df) %>%
+  select(starts_with("frame"), starts_with("avg")) %>%
+  mutate(
+    avg_share_particip = round(avg_share_particip, 2),
+    avg_share_contrib = round(avg_share_contrib, 2),
+    avg_share_coord = round(avg_share_coord, 2)
+  ) %>%
+  rename(
+    Programme = framework_programme,
+    `CH Participation (%)` = avg_share_particip,
+    `Contrib. to CH Participants (%)` = avg_share_contrib,
+    `CH Coordinations (%)` = avg_share_coord) %>%
+  reactable()
+
+```
+
+**For the official figures, please visit [SERI's page](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html).**
+
+### Share Swiss Participations
+
+```{r swiss-participations}
+participation %>%
+  ggplot(aes(x = year, y = share_particip, fill = framework_programme)) +
+  geom_bar(position = "stack", stat = "identity") + 
+  labs(
+    title = "Swiss Participation",
+    subtitle = "By project starting year, FP7 and H2020",
+    x = "Project Starting Year",
+    y = "%"
+  ) +
+  scale_fill_manual(values = pal, guide = "none") +
+  annotate(
+    "text",
+    x = c(2010, 2019),
+    y = c(3.7, 3.7),
+    col = pal,
+    label = c("FP7", "H2020"),
+    family = "Gill Sans"
+  ) + 
   theme_minimal() +
   theme(
     plot.title.position = "plot",
@@ -71,270 +177,71 @@ bar_plt <- function(plt) {
       color = "gray15"
     )
   )
-}
-
-get_particip <- function(x, in_programme = "") {
-  if (in_programme == "FP7") {
-    x <- x %>%
-      filter(framework_programme == "FP7")
-  }
-  if (in_programme == "H2020") {
-    x <- x %>%
-      filter(framework_programme == "H2020")
-  }
-  total <- x %>%
-    count(year = start_year, name = "n_total")
-  ch <- x %>%
-    filter(country_code == "CH") %>%
-    count(year = start_year, name = "n_ch")
-
-  left_join(total, ch, by = "year") %>%
-    mutate(share_particip = 100 * n_ch / n_total)
-}
-
-get_contrib <- function(x, in_programme = "") {
-  if (in_programme == "FP7") {
-    x <- x %>%
-      filter(framework_programme == "FP7")
-  }
-  if (in_programme == "H2020") {
-    x <- x %>%
-      filter(framework_programme == "H2020")
-  }
-  to_all <- x %>%
-    group_by(year = start_year) %>%
-    summarise(contrib_all = sum(re_contribution, na.rm = TRUE))
-  to_ch <- x %>%
-    filter(country_code == "CH") %>%
-    group_by(year = start_year) %>%
-    summarise(contrib_ch = sum(re_contribution, na.rm = TRUE))
-
-  left_join(to_all, to_ch, by = "year") %>%
-    mutate(share_contrib = 100 * contrib_ch / contrib_all)
-}
-
-get_coord <- function(x, in_programme = "") {
-  if (in_programme == "FP7") {
-    x <- x %>%
-      filter(framework_programme == "FP7")
-  }
-  if (in_programme == "H2020") {
-    x <- x %>%
-      filter(framework_programme == "H2020")
-  }
-  
-  all <- x %>%
-    filter(partner_role == "Coordinator") %>%
-    count(year = start_year, name = "coord_total")
-  ch <- x %>%
-    filter(country_code == "CH") %>%
-    filter(partner_role == "Coordinator") %>%
-    count(year = start_year, name = "coord_ch")
-
-  left_join(all, ch, by = "year") %>%
-    mutate(share_contrib = 100 * coord_ch / coord_total)
-}
-```
-
-**For the official figures, please visit [SERI's page](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html).**
-
-### Share Swiss Participations
-
-```{r swiss-participations}
-df %>%
-  get_particip() %>%
-  ggplot(aes(x = year, y = share_particip)) %>%
-  bar_plt() +
-  labs(
-    title = "Swiss Participation",
-    subtitle = "By project starting year, FP7 and H2020",
-    x = "Project Starting Year",
-    y = "%"
-  ) +
-  annotate(
-    "rect",
-    xmin = 2006.5,
-    xmax = 2014.5,
-    ymin = -.1,
-    ymax = 3.55,
-    fill = "#21325E",
-    alpha = .1
-  ) +
-  annotate(
-    "rect",
-    xmin = 2014.5,
-    xmax = 2022.5,
-    ymin = -.1,
-    ymax = 3.55,
-    fill = "#F1D00A",
-    alpha = .1
-  ) +
-  annotate(
-    "text",
-    x = c(2010, 2019),
-    y = c(3.65, 3.65),
-    label = c("FP7", "H2020"),
-    family = "Gill Sans"
-  )
-```
-
-#### FP7 Summary
-
-```{r swiss-participations-fp7}
-df %>%
-  get_particip(in_programme = "FP7") %>%
-  select(`CH Participations` = n_ch,
-         `Total Participations` = n_total) %>%
-  summarise_all(sum, na.rm = TRUE) %>%
-  mutate(`Average Participation (%)` = round(
-    100 * `CH Participations` / `Total Participations`, 1)) %>%
-  reactable()
-
-```
-
-#### H2020 Summary
-
-```{r swiss-participations-h2020}
-df %>%
-  get_particip(in_programme = "H2020") %>%
-  select(`CH Participations` = n_ch,
-         `Total Participations` = n_total) %>%
-  summarise_all(sum, na.rm = TRUE) %>%
-  mutate(`Average Participation (%)` = round(
-    100 * `CH Participations` / `Total Participations`, 1)) %>%
-  reactable()
 ```
 
 ### Contribution to Swiss Participants
 
 ```{r swiss-countributions}
-df %>%
-  get_contrib() %>%
-  ggplot(aes(x = year, y = share_contrib)) %>%
-  bar_plt() +
+participation %>%
+  ggplot(aes(x = year, y = share_contrib, fill = framework_programme)) +
+  geom_bar(position = "stack", stat = "identity") + 
   labs(
     title = "Contributions to Swiss Participants",
     subtitle = "By project starting year, FP7 and H2020",
     x = "Project Starting Year",
     y = "%"
   ) +
-  annotate(
-    "rect",
-    xmin = 2006.5,
-    xmax = 2014.5,
-    ymin = -.1,
-    ymax = 5.75,
-    fill = "#21325E",
-    alpha = .1
-  ) +
-  annotate(
-    "rect",
-    xmin = 2014.5,
-    xmax = 2022.5,
-    ymin = -.1,
-    ymax = 5.75,
-    fill = "#F1D00A",
-    alpha = .1
-  ) +
+  scale_fill_manual(values = pal, guide = "none") +
   annotate(
     "text",
     x = c(2010, 2019),
-    y = c(6, 6),
+    y = c(5.85, 5.85),
+    col = pal,
     label = c("FP7", "H2020"),
     family = "Gill Sans"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title.position = "plot",
+    text = element_text(
+      size = 15,
+      family = "Gill Sans",
+      color = "gray15"
+    )
   )
-```
-
-#### FP7 Summary
-
-```{r contributions-ch-fp7}
-df %>%
-  get_contrib(in_programme = "FP7") %>%
-  select(`Contribution to CH` = contrib_ch,
-         `Contribution to All` = contrib_all) %>%
-  summarise_all(sum, na.rm = TRUE) %>%
-  mutate(`Average Contribution to CH (%)` = round(
-    100 * `Contribution to CH` / `Contribution to All`, 1)) %>%
-  reactable()
-
-```
-
-#### H2020 Summary
-
-```{r contributions-ch-h2020}
-df %>%
-  get_contrib(in_programme = "H2020") %>%
-  select(`Contribution to CH` = contrib_ch,
-         `Contribution to All` = contrib_all) %>%
-  summarise_all(sum, na.rm = TRUE) %>%
-  mutate(`Average Contribution to CH (%)` = round(
-    100 * `Contribution to CH` / `Contribution to All`, 1)) %>%
-  reactable()
 ```
 
 ### Swiss Coordinations
 
 ```{r coordinations-overviews}
-df %>%
-  get_coord() %>%
-  ggplot(aes(x = year, y = share_contrib)) %>%
-  bar_plt() +
+participation %>%
+  ggplot(aes(x = year, y = share_coord, fill = framework_programme)) +
+  geom_bar(position = "stack", stat = "identity") + 
   labs(
     title = "Swiss Coordinations",
     subtitle = "By project starting year, FP7 and H2020",
     x = "Project Starting Year",
     y = "%"
   ) +
-  annotate(
-    "rect",
-    xmin = 2006.5,
-    xmax = 2014.5,
-    ymin = -.1,
-    ymax = 5.6,
-    fill = "#21325E",
-    alpha = .1
-  ) +
-  annotate(
-    "rect",
-    xmin = 2014.5,
-    xmax = 2022.5,
-    ymin = -.1,
-    ymax = 5.6,
-    fill = "#F1D00A",
-    alpha = .1
-  ) +
+  scale_fill_manual(values = pal, guide = "none") +
   annotate(
     "text",
     x = c(2010, 2019),
     y = c(5.8, 5.8),
+    col = pal,
     label = c("FP7", "H2020"),
     family = "Gill Sans"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title.position = "plot",
+    text = element_text(
+      size = 15,
+      family = "Gill Sans",
+      color = "gray15"
+    )
   )
 ```
-
-#### FP7 Summary
-
-```{r coordinations-ch-fp7}
-df %>%
-  get_coord(in_programme = "FP7") %>%
-  select(`CH Coordinations` = coord_ch, `All Coordinations` = coord_total) %>%
-  summarise_all(sum, na.rm = TRUE) %>%
-  mutate(`Average CH Coordinations (%)` = round(100 * `CH Coordinations` / `All Coordinations`, 1)) %>%
-  reactable()
-
-```
-
-#### H2020 Summary
-
-```{r coordinations-ch-h2020}
-df %>%
-  get_coord(in_programme = "H2020") %>%
-  select(`CH Coordinations` = coord_ch, `All Coordinations` = coord_total) %>%
-  summarise_all(sum, na.rm = TRUE) %>%
-  mutate(`Average CH Coordinations (%)` = round(100 * `CH Coordinations` / `All Coordinations`, 1)) %>%
-  reactable()
-```
-
 
 ## Top Participating Countries  {.tabset .tabset-fade .tabset-pills}
 
