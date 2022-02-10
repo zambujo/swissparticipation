@@ -136,7 +136,7 @@ get_coord <- function(x, in_programme = "") {
 }
 ```
 
-SERI figures show slightly higher shares of contributions to Swiss participants. They should, nevertheless, exclude the CERN, the UN, and UN-affiliated institutions.
+**For the official figures, please visit [SERI's page](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html).**
 
 ### Share Swiss Participations
 
