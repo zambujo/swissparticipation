@@ -8,7 +8,6 @@ output:
 ```{r boilerplate, include=FALSE}
 # source code: https://github.com/zambujo/swissparticipation
 library(tidyverse)
-library(vroom)
 library(janitor)
 library(lubridate)
 library(here)
@@ -18,11 +17,16 @@ library(scales)
 library(ggsci)
 library(ggrepel)
 library(ggtext)
-library(kableExtra)
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, comment = FALSE)
+library(reactable)
 source(here("R", "utils.R"))
-```
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  comment = FALSE
+)
 
+```
 
 ```{r read-dashboard-data}
 df_schema <- here("data", "schema-cordis-plus.yml") %>%
@@ -31,8 +35,7 @@ df_schema <- here("data", "schema-cordis-plus.yml") %>%
 
 df_raw <-
   list.files(here("data"), pattern = "cordis-plus-", full.names = TRUE) %>%
-  vroom(delim = ",", col_types = df_schema)
-  # map_df(read_csv2, col_types = df_schema)
+  map_df(read_csv, col_types = df_schema)
 
 df_raw <-
   df_raw %>%
@@ -175,22 +178,31 @@ df %>%
   )
 ```
 
-```{r swiss-participations-fp7, include=FALSE}
+#### FP7 Summary
+
+```{r swiss-participations-fp7}
 df %>%
   get_particip(in_programme = "FP7") %>%
-  select(n_ch, n_total) %>%
+  select(`CH Participations` = n_ch,
+         `Total Participations` = n_total) %>%
   summarise_all(sum, na.rm = TRUE) %>%
-  mutate(share = round(100 * n_ch / n_total, 1)) %>%
-  kbl()
+  mutate(`Average Participation (%)` = round(
+    100 * `CH Participations` / `Total Participations`, 1)) %>%
+  reactable()
+
 ```
 
-```{r swiss-participations-h2020, include=FALSE}
+#### H2020 Summary
+
+```{r swiss-participations-h2020}
 df %>%
   get_particip(in_programme = "H2020") %>%
-  select(n_ch, n_total) %>%
+  select(`CH Participations` = n_ch,
+         `Total Participations` = n_total) %>%
   summarise_all(sum, na.rm = TRUE) %>%
-  mutate(share = round(100 * n_ch / n_total, 1)) %>%
-  kbl()
+  mutate(`Average Participation (%)` = round(
+    100 * `CH Participations` / `Total Participations`, 1)) %>%
+  reactable()
 ```
 
 ### Contribution to Swiss Participants
@@ -233,22 +245,31 @@ df %>%
   )
 ```
 
-```{r contributions-ch-fp7, include=FALSE}
+#### FP7 Summary
+
+```{r contributions-ch-fp7}
 df %>%
   get_contrib(in_programme = "FP7") %>%
-  select(contrib_ch, contrib_all) %>%
+  select(`Contribution to CH` = contrib_ch,
+         `Contribution to All` = contrib_all) %>%
   summarise_all(sum, na.rm = TRUE) %>%
-  mutate(share = round(100 * contrib_ch / contrib_all, 1)) %>%
-  kbl()
+  mutate(`Average Contribution to CH (%)` = round(
+    100 * `Contribution to CH` / `Contribution to All`, 1)) %>%
+  reactable()
+
 ```
 
-```{r contributions-ch-h2020, include=FALSE}
+#### H2020 Summary
+
+```{r contributions-ch-h2020}
 df %>%
   get_contrib(in_programme = "H2020") %>%
-  select(contrib_ch, contrib_all) %>%
+  select(`Contribution to CH` = contrib_ch,
+         `Contribution to All` = contrib_all) %>%
   summarise_all(sum, na.rm = TRUE) %>%
-  mutate(share = round(100 * contrib_ch / contrib_all, 1)) %>%
-  kbl()
+  mutate(`Average Contribution to CH (%)` = round(
+    100 * `Contribution to CH` / `Contribution to All`, 1)) %>%
+  reactable()
 ```
 
 ### Swiss Coordinations
@@ -291,21 +312,267 @@ df %>%
   )
 ```
 
-```{r coordinations-ch-fp7, include=FALSE}
+#### FP7 Summary
+
+```{r coordinations-ch-fp7}
 df %>%
   get_coord(in_programme = "FP7") %>%
-  select(coord_ch, coord_total) %>%
+  select(`CH Coordinations` = coord_ch, `All Coordinations` = coord_total) %>%
   summarise_all(sum, na.rm = TRUE) %>%
-  mutate(share = round(100 * coord_ch / coord_total, 1)) %>%
-  kbl()
+  mutate(`Average CH Coordinations (%)` = round(100 * `CH Coordinations` / `All Coordinations`, 1)) %>%
+  reactable()
+
 ```
 
-```{r coordinations-ch-h2020, include=FALSE}
+#### H2020 Summary
+
+```{r coordinations-ch-h2020}
 df %>%
   get_coord(in_programme = "H2020") %>%
-  select(coord_ch, coord_total) %>%
+  select(`CH Coordinations` = coord_ch, `All Coordinations` = coord_total) %>%
   summarise_all(sum, na.rm = TRUE) %>%
-  mutate(share = round(100 * coord_ch / coord_total, 1)) %>%
-  kbl()
+  mutate(`Average CH Coordinations (%)` = round(100 * `CH Coordinations` / `All Coordinations`, 1)) %>%
+  reactable()
 ```
+
+
+## Top Participating Countries  {.tabset .tabset-fade .tabset-pills}
+
+Switzerland ranks 7th by total EU contribution in FP7 and 8th in H2020. (The CERN is not taken into account, see [CERN](#cern)).
+
+### FP7
+
+Participation count, number of projects (distinct), and total EU contribution for the top 10 participating countries (by total EU contribution).
+
+```{r top-participants-fp7}
+# find and sort top participants
+top_participants <- df %>%
+  filter(framework_programme == "FP7") %>%
+  group_by(Country = country) %>%
+  summarise(contrib_country = sum(re_contribution, na.rm = TRUE)) %>%
+  ungroup() %>%
+  arrange(desc(contrib_country))
+
+ch_rank <- which(pull(top_participants, Country) == "Switzerland")
+
+# calculate further participation statistics
+country_participation <- df %>%
+  filter(framework_programme == "FP7") %>%
+  group_by(
+    Country = country,
+    `Project Start Year` = start_year,
+    Type = org_type
+  ) %>%
+  summarise(
+    `Participation Count` = n(),
+    `Nb Projects` = n_distinct(project_id),
+    `EU Contribution` = sum(re_contribution, na.rm = TRUE)
+  ) %>%
+  ungroup() %>%
+  arrange(`Type`, `Project Start Year`)
+```
+
+```{r visual-countries-fp7, fig.asp=.5}
+# minimal plotting
+pal <- c(
+  rep("#DFD8CA", ch_rank - 1),
+  "#B91646",
+  rep("#DFD8CA", 10 - ch_rank)) %>%
+  rev()
+
+top_participants %>%
+  mutate(
+    Country = fct_rev(fct_inorder(Country)),
+    share = 100 * prop.table(contrib_country)
+  ) %>%
+  head(10) %>%
+  ggplot(aes(x = contrib_country, y = Country, fill = Country)) +
+  geom_col() +
+  geom_text(
+    aes(label = sprintf("%.1f%%", share)),
+    hjust = 1.15,
+    size = 4,
+    fontface = "bold",
+    family = "Gill Sans"
+  ) +
+  labs(x = NULL, y = NULL) +
+  scale_fill_manual(values = pal, guide = "none") +
+  theme_void() +
+  theme(
+    plot.margin = margin(c(4, 2, 4, 8)),
+    axis.text.y = element_text(
+      margin = margin(t = 0, r = -10, b = 0, l = 5),
+      size = 14,
+      family = "Gill Sans",
+      hjust = 1,
+      color = "gray10"
+    )
+  )
+```
+
+```{r}
+top_participants %>%
+  select(Country) %>%
+  head(10) %>%
+  inner_join(country_participation, by = "Country") %>%
+  reactable(
+    groupBy = c("Country", "Project Start Year"),
+    columns = list(
+      `Participation Count` = colDef(
+        aggregate = "sum",
+        format = colFormat(separators = TRUE)
+      ),
+      `Nb Projects` = colDef(
+        aggregate = "sum",
+        format = colFormat(separators = TRUE)
+      ),
+      `EU Contribution` = colDef(
+        aggregate = "sum",
+        format = colFormat(
+          currency = "EUR",
+          separators = TRUE,
+          digits = 2
+        )
+      )
+    ),
+    highlight = TRUE,
+    compact = TRUE
+  )
+```
+
+
+### H2020
+
+Participation count, number of projects (distinct), and total EU contribution for the top 10 participating countries (by total EU contribution).
+
+```{r top-participants}
+# find and sort top participants
+top_participants <- df %>%
+  filter(framework_programme == "H2020") %>%
+  group_by(Country = country) %>%
+  summarise(contrib_country = sum(eu_contribution, na.rm = TRUE)) %>%
+  ungroup() %>%
+  arrange(desc(contrib_country))
+
+ch_rank <- which(pull(top_participants, Country) == "Switzerland")
+
+# calculate further participation statistics
+country_participation <- df %>%
+  filter(framework_programme == "H2020") %>%
+  group_by(
+    Country = country,
+    `Call Year` = call_year,
+    Type = org_type
+  ) %>%
+  summarise(
+    `Participation Count` = n(),
+    `Nb Projects` = n_distinct(project_id),
+    `EU Contribution` = sum(eu_contribution, na.rm = TRUE)
+  ) %>%
+  ungroup() %>%
+  arrange(`Type`, `Call Year`)
+```
+
+```{r visual-countries, fig.asp=.5}
+# minimal plotting
+pal <- c(
+  rep("#DFD8CA", ch_rank - 1),
+  "#B91646",
+  rep("#DFD8CA", 10 - ch_rank)) %>%
+  rev()
+
+top_participants %>%
+  mutate(
+    Country = fct_rev(fct_inorder(Country)),
+    share = 100 * prop.table(contrib_country)
+  ) %>%
+  head(10) %>%
+  ggplot(aes(x = contrib_country, y = Country, fill = Country)) +
+  geom_col() +
+  geom_text(
+    aes(label = sprintf("%.1f%%", share)),
+    hjust = 1.15,
+    size = 4,
+    fontface = "bold",
+    family = "Gill Sans"
+  ) +
+  labs(x = NULL, y = NULL) +
+  scale_fill_manual(values = pal, guide = "none") +
+  theme_void() +
+  theme(
+    plot.margin = margin(c(4, 2, 4, 8)),
+    axis.text.y = element_text(
+      margin = margin(t = 0, r = -10, b = 0, l = 5),
+      size = 14,
+      family = "Gill Sans",
+      hjust = 1,
+      color = "gray10"
+    )
+  )
+```
+
+```{r}
+# show with reactable
+top_participants %>%
+  select(Country) %>%
+  head(10) %>%
+  inner_join(country_participation, by = "Country") %>%
+  reactable(
+    groupBy = c("Country", "Call Year"),
+    columns = list(
+      `Participation Count` = colDef(
+        aggregate = "sum",
+        format = colFormat(separators = TRUE)
+      ),
+      `Nb Projects` = colDef(
+        aggregate = "sum",
+        format = colFormat(separators = TRUE)
+      ),
+      `EU Contribution` = colDef(
+        aggregate = "sum",
+        format = colFormat(
+          currency = "EUR",
+          separators = TRUE,
+          digits = 2
+        )
+      )
+    ),
+    highlight = TRUE,
+    compact = TRUE
+  )
+```
+
+---
+
+## CERN
+
+```{r cern}
+total_cern_fp7 <- df_raw %>%
+  filter(country_code == "CH") %>%
+  filter(framework_programme == "FP7") %>%
+  filter(legal_name == "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
+  summarise(total_eu_contrib = sum(re_contribution, na.rm = TRUE)) %>%
+  pull() %>%
+  format(big.mark = ",", decimal.mark = ".", trim = TRUE, digits = 11)
+
+total_cern_h2020 <- df_raw %>%
+  filter(country_code == "CH") %>%
+  filter(framework_programme == "H2020") %>%
+  filter(legal_name == "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
+  summarise(total_eu_contrib = sum(eu_contribution, na.rm = TRUE)) %>%
+  pull() %>%
+  format(big.mark = ",", decimal.mark = ".", trim = TRUE, digits = 11)
+```
+
+EU Contribution to CERN amounted to `r str_c("€", total_cern_fp7)` under FP7 and to `r str_c("€", total_cern_h2020)` under H2020.
+
+```{r cern-detail, eval=FALSE}
+# TODO: add get_participation to utils.R
+df_raw %>%
+  filter(country_code == "CH") %>%
+  filter(legal_name == "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
+  get_participation()
+```
+
+
 

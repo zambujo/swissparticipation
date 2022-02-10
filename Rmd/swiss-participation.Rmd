@@ -7,7 +7,6 @@ output:
 
 ```{r boilerplate, include=FALSE}
 library(tidyverse)
-library(vroom)
 library(janitor)
 library(lubridate)
 library(here)
@@ -18,7 +17,12 @@ library(ggsci)
 library(ggrepel)
 library(ggtext)
 library(reactable)
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, comment = FALSE)
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  comment = FALSE
+)
 source(here("R", "utils.R"))
 ```
 
@@ -29,8 +33,7 @@ df_schema <- here("data", "schema-cordis-plus.yml") %>%
 
 df_raw <-
   list.files(here("data"), pattern = "cordis-plus-", full.names = TRUE) %>%
-  vroom(delim = ",", col_types = df_schema)
-  # map_df(read_csv2, col_types = df_schema)
+  map_df(read_csv, col_types = df_schema)
 
 df_raw <- df_raw %>%
   mutate(
@@ -49,58 +52,98 @@ df <- df_raw %>%
   filter(legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH")
 ```
 
-## Total EU Contribution by Pillar (All Countries)
+## Total EU Contribution by Pillar
 
-```{r overview-pillar, eval=FALSE}
-ggp <- df %>%
-  mutate(
-    pillar = fct_other(pillar, keep = chr(roman(1:5))),
-    pillar = fct_relevel(pillar, "Other", after = 0)
-  ) %>%
+```{r overview-pillar, fig.asp=.7}
+budget_all <- df %>%
+  mutate(pillar = fct_other(pillar, keep = chr(roman(1:5))),
+         pillar = fct_relevel(pillar, "Other", after = 0)) %>%
   filter(!is.na(pillar)) %>%
   group_by(pillar) %>%
   summarise(size_pillar = sum(eu_contribution)) %>%
   mutate(
     share = 100 * prop.table(size_pillar),
-    fp = "H2020"
+    fp = "H2020",
+    cube = "All Countries"
+  )
+
+budget_ch <- df %>%
+  filter(country_code == "CH") %>%
+  mutate(pillar = fct_other(pillar, keep = chr(roman(1:5))),
+         pillar = fct_relevel(pillar, "Other", after = 0)) %>%
+  filter(!is.na(pillar)) %>%
+  group_by(pillar) %>%
+  summarise(size_pillar = sum(eu_contribution)) %>%
+  mutate(
+    share = 100 * prop.table(size_pillar),
+    fp = "H2020",
+    cube = "Switzerland"
+  )
+
+snf6 <- c("#5298BD",
+          "#FBBE5E",
+          "#71B294",
+          "#9D90B9",
+          "#F08262",
+          "#83D0F5") %>%
+  rev()
+
+budget_ch %>%
+  bind_rows(budget_all) %>%
+  mutate(
+    cube = factor(cube),
+    pillar = fct_recode(
+      pillar,
+      `I Excellent Science` = "I",
+      `II Insdustrial Leadership` = "II",
+      `III Societal Challenges` = "III",
+      `IV Spreading Excellence and Widening Participation` = "IV",
+      `V Science with and for Society` = "V",
+      `Euratom + Cross-theme` = "Other"
+    )
   ) %>%
-  ggplot(aes(x = fp, y = size_pillar, fill = pillar)) +
+  ggplot(aes(x = fp, y = share, fill = pillar)) +
   geom_col(position = position_stack()) +
-  geom_text(
+  geom_text_repel(
     aes(label = sprintf("%.1f%%", share)),
-    position = position_stack(vjust = 0.5),
-    size = 4,
-    fontface = "bold"
+    position = position_stack(vjust = .5, ),
+    size = 3.5,
+    alpha = .75,
+    show.legend = FALSE,
+    box.padding = .75,
+    family = "Gill Sans"
   ) +
   coord_flip() +
-  scale_fill_nejm(alpha = .5, guide = guide_legend(reverse = TRUE)) +
+  facet_wrap(cube ~ ., ncol = 1) +
+  scale_fill_manual(
+    values = snf6, 
+    guide = guide_legend(ncol = 2, reverse = TRUE)) +
   theme_minimal(base_size = 14) +
   labs(x = NULL, y = NULL) +
   theme(
-    legend.position = "bottom",
+    legend.position = "top",
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
+    strip.text.x = element_text(size = 15),
+    legend.title = element_blank(),
     axis.text.x = element_blank(),
     axis.ticks.x = element_blank(),
     axis.text.y = element_blank(),
-    axis.ticks.y = element_blank()
+    axis.ticks.y = element_blank(),
+    text = element_text(
+      size = 14,
+      family = "Gill Sans",
+      color = "gray10"
+    )
   )
-
-ggsave("budget-allocation.svg",
-  plot = ggp,
-  w = 12,
-  h = 3
-)
 ```
-
-![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/budget-allocation.svg "Total EU contribution to the different pillars in H2020.")
 
 
 ## Top Participating Countries
 
 Participation count, number of projects (distinct), and total EU contribution for the top 10 participating countries (by total EU contribution).
 
-```{r top-participants}
+```{r top-participants-for-ref}
 # find and sort top participants
 top_participants <- df %>%
   group_by(Country = country) %>%
@@ -124,75 +167,6 @@ country_participation <- df %>%
   ) %>%
   ungroup() %>%
   arrange(`Type`, `Call Year`)
-
-# show with reactable
-top_participants %>%
-  select(Country) %>%
-  head(10) %>%
-  inner_join(country_participation, by = "Country") %>%
-  reactable(
-    groupBy = c("Country", "Call Year"),
-    columns = list(
-      `Participation Count` = colDef(
-        aggregate = "sum",
-        format = colFormat(separators = TRUE)
-      ),
-      `Nb Projects` = colDef(
-        aggregate = "sum",
-        format = colFormat(separators = TRUE)
-      ),
-      `EU Contribution` = colDef(
-        aggregate = "sum",
-        format = colFormat(
-          currency = "EUR",
-          separators = TRUE,
-          digits = 2
-        )
-      )
-    ),
-    highlight = TRUE,
-    compact = TRUE
-  )
-```
-
-Switzerland ranks `r ch_rank`th by total EU contribution in H2020 (the CERN is not taken into account, see [Annex: CERN](#cern)).
-
-```{r visual-countries, fig.asp=.5}
-# minimal plotting
-pal <- c(
-  rep("#DFD8CA", ch_rank - 1),
-  "#B91646",
-  rep("#DFD8CA", 10 - ch_rank)) %>%
-  rev()
-
-top_participants %>%
-  mutate(
-    Country = fct_rev(fct_inorder(Country)),
-    share = 100 * prop.table(contrib_country)
-  ) %>%
-  head(10) %>%
-  ggplot(aes(x = contrib_country, y = Country, fill = Country)) +
-  geom_col() +
-  geom_text(
-    aes(label = sprintf("%.1f%%", share)),
-    hjust = 1.15,
-    size = 4,
-    fontface = "bold",
-    family = "Gill Sans"
-  ) +
-  labs(x = NULL, y = NULL) +
-  scale_fill_manual(values = pal, guide = "none") +
-  theme_void() +
-  theme(
-    plot.margin = margin(c(4, 2, 4, 8)),
-    axis.text.y = element_text(
-      margin = margin(t = 0, r = -10, b = 0, l = 5),
-      size = 14,
-      family = "Gill Sans",
-      hjust = 1,
-      color = "gray10"
-    )
-  )
 ```
 
 
@@ -262,81 +236,13 @@ df %>%
   get_participation()
 ```
 
-```{r visual-overview, eval=FALSE}
-# Differentiate pillars 1 to III
-stats_depth_1 <- df %>%
-  filter(!is.na(pillar)) %>%
-  filter(country_code == "CH") %>%
-  filter(!pillar %in% chr(roman(1:3))) %>%
-  mutate(pillar = fct_rev(pillar)) %>%
-  group_by(pillar, pillar_descr) %>%
-  summarise(total_eu_contrib = sum(eu_contribution)) %>%
-  ungroup() %>%
-  # for printing
-  mutate(
-    pillar_descr = ifelse(
-      chr(pillar) %in% chr(roman(4:5)),
-      str_c(pillar, ". ", pillar_descr),
-      chr(pillar)
-    ),
-    thematic_priority_abbr = NA
-  ) %>%
-  # for binding
-  select(
-    pillar = pillar_descr,
-    thematic_priority = thematic_priority_abbr,
-    contrib = total_eu_contrib
-  )
-
-stats_depth_2 <- df %>%
-  filter(!is.na(pillar)) %>%
-  filter(country_code == "CH") %>%
-  filter(pillar %in% chr(roman(1:3))) %>%
-  mutate(pillar = fct_rev(pillar)) %>%
-  group_by(pillar, pillar_descr, thematic_priority_abbr) %>%
-  summarise(total_eu_contrib = sum(eu_contribution)) %>%
-  ungroup() %>%
-  # for printing
-  unite("pillar", starts_with("pillar"), sep = ". ") %>%
-  # for binding
-  select(pillar,
-    thematic_priority = thematic_priority_abbr,
-    contrib = total_eu_contrib
-  )
-
-stats_depth_2 %>%
-  bind_rows(stats_depth_1) %>%
-  mutate(
-    thematic_priority = replace_na(thematic_priority, ""),
-    contrib_txt = contrib / 1000000,
-    contrib_txt = format(
-      contrib_txt,
-      big.mark = ",",
-      decimal.mark = ".",
-      trim = TRUE,
-      digits = 2
-    ),
-    contrib_txt = str_c("M€", contrib_txt)
-  ) %>%
-  write_csv(here("data", "h2020-treemap.csv"))
-# plot with https://rawgraphs.io
-```
-
-Treemap showing the overall H2020 EU contribution (MEUR) to Switzerland by Pillar and Thematic Priority. Only the three largest pillars are shown.
-
-![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-ch.svg "H2020 EU contribution to Swiss participants, by pillar and thematic priority.")
-
-## Alternative representation {.tabset .tabset-fade .tabset-pills}
+## Areas (Thematic Priorities) {.tabset .tabset-fade .tabset-pills}
 
 The below *Figure 4* updates [Figure 17 in page 30](https://www.sbfi.admin.ch/dam/sbfi/en/dokumente/webshop/2018/ch-frp.pdf.download.pdf/ch_beteiligung_frp_e.pdf#page=30). **Figure 4 (Original)** is the latest update provided in the [SERI page](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html). **Figure 4 (Updated)** shows the latest H2020 dashboard data. (For comparison, only the 20 top participation areas are shown.)
 
-### Figure 4 (Original)
-
-![](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation/_jcr_content/par/accordion_16708559/items/abbildung_4_beitr_ge/accordionpar/image_896504598/image.imagespooler.png/1629209007946/abb4_en.png "SERI Figure 4. Funding under by programme area (CHF m), in relation to total funding")
-
 ### Figure 4 (Updated)
 
-```{r fig-four, fig.asp=1.5}
+```{r fig-four, fig.asp=1}
 get_contrib_area <- function(x) {
   x <- x %>% 
     filter(framework_programme == "H2020") %>%
@@ -386,7 +292,10 @@ area_labels %>%
   left_join(get_contrib_area(df), by = "Area") %>%
   select(-contrib) %>%
   pivot_wider(names_from = context, values_from = share) %>%
-  pivot_longer(cols = c("Total", "CH"), names_to = "context", values_to = "share") %>%
+  pivot_longer(
+    cols = c("Total", "CH"), 
+    names_to = "context", 
+    values_to = "share") %>%
   left_join(contribs, by = c("Area", "context")) %>%
   mutate(
     context = str_replace(context, "CH", "Switzerland"),
@@ -418,8 +327,15 @@ area_labels %>%
     panel.grid.major.y = element_blank(),
     axis.title.x = element_blank(),
     axis.title.y = element_blank(),
-    axis.text.y = element_text(margin = margin(0,-25,0,0)))
+    axis.text.y = element_text(margin = margin(0, -25, 0, 0)))
 ```
+
+### Figure 4 (Original)
+
+<img src="https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation/_jcr_content/par/accordion_16708559/items/abbildung_4_beitr_ge/accordionpar/image_896504598/image.imagespooler.png/1629209007946/abb4_en.png" alt="SERI Figure 4. Funding under by programme area (CHF m), in relation to total funding" width="600"/>
+
+Source: [Figure 4. Funding under by programme area (CHF m), in relation to total funding](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html)
+
 
 ## Swiss Participation by Sector
 
@@ -461,8 +377,12 @@ df %>%
     plot.title.position = "plot",
     legend.position = "top",
     legend.title = element_blank(),
-    axis.title.y = element_text(angle = 0, vjust = 1.05, margin = margin(r = -30))
+    axis.title.y = element_text(
+      angle = 0, 
+      vjust = 1.05, 
+      margin = margin(r = -30))
   )
+
 ```
 
 #### EU Contribution to Swiss Institutions in Research and HigherEd
@@ -699,24 +619,69 @@ df %>%
 
 ## Annex
 
-### CERN
+### Treemap of Swiss H2020 Participation
 
-```{r cern-total}
-total_cern <- df_raw %>%
+```{r visual-overview, eval=FALSE}
+# Differentiate pillars 1 to III
+stats_depth_1 <- df %>%
+  filter(!is.na(pillar)) %>%
   filter(country_code == "CH") %>%
-  filter(legal_name == "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
-  summarise(total_eu_contrib = sum(eu_contribution, na.rm = TRUE)) %>%
-  pull() %>%
-  format(big.mark = ",", decimal.mark = ".", trim = TRUE, digits = 11)
+  filter(!pillar %in% chr(roman(1:3))) %>%
+  mutate(pillar = fct_rev(pillar)) %>%
+  group_by(pillar, pillar_descr) %>%
+  summarise(total_eu_contrib = sum(eu_contribution)) %>%
+  ungroup() %>%
+  # for printing
+  mutate(
+    pillar_descr = ifelse(
+      chr(pillar) %in% chr(roman(4:5)),
+      str_c(pillar, ". ", pillar_descr),
+      chr(pillar)
+    ),
+    thematic_priority_abbr = NA
+  ) %>%
+  # for binding
+  select(
+    pillar = pillar_descr,
+    thematic_priority = thematic_priority_abbr,
+    contrib = total_eu_contrib
+  )
+
+stats_depth_2 <- df %>%
+  filter(!is.na(pillar)) %>%
+  filter(country_code == "CH") %>%
+  filter(pillar %in% chr(roman(1:3))) %>%
+  mutate(pillar = fct_rev(pillar)) %>%
+  group_by(pillar, pillar_descr, thematic_priority_abbr) %>%
+  summarise(total_eu_contrib = sum(eu_contribution)) %>%
+  ungroup() %>%
+  # for printing
+  unite("pillar", starts_with("pillar"), sep = ". ") %>%
+  # for binding
+  select(pillar,
+    thematic_priority = thematic_priority_abbr,
+    contrib = total_eu_contrib
+  )
+
+stats_depth_2 %>%
+  bind_rows(stats_depth_1) %>%
+  mutate(
+    thematic_priority = replace_na(thematic_priority, ""),
+    contrib_txt = contrib / 1000000,
+    contrib_txt = format(
+      contrib_txt,
+      big.mark = ",",
+      decimal.mark = ".",
+      trim = TRUE,
+      digits = 2
+    ),
+    contrib_txt = str_c("M€", contrib_txt)
+  ) %>%
+  write_csv(here("data", "h2020-treemap.csv"))
+# plot with https://rawgraphs.io
 ```
 
-**Note**: EU Contribution to Switzerland include `r str_c("€", total_cern)` awarded to the CERN.  Please find the EU contribution to CERN in detail below:
+Treemap showing the overall H2020 EU contribution (MEUR) to Switzerland by Pillar and Thematic Priority. Only the three largest pillars are shown.
 
-```{r cern-detail}
-df_raw %>%
-  filter(country_code == "CH") %>%
-  filter(legal_name == "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
-  get_participation()
-```
-
+![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-ch.svg "H2020 EU contribution to Swiss participants, by pillar and thematic priority.")
 

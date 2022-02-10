@@ -5,6 +5,12 @@ output:
     self_contained: no
 ---
 
+```{r, include=FALSE}
+# prevent chunks from running, by default
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+
 ## Data Sources
 
 The raw data is available at:
@@ -193,15 +199,6 @@ projects <-
   projects_dashboard %>%
   left_join(projects_cordis, by = "project_id")
 
-# cleanup
-rm(
-  fp7_dashboard,
-  h2020_dashboard,
-  projects_dashboard,
-  projects_cordis,
-  projects_cordis_fp7,
-  projects_cordis_h2020
-)
 ```
 
 Unfortunately, FP6 data are very incomplete. Individual contribution details are provided in 2,621 (out of 75,241) cases only.
@@ -368,21 +365,8 @@ df_raw <- df_raw %>%
 ```
 
 
-### Raw Data
 
-The raw data set contains `r nrow(df) %>% format(big.mark = ",")` rows with the following attributes:
-
-```{r}
-df_raw %>%
-  sample_n(100) %>%
-  glimpse()
-```
-
-
-
-## Exporting data for analysis
-
-```{r write}
+```{r write, include=FALSE}
 # store data types
 df_schema <- df_raw %>%
   map_chr(class)
