@@ -286,7 +286,7 @@ contribs <- df %>%
   select(-share) %>%
   mutate(
     contrib = round(1e-6 * contrib, 1),
-    contrib = format(contrib, big.mark = ",", decimal.mark = ".", trim = TRUE))
+    contrib = format(contrib, big.mark = "'", decimal.mark = ".", trim = TRUE))
 
 area_labels %>%
   left_join(get_contrib_area(df), by = "Area") %>%
@@ -298,7 +298,9 @@ area_labels %>%
     values_to = "share") %>%
   left_join(contribs, by = c("Area", "context")) %>%
   mutate(
-    context = str_replace(context, "CH", "Switzerland"),
+    context = str_replace(context, "CH", "Swiss Institutions"),
+    context = str_replace(context, "Total", "All Institutions"),
+    context = fct_rev(context),
     Area = str_remove(Area, "LEIT-"),
     Area = str_remove(Area, "INNOSUP"),
     Area = fct_inorder(Area),
@@ -318,7 +320,7 @@ area_labels %>%
   theme_minimal() +
   labs(
     title = "Funding by Programme Area Under H2020",
-    subtitle = "Values in MioEUR")+
+    subtitle = "(MioEUR)")+
   theme(
     text = element_text(size = 14, family = "Gill Sans", color = "gray10"),
     plot.title.position = "plot",
