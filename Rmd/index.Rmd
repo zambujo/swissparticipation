@@ -9,10 +9,9 @@ output:
 library(metathis)
 meta() %>%
   meta_description(
-    "Swiss Participation in FP7 and Horizon 2020"
-  ) %>% 
-  meta_name("github-repo" = "zambujo/swissparticipation") %>% 
-  meta_viewport() %>% 
+    "Swiss Participation in FP7 and Horizon 2020") %>%
+  meta_name("github-repo" = "zambujo/swissparticipation") %>%
+  meta_viewport() %>%
   meta_social(
     title = "Switzerland in FP7&H2020",
     url = "https://zambujo.github.io/swissparticipation",
@@ -30,15 +29,13 @@ meta() %>%
 [![](https://img.shields.io/github/issues/zambujo/swissparticipation)](https://github.com/zambujo/swissparticipation/issues)
 <!-- badges: end -->
 
-<div class="row" style="padding-top: 30px;">
-<div class="col-sm-12">
+## Background
 
-A portrait of the participation of Switzerland in FP7 and Horizon 2020 using [data.europa.eu](https://data.europa.eu) public datasets.
+Horizon 2020 (H2020) is the part of [EU's Multiannual Financial Framework for 2014–2020](https://op.europa.eu/en/publication-detail/-/publication/d2cf202e-f36a-45b2-84e7-1ac6ad996e90) (MFF 2014–2020) that is allocated to research and innovation. H2020 is also known as the 8th Framework Programme in Research and Innovation (FP8).  H2020 represents nearly 10% of the MFF 2014–2020 budget.
+
+Switzerland has been fully associated to the EU's Research Programmes since 2004 (see [Swiss Participation in European Research Framework Programmes](https://www.sbfi.admin.ch/dam/sbfi/en/dokumente/webshop/2016/beteiligung_der_schweizandeneuropaeischenforschungsrahmenprogram.pdf.download.pdf/swiss_participationineuropeanresearchframeworkprogrammes.pdf)).
 
 <br />
 <br />
 
 > For official statistics, please visit [Facts and Figures on the Swiss Participation in the EU-Framework Programmes for Research and Innovation](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html).
-
-</div></div>
-
