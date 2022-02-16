@@ -1345,10 +1345,10 @@
     },
     "usethis": {
       "Package": "usethis",
-      "Version": "2.1.5",
+      "Version": "2.1.3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "c499f488e6dd7718accffaee5bc5a79b",
+      "Hash": "831aea06a4d6d7e655bfed2536d556fd",
       "Requirements": [
         "cli",
         "clipr",

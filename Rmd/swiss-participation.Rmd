@@ -6,27 +6,18 @@ output:
 ---
 
 ```{r boilerplate, include=FALSE}
-library(tidyverse)
-library(janitor)
-library(lubridate)
-library(here)
-library(yaml)
-library(glue)
-library(scales)
-library(ggsci)
-library(ggrepel)
-library(ggtext)
-library(reactable)
 knitr::opts_chunk$set(
   echo = FALSE,
   message = FALSE,
   warning = FALSE,
   comment = FALSE
 )
-source(here("R", "utils.R"))
 ```
 
 ```{r read-dashboard-data}
+source(here::here("R", "package.r"))
+source(here::here("R", "utils.r"))
+
 df_schema <- here("data", "schema-cordis-plus.yml") %>%
   read_yaml() %>%
   as.list()
@@ -520,7 +511,10 @@ ch %>%
     levels = c("Switzerland", "Remaining")
   )) %>%
   ggplot(aes(x = Semester, y = Share, fill = Country)) +
-  geom_bar(stat = "identity", width = 120, position = position_dodge(width = 128)) +
+  geom_bar(
+    stat = "identity",
+    width = 120,
+    position = position_dodge(width = 128)) +
   labs(
     title = "Time Distribution of EU Contribution by Institution Sector",
     subtitle = glue(

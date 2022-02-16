@@ -29,13 +29,17 @@ meta() %>%
 [![](https://img.shields.io/github/issues/zambujo/swissparticipation)](https://github.com/zambujo/swissparticipation/issues)
 <!-- badges: end -->
 
+<br />
+<br />
+
 ## Background
 
-Horizon 2020 (H2020) is the part of [EU's Multiannual Financial Framework for 2014–2020](https://op.europa.eu/en/publication-detail/-/publication/d2cf202e-f36a-45b2-84e7-1ac6ad996e90) (MFF 2014–2020) that is allocated to research and innovation. H2020 is also known as the 8th Framework Programme in Research and Innovation (FP8).  H2020 represents nearly 10% of the MFF 2014–2020 budget.
+FP7 and Horizon 2020 (H2020) correspond to the part of the [EU Multiannual Financial Framework](https://op.europa.eu/en/publication-detail/-/publication/d2cf202e-f36a-45b2-84e7-1ac6ad996e90) (MFF) that is allocated to research and innovation. FP7 is an abbreviation for the 7th Framework Programme in Research and Innovation and corresponds to the MFF 2007-2013.  H2020, also known as FP8, refers to the 8th Framework Programme and corresponds to the MFF 2014–2020.
 
 Switzerland has been fully associated to the EU's Research Programmes since 2004 (see [Swiss Participation in European Research Framework Programmes](https://www.sbfi.admin.ch/dam/sbfi/en/dokumente/webshop/2016/beteiligung_der_schweizandeneuropaeischenforschungsrahmenprogram.pdf.download.pdf/swiss_participationineuropeanresearchframeworkprogrammes.pdf)).
 
 <br />
 <br />
 
-> For official statistics, please visit [Facts and Figures on the Swiss Participation in the EU-Framework Programmes for Research and Innovation](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html).
+> For Swiss official figures, please visit [Facts and Figures on the Swiss Participation in the EU-Framework Programmes for Research and Innovation](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html).
+> For EU's official figures, please visit the [Horizon Dashboard](https://webgate.ec.europa.eu/dashboard/sense/app/a976d168-2023-41d8-acec-e77640154726/sheet/0c8af38b-b73c-4da2-ba41-73ea34ab7ac4/state/analysis/select/Country/Switzerland).

@@ -6,29 +6,18 @@ output:
 ---
 
 ```{r boilerplate, include=FALSE}
-# source code: https://github.com/zambujo/swissparticipation
-library(tidyverse)
-library(janitor)
-library(lubridate)
-library(here)
-library(yaml)
-library(glue)
-library(scales)
-library(ggsci)
-library(ggrepel)
-library(ggtext)
-library(reactable)
-source(here("R", "utils.R"))
 knitr::opts_chunk$set(
   echo = FALSE,
   message = FALSE,
   warning = FALSE,
   comment = FALSE
 )
-
 ```
 
 ```{r read-dashboard-data}
+source(here::here("R", "package.r"))
+source(here::here("R", "utils.r"))
+
 df_schema <- here("data", "schema-cordis-plus.yml") %>%
   read_yaml() %>%
   as.list()
@@ -159,18 +148,12 @@ participation %>%
     x = "Project Starting Year",
     y = "%"
   ) +
-  scale_fill_manual(values = pal, guide = "none") +
-  annotate(
-    "text",
-    x = c(2010, 2019),
-    y = c(3.7, 3.7),
-    col = pal,
-    label = c("FP7", "H2020"),
-    family = "Gill Sans"
-  ) + 
+  scale_fill_manual(values = pal) +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
+    legend.position = "top",
+    legend.title = element_blank(),
     text = element_text(
       size = 15,
       family = "Gill Sans",
@@ -191,18 +174,12 @@ participation %>%
     x = "Project Starting Year",
     y = "%"
   ) +
-  scale_fill_manual(values = pal, guide = "none") +
-  annotate(
-    "text",
-    x = c(2010, 2019),
-    y = c(5.85, 5.85),
-    col = pal,
-    label = c("FP7", "H2020"),
-    family = "Gill Sans"
-  ) +
+  scale_fill_manual(values = pal) +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
+    legend.position = "top",
+    legend.title = element_blank(),
     text = element_text(
       size = 15,
       family = "Gill Sans",
@@ -223,18 +200,12 @@ participation %>%
     x = "Project Starting Year",
     y = "%"
   ) +
-  scale_fill_manual(values = pal, guide = "none") +
-  annotate(
-    "text",
-    x = c(2010, 2019),
-    y = c(5.8, 5.8),
-    col = pal,
-    label = c("FP7", "H2020"),
-    family = "Gill Sans"
-  ) +
+  scale_fill_manual(values = pal) +
   theme_minimal() +
   theme(
     plot.title.position = "plot",
+    legend.position = "top",
+    legend.title = element_blank(),
     text = element_text(
       size = 15,
       family = "Gill Sans",

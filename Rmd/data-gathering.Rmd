@@ -35,21 +35,12 @@ knitr::opts_chunk$set(
 
 CORDIS publishes snapshots of its public data in the [EU open data portal](https://data.europa.eu).  The data are provided by framework programme.  For FP7 and H2020, the latest data are now packed in ZIP files containing a collection of CSV datasets.  We can see the details of how to download them using the R programming language.  We use the following libraries:
 
-```{r boilerplate}
-library(tidyverse)
-library(janitor)
-library(lubridate)
-library(here)
-library(glue)
-library(readxl)
-library(vroom)
-library(yaml)
-library(httr)
-```
-
 Below, we generate the links for both projects and organisations, from which we can download the datasets.  First, we check when were the files last modified.
 
 ```{r}
+source(here::here("R", "package.r"))
+source(here::here("R", "utils.r"))
+
 get_last_modified <- function(url) {
   url %>%
     httr::HEAD() %>%

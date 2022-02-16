@@ -6,10 +6,10 @@ navbar:
   title: "Swiss FP Participation Figures"
   type: inverse
   left:
-    - text: "H2020"
-      href: swiss-participation.html
     - text: "FP7 & H2020"
       href: seri-figures.html
+    - text: "H2020"
+      href: swiss-participation.html
     - text: "Data"
       href: data-gathering.html
   right:
