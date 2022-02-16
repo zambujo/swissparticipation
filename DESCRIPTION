@@ -1,0 +1,31 @@
+Type: Compendium
+Package: swissparticipation
+Title: Swiss Participation in EU's Research Programmes
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "João",
+           family = "Martins",
+           role = c("aut", "cre"),
+           email = "joao.martins@gmx.net",
+           comment = c(ORCID = "0000-0001-7961-4280"))
+Description: A portrait of the participation of Switzerland in
+    FP7 and Horizon 2020 using EU public datasets.
+License: MIT
+Depends: 
+    tidyverse,
+    yaml,
+    glue,
+    here,
+    jsonlite,
+    lubridate,
+    httr,
+    vroom,
+    scales,
+    ggrepel,
+    ggtext,
+    reactable,
+    knitr,
+    rmarkdown
+Encoding: UTF-8
+URL: https://github.com/zambujo/swissparticipation
+BugReports: https://github.com/zambujo/swissparticipation/issues
