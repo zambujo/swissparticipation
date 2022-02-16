@@ -7,6 +7,7 @@ output:
 
 ```{r boilerplate, include=FALSE}
 knitr::opts_chunk$set(
+  dev = "svg",
   echo = FALSE,
   message = FALSE,
   warning = FALSE,
@@ -71,13 +72,12 @@ budget_ch <- df %>%
     cube = "Switzerland"
   )
 
-snf6 <- c("#5298BD",
-          "#FBBE5E",
-          "#71B294",
-          "#9D90B9",
-          "#F08262",
-          "#83D0F5") %>%
-  rev()
+pal <- c("#5298BD",
+         "#FBBE5E",
+         "#71B294",
+         "#9D90B9",
+         "#F08262",
+         "#83D0F5")
 
 budget_ch %>%
   bind_rows(budget_all) %>%
@@ -98,8 +98,8 @@ budget_ch %>%
   geom_text_repel(
     aes(label = sprintf("%.1f%%", share)),
     position = position_stack(vjust = .5, ),
-    size = 3.5,
-    alpha = .75,
+    size = 4,
+    alpha = 1,
     show.legend = FALSE,
     box.padding = .75,
     family = "Gill Sans"
@@ -107,10 +107,10 @@ budget_ch %>%
   coord_flip() +
   facet_wrap(cube ~ ., ncol = 1) +
   scale_fill_manual(
-    values = snf6, 
+    values = rev(pal),
     guide = guide_legend(ncol = 2, reverse = TRUE)) +
-  theme_minimal(base_size = 14) +
   labs(x = NULL, y = NULL) +
+  theme_minimal() +
   theme(
     legend.position = "top",
     panel.grid.major = element_blank(),
@@ -129,10 +129,6 @@ budget_ch %>%
   )
 ```
 
-
-## Top Participating Countries
-
-Participation count, number of projects (distinct), and total EU contribution for the top 10 participating countries (by total EU contribution).
 
 ```{r top-participants-for-ref}
 # find and sort top participants
@@ -160,8 +156,7 @@ country_participation <- df %>%
   arrange(`Type`, `Call Year`)
 ```
 
-
-## Swiss Participation: An Overview
+## Overview
 
 ```{r get-participation}
 get_participation <- function(x) {
@@ -255,8 +250,6 @@ get_contrib_area <- function(x) {
   bind_rows(to_all, to_ch)
 }
 
-pal <- c("#B91646", "#DFD8CA") %>% rev()
-
 pillar_area_lookup <- df %>%
   filter(framework_programme == "H2020") %>%
   count(Pillar = pillar, Area = thematic_priority_abbr) %>%
@@ -278,6 +271,8 @@ contribs <- df %>%
   mutate(
     contrib = round(1e-6 * contrib, 1),
     contrib = format(contrib, big.mark = "'", decimal.mark = ".", trim = TRUE))
+
+pal <- c("#B91646", "#DFD8CA")
 
 area_labels %>%
   left_join(get_contrib_area(df), by = "Area") %>%
@@ -306,7 +301,7 @@ area_labels %>%
     family = "Gill Sans"
   ) +
   coord_flip() +
-  scale_fill_manual(values = pal, guide = guide_legend(reverse = TRUE)) +
+  scale_fill_manual(values = rev(pal), guide = guide_legend(reverse = TRUE)) +
   scale_y_continuous(labels = percent_format(accuracy = 1), expand = c(.1, 0)) +
   theme_minimal() +
   labs(
@@ -330,55 +325,9 @@ area_labels %>%
 Source: [Figure 4. Funding under by programme area (CHF m), in relation to total funding](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html)
 
 
-## Swiss Participation by Sector
+## Participation by Sector
 
-```{r ch-type-role, fig.asp=.7}
-pal <- c("#B91646", "#DFD8CA") %>%
-  rev()
-
-df %>%
-  filter(!is.na(pillar)) %>%
-  filter(country_code == "CH") %>%
-  mutate(
-    pillar = fct_other(pillar, keep = chr(roman(1:5))),
-    pillar = fct_relevel(pillar, "Other", after = 0)
-  ) %>%
-  group_by(pillar, org_type, role = partner_role) %>%
-  summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
-  ungroup() %>%
-  mutate(org_type = fct_rev(org_type)) %>%
-  arrange(pillar, org_type) %>%
-  ggplot(aes(x = pillar, y = contrib, fill = org_type)) +
-  geom_col(position = position_stack(reverse = FALSE)) +
-  scale_fill_manual(values = pal, guide = guide_legend(reverse = TRUE)) +
-  scale_y_continuous(labels = unit_format(
-    suffix = "",
-    scale = 1e-6,
-    big.mark = ","
-  )) +
-  coord_flip() +
-  facet_wrap(role ~ ., ncol = 1) +
-  theme_minimal() +
-  labs(
-    title = "Distribution of EU Contribution to Swiss Institutions",
-    subtitle = "By Pillar, Institution Sector, and Instituion Role",
-    x = "Pillar",
-    y = "EU Contribution to Swiss Institutions (MioEUR)"
-  ) +
-  theme(
-    text = element_text(size = 15, family = "Gill Sans", color = "gray10"),
-    plot.title.position = "plot",
-    legend.position = "top",
-    legend.title = element_blank(),
-    axis.title.y = element_text(
-      angle = 0, 
-      vjust = 1.05, 
-      margin = margin(r = -30))
-  )
-
-```
-
-#### EU Contribution to Swiss Institutions in Research and HigherEd
+### EU Contribution to Swiss Institutions in Research and HigherEd
 
 ```{r overview-in-research}
 df %>%
@@ -391,17 +340,13 @@ df %>%
 
 ```{r additional-context, fig.asp=1}
 pal <- c(
-  rep("#DFD8CA", ch_rank - 1),
-  "#B91646",
-  rep("#DFD8CA", 10 - ch_rank)
-) %>%
-  rev()
+  rep("#767676", ch_rank - 1),
+  "#800000",
+  rep("#767676", 10 - ch_rank))
 
 ## share to Pillar I
 contribution_share_pillar <- df %>%
   filter(!is.na(pillar)) %>%
-  # excluding Switzerland in 2014
-  filter(country_code != "CH" | call_year != 2014) %>%
   semi_join(top_participants %>%
     select(country = Country) %>%
     head(10),
@@ -419,8 +364,6 @@ contribution_share_pillar <- df %>%
 ## share to Resesearch and HigherEd
 contribution_share_reshed <- df %>%
   filter(!is.na(pillar)) %>%
-  # excluding Switzerland in 2014
-  filter(country_code != "CH" | call_year != 2014) %>%
   semi_join(top_participants %>%
     select(country = Country) %>%
     head(10),
@@ -448,37 +391,35 @@ top_participants %>%
       y = share_reshed,
       label = Country,
       col = Country,
-      size = contrib_country
-    )
-  ) +
+      size = contrib_country)) +
   geom_point(fill = NA) +
   geom_text_repel(
     size = 5,
     show.legend = FALSE,
     box.padding = .75,
-    family = "Gill Sans"
-  ) +
+    family = "Gill Sans") +
   guides(size = guide_legend(
     title = "Total EU Contribution (MioEUR) :",
-    override.aes = list(fill = "gray45", col = "gray45", shape = 21)
-  )) +
+    override.aes = list(fill = "gray45", col = "gray45", shape = 21))) +
   labs(
-    x = "Contributions to Pillar I: Excellent Science (%)",
-    y = "Contribution to Institutions in Research and HigherEd (%)"
-  ) +
-  scale_color_manual(values = pal, guide = "none") +
+    x = glue("Contributions to Pillar I: ",
+             "Excellent Science\n",
+             "(% of the total contribution to the country)"),
+    y = glue("Contribution to Institutions in Research and HigherEd\n",
+             "(% of the total contribution to the country)")) +
+  scale_color_manual(values = rev(pal), guide = "none") +
   theme_minimal() +
   theme(
     text = element_text(size = 16, family = "Gill Sans", color = "gray10"),
     plot.title.position = "plot",
-    legend.position = "top"
-  )
+    legend.position = "top")
 ```
+
 
 ### Relative Semester Distribution of EU Contribution
 
 ```{r, time-distribution, fig.asp=.6}
-pal <- c("#B91646", "#DFD8CA")
+pal <- c("#800000", "#767676")
 
 ch <- df %>%
   filter(!is.na(call_deadline_date)) %>%
@@ -531,14 +472,18 @@ ch %>%
     plot.title.position = "plot",
     plot.subtitle = element_markdown(),
     text = element_text(
-      size = 13,
+      size = 14,
       family = "Gill Sans",
       color = "gray10"
     )
   )
 ```
 
-### Top Recipients in Switzerland
+---
+
+## Annex
+
+### Top Recipients
 
 #### Top 30 in Research and Higher Education
 
@@ -611,11 +556,6 @@ df %>%
   )
 ```
 
----
-
-## Annex
-
-### Treemap of Swiss H2020 Participation
 
 ```{r visual-overview, eval=FALSE}
 # Differentiate pillars 1 to III
@@ -677,7 +617,46 @@ stats_depth_2 %>%
 # plot with https://rawgraphs.io
 ```
 
-Treemap showing the overall H2020 EU contribution (MEUR) to Switzerland by Pillar and Thematic Priority. Only the three largest pillars are shown.
+```{r ch-type-role, fig.asp=.7, eval = FALSE}
+pal <- c("#B91646", "#DFD8CA")
+df %>%
+  filter(!is.na(pillar)) %>%
+  filter(country_code == "CH") %>%
+  mutate(
+    pillar = fct_other(pillar, keep = chr(roman(1:5))),
+    pillar = fct_relevel(pillar, "Other", after = 0)
+  ) %>%
+  group_by(pillar, org_type, role = partner_role) %>%
+  summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(org_type = fct_rev(org_type)) %>%
+  arrange(pillar, org_type) %>%
+  ggplot(aes(x = pillar, y = contrib, fill = org_type)) +
+  geom_col(position = position_stack(reverse = FALSE)) +
+  scale_fill_manual(values = rev(pal), guide = guide_legend(reverse = TRUE)) +
+  scale_y_continuous(labels = unit_format(
+    suffix = "",
+    scale = 1e-6,
+    big.mark = ","
+  )) +
+  coord_flip() +
+  facet_wrap(role ~ ., ncol = 1) +
+  theme_minimal() +
+  labs(
+    title = "Distribution of EU Contribution to Swiss Institutions",
+    subtitle = "By Pillar, Institution Sector, and Instituion Role",
+    x = "Pillar",
+    y = "EU Contribution to Swiss Institutions (MioEUR)"
+  ) +
+  theme(
+    text = element_text(size = 15, family = "Gill Sans", color = "gray10"),
+    plot.title.position = "plot",
+    legend.position = "top",
+    legend.title = element_blank(),
+    axis.title.y = element_text(
+      angle = 0, 
+      vjust = 1.05, 
+      margin = margin(r = -30))
+  )
 
-![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-ch.svg "H2020 EU contribution to Swiss participants, by pillar and thematic priority.")
-
+```

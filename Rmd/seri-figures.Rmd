@@ -7,6 +7,7 @@ output:
 
 ```{r boilerplate, include=FALSE}
 knitr::opts_chunk$set(
+  dev = "svg",
   echo = FALSE,
   message = FALSE,
   warning = FALSE,
@@ -53,13 +54,11 @@ get_particip <- function(x) {
     group_by(year = start_year) %>%
     summarise(n_total = n(),
               contrib_all = sum(re_contribution, na.rm = TRUE))
-  
   ch <- x %>%
     filter(country_code == "CH") %>%
     group_by(framework_programme, year = start_year) %>%
     summarise(n_ch = n(),
               contrib_ch = sum(re_contribution, na.rm = TRUE))
-  
   # coordinations
   total2 <- x %>%
     filter(partner_role == "Coordinator") %>%
@@ -71,7 +70,7 @@ get_particip <- function(x) {
     summarise(coord_ch = n())
   coord <- left_join(total2, ch2, by = "year") %>%
     mutate(share_coord = 100 * coord_ch / coord_total)
-  
+
   left_join(total, ch, by = "year") %>%
     mutate(
       share_particip = 100 * n_ch / n_total,
@@ -116,8 +115,6 @@ get_avg_particip <- function(x) {
 }
 
 participation <- get_particip(df)
-pal <- c("#6B7AA1","#11324D")
-
 get_avg_particip(df) %>%
   select(starts_with("frame"), starts_with("avg")) %>%
   mutate(
@@ -139,6 +136,7 @@ get_avg_particip(df) %>%
 ### Share Swiss Participations
 
 ```{r swiss-participations}
+pal <- c("#6B7AA1", "#11324D")
 participation %>%
   ggplot(aes(x = year, y = share_particip, fill = framework_programme)) +
   geom_bar(position = "stack", stat = "identity") + 
@@ -149,17 +147,7 @@ participation %>%
     y = "%"
   ) +
   scale_fill_manual(values = pal) +
-  theme_minimal() +
-  theme(
-    plot.title.position = "plot",
-    legend.position = "top",
-    legend.title = element_blank(),
-    text = element_text(
-      size = 15,
-      family = "Gill Sans",
-      color = "gray15"
-    )
-  )
+  own_theme()
 ```
 
 ### Contribution to Swiss Participants
@@ -175,17 +163,7 @@ participation %>%
     y = "%"
   ) +
   scale_fill_manual(values = pal) +
-  theme_minimal() +
-  theme(
-    plot.title.position = "plot",
-    legend.position = "top",
-    legend.title = element_blank(),
-    text = element_text(
-      size = 15,
-      family = "Gill Sans",
-      color = "gray15"
-    )
-  )
+  own_theme()
 ```
 
 ### Swiss Coordinations
@@ -201,17 +179,7 @@ participation %>%
     y = "%"
   ) +
   scale_fill_manual(values = pal) +
-  theme_minimal() +
-  theme(
-    plot.title.position = "plot",
-    legend.position = "top",
-    legend.title = element_blank(),
-    text = element_text(
-      size = 15,
-      family = "Gill Sans",
-      color = "gray15"
-    )
-  )
+  own_theme()
 ```
 
 ## Top Participating Countries  {.tabset .tabset-fade .tabset-pills}
@@ -352,13 +320,6 @@ country_participation <- df %>%
 ```
 
 ```{r visual-countries, fig.asp=.5}
-# minimal plotting
-pal <- c(
-  rep("#DFD8CA", ch_rank - 1),
-  "#B91646",
-  rep("#DFD8CA", 10 - ch_rank)) %>%
-  rev()
-
 top_participants %>%
   mutate(
     Country = fct_rev(fct_inorder(Country)),
