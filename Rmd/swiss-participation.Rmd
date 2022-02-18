@@ -3,6 +3,8 @@ title: "Swiss Participation in Horizon 2020"
 output: 
   html_document:
     self_contained: no
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r boilerplate, include=FALSE}
@@ -14,6 +16,8 @@ knitr::opts_chunk$set(
   comment = FALSE
 )
 ```
+
+Horizon Dashboard data on Horizon 2020 offers more details than the data in the previous framework programmes.
 
 ```{r read-dashboard-data}
 source(here::here("R", "package.r"))
@@ -37,11 +41,14 @@ df_raw <- df_raw %>%
     org_type = fct_collapse(
       legal_entity_type,
       `Research & Education` = c("HES", "REC"),
-      `Others (Excl. R&Ed)` = c("PRC", "PUB", "OTH")))
+      `Private Companies` = "PRC",
+      `Others (Excl. R&Ed)` = c("PUB", "OTH")))
 
 df <- df_raw %>%
   filter(framework_programme == "H2020") %>%
-  filter(legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH")
+  filter(legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
+  mutate(call_semester = floor_date(call_deadline_date, "6 months"))
+
 ```
 
 ## Total EU Contribution by Pillar
@@ -140,7 +147,6 @@ top_participants <- df %>%
 
 ch_rank <- which(pull(top_participants, Country) == "Switzerland")
 
-# calculate further participation statistics
 country_participation <- df %>%
   group_by(
     Country = country,
@@ -157,62 +163,6 @@ country_participation <- df %>%
 ```
 
 ## Overview
-
-```{r get-participation}
-get_participation <- function(x) {
-  x %>%
-    filter(!is.na(pillar)) %>%
-    mutate(pillar = fct_rev(pillar)) %>%
-    group_by(
-      Pillar = pillar,
-      Priority = thematic_priority_abbr,
-      `Call Year` = call_year
-    ) %>%
-    summarise(
-      `Participation Count` = n(),
-      `Nb Projects` = n_distinct(project_id),
-      `EU Contribution` = sum(eu_contribution, na.rm = TRUE)
-    ) %>%
-    ungroup() %>%
-    mutate(`EU Contribution` = round(`EU Contribution`, 1)) %>%
-    reactable(
-      groupBy = c("Pillar", "Priority"),
-      columns = list(
-        Pillar = colDef(footer = "Total"),
-        `Participation Count` = colDef(
-          aggregate = "sum",
-          format = colFormat(separators = TRUE),
-          footer = function(values) {
-            sum(values) %>% format(big.mark = ",")
-          }
-        ),
-        `Nb Projects` = colDef(
-          aggregate = "sum",
-          format = colFormat(separators = TRUE),
-          footer = function(values) {
-            sum(values) %>% format(big.mark = ",")
-          }
-        ),
-        `EU Contribution` = colDef(
-          aggregate = "sum",
-          format = colFormat(
-            currency = "EUR",
-            separators = TRUE,
-            digits = 2
-          ),
-          footer = function(values) {
-            sum(values) %>%
-              format(big.mark = ",") %>%
-              str_c("€", .)
-          }
-        )
-      ),
-      defaultColDef = colDef(footerStyle = list(fontWeight = "bold")),
-      highlight = TRUE,
-      compact = TRUE
-    )
-}
-```
 
 Swiss participation in H2020: participation count, number of projects (distinct), total EU contribution by pillar, thematic priority, and call year.
 
@@ -336,6 +286,73 @@ df %>%
   get_participation()
 ```
 
+
+### Relative Semester Distribution of EU Contribution
+
+```{r, time-distribution}
+pal <- c("#800000", "#767676")
+
+ch <- df %>%
+  filter(!is.na(call_deadline_date)) %>%
+  filter(!is.na(org_type)) %>%
+  filter(country_code == "CH") %>%
+  group_by(Country = country, org_type, Semester = call_semester) %>%
+  summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(Share = 100 * contrib / sum(contrib))
+
+rest <- df %>%
+  filter(!is.na(call_deadline_date)) %>%
+  filter(!is.na(org_type)) %>%
+  filter(!country_code %in% c("CH")) %>%
+  mutate(
+    call_semester = floor_date(call_deadline_date, "6 months")) %>%
+  group_by(org_type, Semester = call_semester) %>%
+  summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(
+    Share = 100 * contrib / sum(contrib),
+    Country = "Remaining Countries") %>%
+  relocate(Country)
+
+
+combined <- ch %>%
+  bind_rows(rest) %>%
+  mutate(
+    Country = factor(Country,
+                     levels = c("Switzerland", "Remaining")),
+    org_type = fct_relevel(org_type, "Others (Excl. R&Ed)", after = Inf)
+  )
+
+combined %>%
+  ggplot(aes(x = Semester, y = Share, fill = Country)) +
+  geom_bar(
+    stat = "identity",
+    width = 120,
+    position = position_dodge(width = 128)) +
+  labs(
+    title = "Time Distribution of EU Contribution by Institution Sector",
+    subtitle = glue(
+      "<span style='color:{pal[1]};'>**Switzerland**</span> ",
+      "vs <span style='color:{pal[2]};weight: bold;'>**Remaining Countries**</span>"
+    ),
+    x = "Call Semester",
+    y = "%"
+  ) +
+  scale_fill_manual(values = pal, guide = "none") +
+  facet_wrap(org_type ~ ., ncol = 1) +
+  theme_minimal() +
+  theme(
+    plot.title.position = "plot",
+    plot.subtitle = element_markdown(),
+    text = element_text(
+      size = 14,
+      family = "Gill Sans",
+      color = "gray10"
+    )
+  )
+```
+
 ### Typology of the Top-10 Participating Countries
 
 ```{r additional-context, fig.asp=1}
@@ -415,70 +432,6 @@ top_participants %>%
     legend.position = "top")
 ```
 
-
-### Relative Semester Distribution of EU Contribution
-
-```{r, time-distribution, fig.asp=.6}
-pal <- c("#800000", "#767676")
-
-ch <- df %>%
-  filter(!is.na(call_deadline_date)) %>%
-  filter(!is.na(org_type)) %>%
-  filter(country_code == "CH") %>%
-  mutate(
-    call_semester = floor_date(call_deadline_date, "6 months")) %>%
-  group_by(Country = country, org_type, Semester = call_semester) %>%
-  summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
-  mutate(Share = 100 * prop.table(contrib)) %>%
-  select(-contrib)
-
-rest <- df %>%
-  filter(!is.na(call_deadline_date)) %>%
-  filter(!is.na(org_type)) %>%
-  filter(!country_code %in% c("CH")) %>%
-  mutate(
-    call_semester = floor_date(call_deadline_date, "6 months")) %>%
-  group_by(org_type, Semester = call_semester) %>%
-  summarise(contrib = sum(eu_contribution)) %>%
-  mutate(Share = 100 * prop.table(contrib)) %>%
-  select(-contrib) %>%
-  mutate(Country = "Remaining Countries") %>%
-  relocate(Country)
-
-ch %>%
-  bind_rows(rest) %>%
-  mutate(Country = factor(
-    Country,
-    levels = c("Switzerland", "Remaining")
-  )) %>%
-  ggplot(aes(x = Semester, y = Share, fill = Country)) +
-  geom_bar(
-    stat = "identity",
-    width = 120,
-    position = position_dodge(width = 128)) +
-  labs(
-    title = "Time Distribution of EU Contribution by Institution Sector",
-    subtitle = glue(
-      "<span style='color:{pal[1]};'>Switzerland</span> ",
-      "vs <span style='color:{pal[2]};'>Remaining Countries</span>"
-    ),
-    x = "Call Semester",
-    y = "%"
-  ) +
-  scale_fill_manual(values = pal, guide = "none") +
-  facet_wrap(org_type ~ ., ncol = 1, scales = "free_y") +
-  theme_minimal() +
-  theme(
-    plot.title.position = "plot",
-    plot.subtitle = element_markdown(),
-    text = element_text(
-      size = 14,
-      family = "Gill Sans",
-      color = "gray10"
-    )
-  )
-```
-
 ---
 
 ## Annex
@@ -520,12 +473,47 @@ df %>%
   )
 ```
 
-#### Top 30 not in Research and Higher Education
+#### Top 30 not in Private Companies
 
 ```{r}
 df %>%
   filter(country_code == "CH") %>%
-  # remove international organisations
+  filter(org_type == "Private Companies") %>%
+  group_by(Institution = legal_name) %>%
+  summarise(
+    `Nb Projects` = n_distinct(project_id),
+    `EU Contribution` = sum(eu_contribution, na.rm = TRUE)
+  ) %>%
+  arrange(desc(`EU Contribution`)) %>%
+  mutate(Institution = str_to_title(Institution)) %>%
+  slice_head(n = 30) %>%
+  reactable(
+    columns = list(
+      `Nb Projects` = colDef(sortable = TRUE),
+      `EU Contribution` = colDef(
+        sortable = TRUE,
+        format = colFormat(
+          currency = "EUR",
+          separators = TRUE,
+          digits = 2
+        )
+      )
+    ),
+    highlight = TRUE,
+    searchable = TRUE,
+    sortable = FALSE,
+    showSortable = TRUE,
+    compact = TRUE,
+    minRows = 10
+  )
+```
+
+
+#### Top 30 not in Others (Excl. R&Ed)
+
+```{r}
+df %>%
+  filter(country_code == "CH") %>%
   filter(org_type == "Others (Excl. R&Ed)") %>%
   group_by(Institution = legal_name) %>%
   summarise(
