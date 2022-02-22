@@ -43,3 +43,5 @@ Switzerland has been fully associated to the EU's Research Programmes since 2004
 
 > For Swiss official figures, please visit [Facts and Figures on the Swiss Participation in the EU-Framework Programmes for Research and Innovation](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html).
 > For EU's official figures, please visit the [Horizon Dashboard](https://webgate.ec.europa.eu/dashboard/sense/app/a976d168-2023-41d8-acec-e77640154726/sheet/0c8af38b-b73c-4da2-ba41-73ea34ab7ac4/state/analysis/select/Country/Switzerland).
+> For the highlights, please visit [Summary Figures](summary.html).
+

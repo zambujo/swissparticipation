@@ -288,6 +288,7 @@ area_labels %>%
     plot.title.position = "plot",
     legend.position = "top",
     legend.title = element_blank(),
+    legend.key.size = unit(0.8, "line"),
     panel.grid.major.y = element_blank(),
     axis.title.x = element_blank(),
     axis.title.y = element_blank(),
@@ -453,7 +454,7 @@ top_participants %>%
   scale_color_manual(values = rev(pal), guide = "none") +
   theme_minimal() +
   theme(
-    text = element_text(size = 16, family = "Gill Sans", color = "gray10"),
+    text = element_text(size = 15, family = "Gill Sans", color = "gray10"),
     plot.title.position = "plot",
     legend.position = "top")
 ```

@@ -1,0 +1,120 @@
+---
+title: "Swiss Participation Figures"
+subtitle: "in FP7 and H2020"  
+author: 
+  - "João Martins"
+output:
+  xaringan::moon_reader:
+    self_contained: false
+    css: xaringan-themer.css
+    nature: 
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+      beforeInit: "https://platform.twitter.com/widgets.js"
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#23395b")
+```
+
+<center><blockquote class="twitter-tweet" data-lang="en" data-dnt="true" width ="300"><p lang="en" dir="ltr">After non/partial association of Switzerland with EU FPs in 2014, coordination of EU consortia by Swiss scientists dropped dramatically: <br><br>from 997 to 15. <br><br>It took years to get back to the same level. <br><br>Mored data at <a href="https://twitter.com/SBFI_CH?ref_src=twsrc%5Etfw">@SBFI_CH</a>: <a href="https://t.co/O1vEB0vDyI">https://t.co/O1vEB0vDyI</a><a href="https://twitter.com/ParmelinG?ref_src=twsrc%5Etfw">@ParmelinG</a> <a href="https://twitter.com/ignaziocassis?ref_src=twsrc%5Etfw">@ignaziocassis</a> <a href="https://t.co/Xg6GtUvM7M">pic.twitter.com/Xg6GtUvM7M</a></p>&mdash; Matthias #EveryVaccinationCounts Egger (@eggersnsf) <a href="https://twitter.com/eggersnsf/status/1488483483064414208?ref_src=twsrc%5Etfw">February 1, 2022</a></blockquote></center>
+
+---
+layout: true
+
+## FP7 and H2020
+
+---
+
+<center><img src="https://pbs.twimg.com/media/FKgk-FpXMAUXbVv?format=png&name=small" alt="Egger" height="300px" /></center>
+
+---
+
+<center><img src="https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/coordinations-overviews-1.svg" alt="Coordinations" height="450px" /></center>
+
+---
+
+<center><img src="https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/swiss-countributions-1.svg" alt="Contributions" height="450px" /></center>
+
+---
+
+<center><img src="https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/swiss-participations-1.svg" alt="Participation" height="450px" /></center>
+
+---
+layout: false
+
+class: inverse center middle
+
+## Top 10 Participating Countries 
+
+---
+layout: false
+
+## Top 10 Participating Countries 
+
+.pull-left[
+## FP7
+![FP7](https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/visual-countries-fp7-1.svg)
+]
+
+.pull-right[
+## H2020
+![H2020](https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/visual-countries-1.svg)
+]
+
+---
+layout: false
+
+class: inverse center middle
+
+# Horizon 2020
+
+.footnote[Detailed figures]
+
+---
+
+layout: false
+
+## EU Contributions under H2020
+
+<center><img src="https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-all.svg" alt="All contributions" height="500px" /></center>
+
+---
+layout: false
+
+## EU Contributions to Swiss Institutions under H2020
+
+<center><img src="https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-ch.svg" alt="Contributions to Switzerland" height="500px" /></center>
+
+---
+layout: false
+
+## Contributions to Pillar I and to Research and HigherEd
+
+<center><img src="https://zambujo.github.io/swissparticipation/swiss-participation_files/figure-html/additional-context-1.svg" alt="Pillar and Legal" height="500px" /></center>
+
+---
+layout: false
+
+## EU Contributions to Swiss Institutions under HE
+
+<center><img src="https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/horizon-europe/_jcr_content/par/image_798342255/image.imagespooler.jpg/1640244356864/Graphic%20Horizon%20Package%20Eligibility_Calls%202022_FINAL.jpp" alt="Contributions to Switzerland in HE" height="500px" /></center>
+
+---

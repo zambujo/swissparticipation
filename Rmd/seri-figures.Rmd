@@ -148,8 +148,8 @@ participation %>%
   geom_bar(position = "stack", stat = "identity") + 
   labs(
     title = "Swiss Participation",
-    subtitle = "By project starting semester, FP7 and H2020",
-    x = "Project Starting Semester",
+    subtitle = "By semester of project starting date, FP7 and H2020",
+    x = "Semester (Project Starting Date)",
     y = "%"
   ) +
   scale_fill_manual(values = pal) +
@@ -164,8 +164,8 @@ participation %>%
   geom_bar(position = "stack", stat = "identity") + 
   labs(
     title = "Contributions to Swiss Participants",
-    subtitle = "By project starting semester, FP7 and H2020",
-    x = "Project Starting Semester",
+    subtitle = "By semester of project starting date, FP7 and H2020",
+    x = "Semester (Project Starting Date)",
     y = "%"
   ) +
   scale_fill_manual(values = pal) +
@@ -180,8 +180,8 @@ participation %>%
   geom_bar(position = "stack", stat = "identity") + 
   labs(
     title = "Swiss Coordinations",
-    subtitle = "By project starting semester, FP7 and H2020",
-    x = "Project Starting Semester",
+    subtitle = "By semester of project starting date, FP7 and H2020",
+    x = "Semester (Project Starting Date)",
     y = "%"
   ) +
   scale_fill_manual(values = pal) +
