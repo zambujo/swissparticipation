@@ -9,6 +9,7 @@ own_theme <- function() {
             plot.title.position = "plot",
             legend.position = "top",
             legend.title = element_blank(),
+            legend.key.size = unit(0.8, "line"),
             text = element_text(
                 size = 15,
                 family = "Gill Sans",

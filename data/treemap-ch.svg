@@ -1,262 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="1004.1407"
-   height="610"
+   width="897"
+   height="627.13544"
    version="1.1"
-   id="svg1201"
-   sodipodi:docname="treemap.svg"
-   inkscape:version="1.0.1 (c497b03c, 2020-09-10)">
-  <metadata
-     id="metadata1207">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
+   id="svg615"
+   sodipodi:docname="treemap-ch.svg"
+   inkscape:version="1.1.2 (b8e25be8, 2022-02-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs1205">
-    <marker
-       style="overflow:visible"
-       id="marker3878"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="DotM"
-       inkscape:isstock="true">
-      <path
-         transform="matrix(0.4,0,0,0.4,2.96,0.4)"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
-         d="m -2.5,-1 c 0,2.76 -2.24,5 -5,5 -2.76,0 -5,-2.24 -5,-5 0,-2.76 2.24,-5 5,-5 2.76,0 5,2.24 5,5 z"
-         id="path3876" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="marker3778"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="DotM"
-       inkscape:isstock="true">
-      <path
-         transform="matrix(0.4,0,0,0.4,2.96,0.4)"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
-         d="m -2.5,-1 c 0,2.76 -2.24,5 -5,5 -2.76,0 -5,-2.24 -5,-5 0,-2.76 2.24,-5 5,-5 2.76,0 5,2.24 5,5 z"
-         id="path3776" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="DotM"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="DotM"
-       inkscape:isstock="true"
-       inkscape:collect="always">
-      <path
-         transform="matrix(0.4,0,0,0.4,2.96,0.4)"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
-         d="m -2.5,-1 c 0,2.76 -2.24,5 -5,5 -2.76,0 -5,-2.24 -5,-5 0,-2.76 2.24,-5 5,-5 2.76,0 5,2.24 5,5 z"
-         id="path1746" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="marker3310"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="DotL"
-       inkscape:isstock="true">
-      <path
-         transform="matrix(0.8,0,0,0.8,5.92,0.8)"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
-         d="m -2.5,-1 c 0,2.76 -2.24,5 -5,5 -2.76,0 -5,-2.24 -5,-5 0,-2.76 2.24,-5 5,-5 2.76,0 5,2.24 5,5 z"
-         id="path3308" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="marker3300"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="DotL"
-       inkscape:isstock="true">
-      <path
-         transform="matrix(0.8,0,0,0.8,5.92,0.8)"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
-         d="m -2.5,-1 c 0,2.76 -2.24,5 -5,5 -2.76,0 -5,-2.24 -5,-5 0,-2.76 2.24,-5 5,-5 2.76,0 5,2.24 5,5 z"
-         id="path3298" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="marker3290"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="DotL"
-       inkscape:isstock="true">
-      <path
-         transform="matrix(0.8,0,0,0.8,5.92,0.8)"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
-         d="m -2.5,-1 c 0,2.76 -2.24,5 -5,5 -2.76,0 -5,-2.24 -5,-5 0,-2.76 2.24,-5 5,-5 2.76,0 5,2.24 5,5 z"
-         id="path3288" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="marker3112"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="EmptyDiamondLend"
-       inkscape:isstock="true">
-      <path
-         transform="matrix(0.8,0,0,0.8,-5.6,0)"
-         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
-         d="M 0,-7.0710768 -7.0710894,0 0,7.0710589 7.0710462,0 Z"
-         id="path3110" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="marker3054"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="EmptyDiamondLend"
-       inkscape:isstock="true">
-      <path
-         transform="matrix(0.8,0,0,0.8,-5.6,0)"
-         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
-         d="M 0,-7.0710768 -7.0710894,0 0,7.0710589 7.0710462,0 Z"
-         id="path3052" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="marker2150"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="EmptyDiamondLend"
-       inkscape:isstock="true">
-      <path
-         transform="matrix(0.8,0,0,0.8,-5.6,0)"
-         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
-         d="M 0,-7.0710768 -7.0710894,0 0,7.0710589 7.0710462,0 Z"
-         id="path2148" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="marker2130"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="EmptyDiamondLend"
-       inkscape:isstock="true">
-      <path
-         transform="matrix(0.8,0,0,0.8,-5.6,0)"
-         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
-         d="M 0,-7.0710768 -7.0710894,0 0,7.0710589 7.0710462,0 Z"
-         id="path2128" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="marker2054"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="DotL"
-       inkscape:isstock="true">
-      <path
-         transform="matrix(0.8,0,0,0.8,5.92,0.8)"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
-         d="m -2.5,-1 c 0,2.76 -2.24,5 -5,5 -2.76,0 -5,-2.24 -5,-5 0,-2.76 2.24,-5 5,-5 2.76,0 5,2.24 5,5 z"
-         id="path2052" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="marker2044"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="DotL"
-       inkscape:isstock="true">
-      <path
-         transform="matrix(0.8,0,0,0.8,5.92,0.8)"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
-         d="m -2.5,-1 c 0,2.76 -2.24,5 -5,5 -2.76,0 -5,-2.24 -5,-5 0,-2.76 2.24,-5 5,-5 2.76,0 5,2.24 5,5 z"
-         id="path2042" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="marker1974"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="DotL"
-       inkscape:isstock="true">
-      <path
-         transform="matrix(0.8,0,0,0.8,5.92,0.8)"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
-         d="m -2.5,-1 c 0,2.76 -2.24,5 -5,5 -2.76,0 -5,-2.24 -5,-5 0,-2.76 2.24,-5 5,-5 2.76,0 5,2.24 5,5 z"
-         id="path1972" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="marker1954"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="DotL"
-       inkscape:isstock="true">
-      <path
-         transform="matrix(0.8,0,0,0.8,5.92,0.8)"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
-         d="m -2.5,-1 c 0,2.76 -2.24,5 -5,5 -2.76,0 -5,-2.24 -5,-5 0,-2.76 2.24,-5 5,-5 2.76,0 5,2.24 5,5 z"
-         id="path1952" />
-    </marker>
-    <clipPath
-       id="clip_ancestor0">
-      <rect
-         width="898"
-         height="598"
-         id="use835"
-         fill="#cccccc"
-         fill-opacity="0"
-         stroke="#cccccc"
-         stroke-opacity="0.1"
-         x="0"
-         y="0" />
-    </clipPath>
-    <clipPath
-       id="clip_ancestor1">
-      <rect
-         width="18"
-         height="109"
-         id="use843"
-         fill="#cccccc"
-         fill-opacity="0.333333"
-         stroke="#cccccc"
-         stroke-opacity="0.433333"
-         x="0"
-         y="0" />
-    </clipPath>
+     id="defs619">
     <clipPath
        id="clip_ancestor2">
+      <use
+         xlink:href="#path_ancestor2"
+         id="use349"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-575.5,-50.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor4">
+      <use
+         xlink:href="#path_ancestor4"
+         id="use365"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-575.5,-572.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor6">
       <rect
-         width="18"
-         height="471"
-         id="use851"
+         width="213"
+         height="44"
+         id="use381"
          fill="#cccccc"
          fill-opacity="0.333333"
          stroke="#cccccc"
@@ -268,54 +52,19 @@
        id="clip_ancestor3">
       <use
          xlink:href="#path_ancestor3"
-         id="use859"
+         id="use357"
          x="0"
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-1.5,-1.5)" />
-    </clipPath>
-    <clipPath
-       id="clip_ancestor4">
-      <use
-         xlink:href="#path_ancestor4"
-         id="use867"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-591.03537,-1.5)" />
-    </clipPath>
-    <clipPath
-       id="clip_ancestor5">
-      <use
-         xlink:href="#path_ancestor5"
-         id="use875"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-591.03537,-259.5)" />
-    </clipPath>
-    <clipPath
-       id="clip_ancestor6">
-      <rect
-         width="165"
-         height="5"
-         id="use883"
-         fill="#cccccc"
-         fill-opacity="0.333333"
-         stroke="#cccccc"
-         stroke-opacity="0.433333"
-         x="0"
-         y="0" />
+         transform="translate(-575.5,-276.63544)" />
     </clipPath>
     <clipPath
        id="clip_ancestor7">
       <rect
-         width="119"
-         height="5"
-         id="use891"
+         width="49"
+         height="44"
+         id="use389"
          fill="#cccccc"
          fill-opacity="0.333333"
          stroke="#cccccc"
@@ -324,22 +73,70 @@
          y="0" />
     </clipPath>
     <clipPath
-       id="clip0">
+       id="clip_ancestor5">
       <rect
-         id="use900"
-         fill="#5e4fa2"
-         width="12"
-         height="94"
+         width="45"
+         height="16"
+         id="use373"
+         fill="#cccccc"
+         fill-opacity="0.333333"
+         stroke="#cccccc"
+         stroke-opacity="0.433333"
          x="0"
          y="0" />
     </clipPath>
     <clipPath
-       id="clip1">
+       id="clip_ancestor0">
       <rect
-         id="use912"
-         fill="#56adae"
-         width="12"
-         height="456"
+         width="880"
+         height="580"
+         id="use333"
+         fill="#cccccc"
+         fill-opacity="0"
+         stroke="#cccccc"
+         stroke-opacity="0.1"
+         x="0"
+         y="0" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor1">
+      <use
+         xlink:href="#path_ancestor1"
+         id="use341"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-10.5,-50.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip1">
+      <use
+         xlink:href="#path1"
+         id="use410"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-375.5,-333.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip16">
+      <rect
+         id="use590"
+         fill="#e85e49"
+         width="209"
+         height="30"
+         x="0"
+         y="0" />
+    </clipPath>
+    <clipPath
+       id="clip17">
+      <rect
+         id="use602"
+         fill="#9e0142"
+         width="45"
+         height="30"
          x="0"
          y="0" />
     </clipPath>
@@ -347,1058 +144,655 @@
        id="clip2">
       <use
          xlink:href="#path2"
-         id="use924"
+         id="use422"
          x="0"
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-6.0000001,-15)" />
+         transform="translate(-375.5,-550.63544)" />
     </clipPath>
     <clipPath
-       id="clip3">
+       id="clip0">
       <use
-         xlink:href="#path3"
-         id="use936"
+         xlink:href="#path0"
+         id="use398"
          x="0"
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-6.0000001,-461)" />
-    </clipPath>
-    <clipPath
-       id="clip4">
-      <use
-         xlink:href="#path4"
-         id="use948"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-457,-15)" />
-    </clipPath>
-    <clipPath
-       id="clip5">
-      <use
-         xlink:href="#path5"
-         id="use960"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-457,-351)" />
-    </clipPath>
-    <clipPath
-       id="clip6">
-      <use
-         xlink:href="#path6"
-         id="use972"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-595.53537,-15)" />
-    </clipPath>
-    <clipPath
-       id="clip7">
-      <use
-         xlink:href="#path7"
-         id="use984"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-595.53537,-151)" />
-    </clipPath>
-    <clipPath
-       id="clip8">
-      <use
-         xlink:href="#path8"
-         id="use996"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-801.53537,-15)" />
-    </clipPath>
-    <clipPath
-       id="clip9">
-      <use
-         xlink:href="#path9"
-         id="use1008"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-801.53537,-126)" />
-    </clipPath>
-    <clipPath
-       id="clip10">
-      <use
-         xlink:href="#path10"
-         id="use1020"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-850.53537,-126)" />
-    </clipPath>
-    <clipPath
-       id="clip11">
-      <use
-         xlink:href="#path11"
-         id="use1032"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-801.53537,-216)" />
+         transform="translate(-12.5,-62.63544)" />
     </clipPath>
     <clipPath
        id="clip12">
       <use
          xlink:href="#path12"
-         id="use1044"
+         id="use542"
          x="0"
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-847.53537,-216)" />
+         transform="translate(-713.5,-524.63544)" />
     </clipPath>
     <clipPath
        id="clip13">
       <use
          xlink:href="#path13"
-         id="use1056"
+         id="use554"
          x="0"
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-846.03537,-246.5)" />
+         transform="translate(-713.5,-451.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip11">
+      <use
+         xlink:href="#path11"
+         id="use530"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-713.5,-288.63544)" />
     </clipPath>
     <clipPath
        id="clip14">
       <use
          xlink:href="#path14"
-         id="use1068"
+         id="use566"
          x="0"
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-876.03537,-246.5)" />
+         transform="translate(-577.50011,-584.63544)" />
     </clipPath>
     <clipPath
        id="clip15">
+      <rect
+         id="use578"
+         fill="#5e4fa2"
+         width="41"
+         height="2"
+         x="0"
+         y="0" />
+    </clipPath>
+    <clipPath
+       id="clip5">
       <use
-         xlink:href="#path15"
-         id="use1080"
+         xlink:href="#path5"
+         id="use458"
          x="0"
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-595.53537,-273)" />
+         transform="translate(-577.5,-211.63544)" />
     </clipPath>
     <clipPath
-       id="clip16">
+       id="clip6">
       <use
-         xlink:href="#path16"
-         id="use1092"
+         xlink:href="#path6"
+         id="use470"
          x="0"
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-767.53537,-273)" />
+         transform="translate(-715.5,-62.63544)" />
     </clipPath>
     <clipPath
-       id="clip17">
-      <use
-         xlink:href="#path17"
-         id="use1104"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-595.53537,-439)" />
-    </clipPath>
-    <clipPath
-       id="clip18">
-      <use
-         xlink:href="#path18"
-         id="use1116"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-595.53537,-514)" />
-    </clipPath>
-    <clipPath
-       id="clip19">
-      <use
-         xlink:href="#path19"
-         id="use1128"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-762.53537,-439)" />
-    </clipPath>
-    <clipPath
-       id="clip20">
-      <use
-         xlink:href="#path20"
-         id="use1140"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-840.53537,-439)" />
-    </clipPath>
-    <clipPath
-       id="clip21">
-      <use
-         xlink:href="#path21"
-         id="use1152"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-762.53537,-559)" />
-    </clipPath>
-    <clipPath
-       id="clip22">
-      <use
-         xlink:href="#path22"
-         id="use1164"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-830.53537,-559)" />
-    </clipPath>
-    <clipPath
-       id="clip23">
-      <use
-         xlink:href="#path23"
-         id="use1176"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-594.03537,-586.5)" />
-    </clipPath>
-    <clipPath
-       id="clip24">
-      <use
-         xlink:href="#path24"
-         id="use1188"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-762.03537,-586.5)" />
-    </clipPath>
-    <clipPath
-       id="clip7-7">
+       id="clip7">
       <use
          xlink:href="#path7"
-         id="use984-9"
+         id="use482"
          x="0"
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-595.53537,-151)" />
+         transform="translate(-715.5,-218.63544)" />
     </clipPath>
     <clipPath
-       id="clip7-3">
+       id="clip8">
       <use
-         xlink:href="#path7"
-         id="use984-2"
+         xlink:href="#path8"
+         id="use494"
          x="0"
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-595.53537,-151)" />
+         transform="translate(-577.5,-288.63544)" />
     </clipPath>
     <clipPath
-       id="clip7-3-7">
+       id="clip9">
       <use
-         xlink:href="#path7"
-         id="use984-2-4"
+         xlink:href="#path9"
+         id="use506"
          x="0"
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-595.53537,-151)" />
+         transform="translate(-577.5,-426.63544)" />
     </clipPath>
     <clipPath
-       id="clip7-3-0">
+       id="clip10">
       <use
-         xlink:href="#path7"
-         id="use984-2-9"
+         xlink:href="#path10"
+         id="use518"
          x="0"
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-595.53537,-151)" />
+         transform="translate(-577.5,-482.63544)" />
     </clipPath>
     <clipPath
-       id="clip7-3-0-9">
+       id="clip3">
       <use
-         xlink:href="#path7"
-         id="use984-2-9-8"
+         xlink:href="#path3"
+         id="use434"
          x="0"
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-595.53537,-151)" />
+         transform="translate(-375.5,-62.63544)" />
     </clipPath>
     <clipPath
-       id="clip7-3-0-8">
+       id="clip4">
       <use
-         xlink:href="#path7"
-         id="use984-2-9-4"
+         xlink:href="#path4"
+         id="use446"
          x="0"
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-595.53537,-151)" />
-    </clipPath>
-    <clipPath
-       id="clip7-3-0-1">
-      <use
-         xlink:href="#path7"
-         id="use984-2-9-49"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-595.53537,-151)" />
-    </clipPath>
-    <marker
-       style="overflow:visible"
-       id="marker3778-0"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="DotM"
-       inkscape:isstock="true">
-      <path
-         transform="matrix(0.4,0,0,0.4,2.96,0.4)"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
-         d="m -2.5,-1 c 0,2.76 -2.24,5 -5,5 -2.76,0 -5,-2.24 -5,-5 0,-2.76 2.24,-5 5,-5 2.76,0 5,2.24 5,5 z"
-         id="path3776-8" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="DotM-5"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="DotM"
-       inkscape:isstock="true"
-       inkscape:collect="always">
-      <path
-         transform="matrix(0.4,0,0,0.4,2.96,0.4)"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
-         d="m -2.5,-1 c 0,2.76 -2.24,5 -5,5 -2.76,0 -5,-2.24 -5,-5 0,-2.76 2.24,-5 5,-5 2.76,0 5,2.24 5,5 z"
-         id="path1746-5" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="marker3878-9"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="DotM"
-       inkscape:isstock="true">
-      <path
-         transform="matrix(0.4,0,0,0.4,2.96,0.4)"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
-         d="m -2.5,-1 c 0,2.76 -2.24,5 -5,5 -2.76,0 -5,-2.24 -5,-5 0,-2.76 2.24,-5 5,-5 2.76,0 5,2.24 5,5 z"
-         id="path3876-5" />
-    </marker>
-    <clipPath
-       id="clip7-3-0-8-0">
-      <use
-         xlink:href="#path7"
-         id="use984-2-9-4-5"
-         x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-595.53537,-151)" />
+         transform="translate(-577.5,-62.63544)" />
     </clipPath>
   </defs>
   <sodipodi:namedview
+     id="namedview617"
      pagecolor="#ffffff"
      bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
+     borderopacity="1.0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1920"
-     inkscape:window-height="1147"
-     id="namedview1203"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
      showgrid="false"
-     fit-margin-top="1"
-     fit-margin-left="1"
-     fit-margin-right="1"
-     fit-margin-bottom="1"
      inkscape:zoom="1"
-     inkscape:cx="503.66191"
-     inkscape:cy="192.2443"
+     inkscape:cx="454"
+     inkscape:cy="315"
+     inkscape:window-width="1809"
+     inkscape:window-height="1016"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg1201"
-     inkscape:document-rotation="0" />
-  <g
-     id="g5596">
-    <rect
-       width="581"
-       height="583"
-       id="path_ancestor3"
-       fill="#cccccc"
-       fill-opacity="0.333333"
-       stroke="#cccccc"
-       stroke-opacity="0.433333"
-       x="1.5000001"
-       y="1.5" />
-    <text
+     inkscape:current-layer="svg615"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     fit-margin-top="10"
+     fit-margin-left="10"
+     fit-margin-right="10"
+     fit-margin-bottom="10" />
+  <rect
+     width="563"
+     height="566"
+     id="path_ancestor1"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="10.5"
+     y="50.635441" />
+  <rect
+     width="311"
+     height="224"
+     id="path_ancestor2"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="575.5"
+     y="50.635441" />
+  <rect
+     width="311"
+     height="294"
+     id="path_ancestor3"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="575.5"
+     y="276.63544" />
+  <rect
+     width="311"
+     height="44"
+     id="path_ancestor4"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="575.5"
+     y="572.63544"
+     style="stroke-width:1" />
+  <rect
+     id="path0"
+     fill="#fdbe70"
+     width="361"
+     height="552"
+     x="12.5"
+     y="62.635441" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="14.868164"
+     y="78.089272"
+     id="text2045-6"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3"
+       x="14.868164"
+       y="78.089272"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">ERC</tspan><tspan
+       sodipodi:role="line"
+       x="14.868164"
+       y="98.17411"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans'"
+       id="tspan35814">M€943</tspan></text>
+  <rect
+     id="path1"
+     fill="#fdbe70"
+     width="196"
+     height="215"
+     x="375.5"
+     y="333.63544" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="377.87793"
+     y="349.0629"
+     id="text2045-6-7"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-1"
+       x="377.87793"
+       y="349.0629"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">FET</tspan><tspan
+       sodipodi:role="line"
+       x="377.87793"
+       y="369.14774"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan41852">M€201</tspan></text>
+  <rect
+     id="path3"
+     fill="#fdbe70"
+     width="196"
+     height="269"
+     x="375.5"
+     y="62.635441" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="377.84863"
+     y="78.089264"
+     id="text2045-6-78"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4"
+       x="377.84863"
+       y="78.089264"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">MSCA</tspan><tspan
+       sodipodi:role="line"
+       x="377.84863"
+       y="98.174103"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan45842">M€252</tspan></text>
+  <rect
+     id="path4"
+     fill="#fbf8b0"
+     width="136"
+     height="147"
+     x="577.5"
+     y="62.635441" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="579.80859"
+     y="78.089272"
+     id="text2045-6-78-5"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-37"
+       x="579.80859"
+       y="78.089272"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">INNOSUPSME</tspan><tspan
+       sodipodi:role="line"
+       x="579.80859"
+       y="98.17411"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan46175">M€101</tspan></text>
+  <rect
+     id="path5"
+     fill="#fbf8b0"
+     width="136"
+     height="61"
+     x="577.5"
+     y="211.63544" />
+  <rect
+     id="path6"
+     fill="#fbf8b0"
+     width="169"
+     height="154"
+     x="715.5"
+     y="62.635441" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="717.86719"
+     y="78.089272"
+     id="text2045-6-78-9"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-3"
+       x="717.86719"
+       y="78.089272"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">ICT</tspan><tspan
+       sodipodi:role="line"
+       x="717.86719"
+       y="98.17411"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan46506">M€131</tspan></text>
+  <rect
+     id="path7"
+     fill="#fbf8b0"
+     width="169"
+     height="54"
+     x="715.5"
+     y="218.63544" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="718.27832"
+     y="234.08926"
+     id="text2045-6-78-4-3"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-2-8"
+       x="718.27832"
+       y="234.08926"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">OTHER</tspan><tspan
+       sodipodi:role="line"
+       x="718.27832"
+       y="254.1741"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan47214">M€47</tspan></text>
+  <rect
+     id="path8"
+     fill="#bee5a0"
+     width="134"
+     height="136"
+     x="577.5"
+     y="288.63544" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="579.86816"
+     y="304.08926"
+     id="text2045-6-78-3"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-9"
+       x="579.86816"
+       y="304.08926"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">ENERGY</tspan><tspan
+       sodipodi:role="line"
+       x="579.86816"
+       y="324.1741"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan47676">M€91</tspan></text>
+  <rect
+     id="path9"
+     fill="#bee5a0"
+     width="134"
+     height="54"
+     x="577.5"
+     y="426.63544" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="579.86816"
+     y="442.0629"
+     id="text2045-6-78-4-1"><tspan
+       sodipodi:role="line"
+       x="579.86816"
+       y="442.0629"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan34536">ENV</tspan><tspan
+       sodipodi:role="line"
+       x="579.86816"
+       y="462.14774"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan50128">M€37</tspan></text>
+  <rect
+     id="path10"
+     fill="#bee5a0"
+     width="134"
+     height="86"
+     x="577.5"
+     y="482.63544" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="579.87793"
+     y="498.08926"
+     id="text2045-6-78-4-2"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-2-9"
+       x="579.87793"
+       y="498.08926"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">FOOD</tspan><tspan
+       sodipodi:role="line"
+       x="579.87793"
+       y="518.17413"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan50966">M€58</tspan></text>
+  <rect
+     id="path11"
+     fill="#bee5a0"
+     width="171"
+     height="161"
+     x="713.5"
+     y="288.63544" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="715.87305"
+     y="304.0629"
+     id="text2045-6-78-67"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-8"
+       x="715.87305"
+       y="304.0629"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">HEALTH</tspan><tspan
+       sodipodi:role="line"
+       x="715.87305"
+       y="324.14774"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan47860">M€137</tspan></text>
+  <rect
+     id="path12"
+     fill="#bee5a0"
+     width="171"
+     height="44"
+     x="713.5"
+     y="524.63544" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="716.27832"
+     y="540.08929"
+     id="text2045-6-78-4"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-2"
+       x="716.27832"
+       y="540.08929"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">OTHER</tspan><tspan
+       sodipodi:role="line"
+       x="716.27832"
+       y="560.17407"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan50598">M€38</tspan></text>
+  <rect
+     id="path13"
+     fill="#bee5a0"
+     width="171"
+     height="71"
+     x="713.5"
+     y="451.63544" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="716.16797"
+     y="467.0629"
+     id="text2045-6-78-4-36"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-2-0"
+       x="716.16797"
+       y="467.0629"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">TPT</tspan><tspan
+       sodipodi:role="line"
+       x="716.16797"
+       y="487.14774"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan50702">M€61</tspan></text>
+  <rect
+     id="path14"
+     fill="#56adae"
+     width="307.00577"
+     height="30.005831"
+     x="577.50006"
+     y="584.63544"
+     style="stroke-width:0.999996" />
+  <text
+     clip-path="url(#clip15)"
+     font-family="Arial, sans-serif"
+     font-size="10px"
+     dominant-baseline="text-before-edge"
+     class="txt"
+     id="text585"
+     transform="translate(577.5,612.63544)"><tspan
        x="3"
-       y="2"
-       clip-path="url(#clip_ancestor3)"
-       font-family="Arial, sans-serif"
-       font-size="8px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text862"
-       transform="matrix(1.5746886,0,0,1.5746886,0.4147765,-0.7506199)"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial, sans-serif;-inkscape-font-specification:'Arial, sans-serif Bold';stroke-width:0.635046">I Excellent Science</text>
-    <rect
-       id="path2"
-       fill="#bee5a0"
-       width="448"
-       height="443"
-       x="6"
-       y="15" />
-    <rect
-       id="path3"
-       fill="#bee5a0"
-       width="448"
-       height="122"
-       x="6"
-       y="461" />
-    <rect
-       id="path4"
-       fill="#bee5a0"
-       width="124"
-       height="333"
-       x="457"
-       y="15" />
-    <rect
-       id="path5"
-       fill="#bee5a0"
-       width="124"
-       height="232"
-       x="457"
-       y="351" />
-    <rect
-       width="287"
-       height="247"
-       id="path_ancestor4"
-       fill="#cccccc"
-       fill-opacity="0.333333"
-       stroke="#cccccc"
-       stroke-opacity="0.433333"
-       x="591.0354"
-       y="1.5" />
-    <text
+       y="0.2em"
+       style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan581" /><tspan
        x="3"
-       y="2"
-       clip-path="url(#clip_ancestor4)"
-       font-family="Arial, sans-serif"
-       font-size="8px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text870"
-       transform="matrix(1.5746886,0,0,1.5746886,589.95018,-0.904398)"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial, sans-serif;-inkscape-font-specification:'Arial, sans-serif Bold';stroke-width:0.635046">II Industrial Leadership</text>
-    <rect
-       id="path6"
-       fill="#fbf8b0"
-       width="203"
-       height="133"
-       x="595.5354"
-       y="15" />
-    <rect
-       id="path7"
-       fill="#fbf8b0"
-       width="203"
-       height="96"
-       x="595.5354"
-       y="151" />
-    <rect
-       id="path8"
-       fill="#fbf8b0"
-       width="75"
-       height="108"
-       x="801.5354"
-       y="15" />
-    <rect
-       id="path9"
-       fill="#fbf8b0"
-       width="46"
-       height="87"
-       x="801.5354"
-       y="126" />
-    <rect
-       id="path10"
-       fill="#fbf8b0"
-       width="26"
-       height="87"
-       x="850.5354"
-       y="126" />
-    <rect
-       id="path11"
-       fill="#fbf8b0"
-       width="43"
-       height="31"
-       x="801.5354"
-       y="216" />
-    <rect
-       id="path12"
-       fill="#fbf8b0"
-       width="29"
-       height="30"
-       x="847.5354"
-       y="216" />
-    <rect
-       id="path13"
-       fill="#fbf8b0"
-       width="29"
-       height="0"
-       x="846.0354"
-       y="246.5" />
-    <text
-       clip-path="url(#clip13)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text1063"
-       transform="translate(846.03537,246.5)"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
-         id="tspan1059">LEIT</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
-         id="tspan1061">M€0.12</tspan></text>
-    <rect
-       id="path14"
-       fill="#fbf8b0"
-       width="0"
-       height="0"
-       x="876.0354"
-       y="246.5" />
-    <text
-       clip-path="url(#clip14)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text1075"
-       transform="translate(876.03537,246.5)"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
-         id="tspan1071">RISKFINANCE</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
-         id="tspan1073">M€0.00</tspan></text>
-    <rect
-       width="287"
-       height="325"
-       id="path_ancestor5"
-       fill="#cccccc"
-       fill-opacity="0.333333"
-       stroke="#cccccc"
-       stroke-opacity="0.433333"
-       x="591.0354"
-       y="259.5" />
-    <text
-       x="3"
-       y="2"
-       clip-path="url(#clip_ancestor5)"
-       font-family="Arial, sans-serif"
-       font-size="8px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text878"
-       transform="matrix(1.5746886,0,0,1.5746886,589.95018,257.24938)"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial, sans-serif;-inkscape-font-specification:'Arial, sans-serif Bold';stroke-width:0.635046">III Societal Challenges</text>
-    <rect
-       id="path15"
-       fill="#fdbe70"
-       width="169"
-       height="163"
-       x="595.5354"
-       y="273" />
-    <rect
-       id="path16"
-       fill="#fdbe70"
-       width="109"
-       height="163"
-       x="767.5354"
-       y="273" />
-    <rect
-       id="path17"
-       fill="#fdbe70"
-       width="164"
-       height="72"
-       x="595.5354"
-       y="439" />
-    <rect
-       id="path18"
-       fill="#fdbe70"
-       width="164"
-       height="69"
-       x="595.5354"
-       y="514" />
-    <rect
-       id="path19"
-       fill="#fdbe70"
-       width="75"
-       height="117"
-       x="762.5354"
-       y="439" />
-    <rect
-       id="path20"
-       fill="#fdbe70"
-       width="36"
-       height="117"
-       x="840.5354"
-       y="439" />
-    <rect
-       id="path21"
-       fill="#fdbe70"
-       width="65"
-       height="24"
-       x="762.5354"
-       y="559" />
-    <rect
-       id="path22"
-       fill="#fdbe70"
-       width="46"
-       height="24"
-       x="830.5354"
-       y="559" />
-    <rect
-       id="path23"
-       fill="#e85e49"
-       width="159"
-       height="0"
-       x="594.0354"
-       y="586.5" />
-    <text
-       clip-path="url(#clip23)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text1183"
-       transform="translate(594.03537,586.5)"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
-         id="tspan1179" /><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
-         id="tspan1181">M€6.13</tspan></text>
-    <rect
-       id="path24"
-       fill="#9e0142"
-       width="113"
-       height="0"
-       x="762.0354"
-       y="586.5" />
-    <text
-       clip-path="url(#clip24)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text1195"
-       transform="translate(762.03537,586.5)"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
-         id="tspan1191" /><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
-         id="tspan1193">M€4.47</tspan></text>
-    <text
-       clip-path="url(#clip2)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text931"
-       transform="matrix(1.5093786,0,0,1.5093786,4.3737323,15.260861)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan927">ERC</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan929">M€953.74</tspan></text>
-    <text
-       clip-path="url(#clip3)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text943"
-       transform="matrix(1.5093786,0,0,1.5093786,4.4032124,461.26086)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan939">MSCA</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan941">M€267.23</tspan></text>
-    <text
-       clip-path="url(#clip4)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text955"
-       transform="matrix(1.5093786,0,0,1.5093786,455.35899,15.07661)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan951">FET</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan953">M€201.86</tspan></text>
-    <text
-       clip-path="url(#clip5)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text967"
-       transform="matrix(1.5093786,0,0,1.5093786,455.44006,351.07661)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan963">INFRA</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan965">M€141.69</tspan></text>
-    <text
-       clip-path="url(#clip6)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text979"
-       transform="matrix(1.5093786,0,0,1.5093786,593.88702,15.260861)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan975">LEIT-ICT</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan977">M€139.62</tspan></text>
-    <text
-       clip-path="url(#clip7)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text991"
-       transform="matrix(1.5093786,0,0,1.5093786,593.97546,151.26086)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan987">INNOSUPSME</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan989">M€100.90</tspan></text>
-    <text
-       clip-path="url(#clip15)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text1087"
-       transform="matrix(1.5093786,0,0,1.5093786,593.90176,273.07661)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan1083">HEALTH</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan1085">M€139.67</tspan></text>
-    <text
-       clip-path="url(#clip16)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text1099"
-       transform="matrix(1.5093786,0,0,1.5093786,765.90913,273.26086)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan1095">ENERGY</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan1097">M€90.75</tspan></text>
-    <text
-       clip-path="url(#clip17)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text1111"
-       transform="matrix(1.5093786,0,0,1.5093786,594.68298,439.07661)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan1107">TPT</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan1109">M€61.27</tspan></text>
-    <text
-       clip-path="url(#clip18)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text1123"
-       transform="matrix(1.5093786,0,0,1.5093786,593.89439,514.26086)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan1119">FOOD</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan1121">M€59.06</tspan></text>
-    <text
-       clip-path="url(#clip19)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text1135"
-       transform="matrix(1.5093786,0,0,1.5093786,760.90913,439.07661)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan1131">ENV</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan1133">M€45.52</tspan></text>
-    <text
-       clip-path="url(#clip21)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text1159"
-       transform="matrix(1.5093786,0,0,1.5093786,895.46188,577.48474)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan1155">SOCCHAL</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan1157">M€9.02</tspan></text>
-    <text
-       clip-path="url(#clip22)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text1171"
-       transform="matrix(1.5093786,0,0,1.5093786,895.46188,533.3728)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan1167">SOCIETY</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan1169">M€6.62</tspan></text>
-    <text
-       clip-path="url(#clip7-7)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text991-7"
-       transform="matrix(1.5093786,0,0,1.5093786,895.46188,479.26086)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan987-5">SECURITY</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan989-3">M€22.59</tspan></text>
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.755904;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker3778)"
-       d="m 866.58641,502.29376 26.49969,-13.1816"
-       id="path1659" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.755905;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#DotM)"
-       d="m 814.11566,572.58424 76.99045,14.03895"
-       id="path1659-5" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.755906;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker3878)"
-       d="m 871.57307,571.52162 21.50486,-28.43559"
-       id="path1659-1" />
-    <text
-       clip-path="url(#clip7-3)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text991-8"
-       transform="matrix(0,-1.5093786,1.5093786,0,801.61201,124.64838)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan987-2">LEIT-MANU</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan989-4">M€42.75</tspan></text>
-    <text
-       clip-path="url(#clip7-3-7)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text991-8-9"
-       transform="matrix(1.5093786,0,0,1.5093786,894.4427,180.28437)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan987-2-4">LEIT-NMP</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan989-4-1">M€7.70</tspan></text>
-    <text
-       clip-path="url(#clip7-3-0)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text991-8-5"
-       transform="matrix(0,-1.5093786,1.5093786,0,801.61201,214.64838)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan987-2-3">LEIT-MAT</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan989-4-5">M€21.70</tspan></text>
-    <text
-       clip-path="url(#clip7-3-0-9)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text991-8-5-9"
-       transform="matrix(1.5093786,0,0,1.5093786,894.88702,126.26086)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan987-2-3-1">LEIT-SPACE</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan989-4-5-2">M€13.13</tspan></text>
-    <text
-       clip-path="url(#clip7-3-0-8)"
-       font-family="Arial, sans-serif"
-       font-size="10px"
-       dominant-baseline="text-before-edge"
-       class="txt"
-       id="text991-8-5-0"
-       transform="matrix(1.5093786,0,0,1.5093786,894.88702,234.48477)"
-       style="stroke-width:0.662525"><tspan
-         x="3"
-         y="0.2em"
-         style="font-weight:bold;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan987-2-3-10">LEIT-BIOTECH</tspan><tspan
-         x="3"
-         y="1.3em"
-         style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000;stroke-width:0.662525"
-         id="tspan989-4-5-8">M€5.22</tspan></text>
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.755904;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker3778-0)"
-       d="m 866.58641,148.53392 26.49969,-13.1816"
-       id="path1659-7" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.755904;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#DotM-5)"
-       d="m 833.13385,237.22786 59.95462,6.16291"
-       id="path1659-5-3" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.755906;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker3878-9)"
-       d="M 867.57986,224.94657 893.07728,189.5013"
-       id="path1659-1-7" />
-    <text
-       xml:space="preserve"
-       style="font-weight:bold;font-size:18.6667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial Bold'"
-       x="4.6419249"
-       y="606.01953"
-       id="text5434"><tspan
-         sodipodi:role="line"
-         id="tspan5432"
-         x="4.6419249"
-         y="606.01953">EU Contribution to Switzerland under Horizon 2020: Pillars I, II, and III</tspan></text>
-  </g>
+       y="1.3em"
+       style="font-weight:normal;font-size:10px;font-family:Arial, sans-serif;fill:#000000"
+       id="tspan583">M€3.9</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:14.6667px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';fill:#333333"
+     x="10.796875"
+     y="61.190128"
+     id="text2045"><tspan
+       sodipodi:role="line"
+       id="tspan2043"
+       x="10.796875"
+       y="61.190128"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.6667px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';fill:#333333">Excellent Science</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:14.6667px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';fill:#333333"
+     x="575.78125"
+     y="61.049503"
+     id="text2045-3"><tspan
+       sodipodi:role="line"
+       id="tspan2043-9"
+       x="575.78125"
+       y="61.049503"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.6667px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';fill:#333333">Industrial Leadership</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:14.6667px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';fill:#333333"
+     x="576.34375"
+     y="287.19012"
+     id="text2045-1"><tspan
+       sodipodi:role="line"
+       id="tspan2043-8"
+       x="576.34375"
+       y="287.19012"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.6667px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';fill:#333333">Societal Challenges</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:14.6667px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';fill:#333333"
+     x="576.28125"
+     y="583.20575"
+     id="text2045-8"><tspan
+       sodipodi:role="line"
+       id="tspan2043-2"
+       x="576.28125"
+       y="583.20575"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.6667px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';fill:#333333">Other</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="580.07031"
+     y="605.0954"
+     id="text2045-8-6"><tspan
+       sodipodi:role="line"
+       id="tspan2043-2-2"
+       x="580.07031"
+       y="605.0954"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans'">M€65</tspan></text>
+  <rect
+     id="path2"
+     fill="#fdbe70"
+     width="196"
+     height="64"
+     x="375.5"
+     y="550.63544" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="377.80859"
+     y="566.06293"
+     id="text2045-6-0"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-9"
+       x="377.80859"
+       y="566.06293"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">INFRA</tspan><tspan
+       sodipodi:role="line"
+       x="377.80859"
+       y="586.14777"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan42036">M€61</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="581.16406"
+     y="227.0629"
+     id="text2045-6-78-93"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-7"
+       x="581.16406"
+       y="227.0629"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">ADVMANU</tspan><tspan
+       sodipodi:role="line"
+       x="581.16406"
+       y="247.14774"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan46690">M€43</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:26.6667px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="8.7239571"
+     y="28.424503"
+     id="text53184"><tspan
+       sodipodi:role="line"
+       id="tspan53182"
+       x="8.7239571"
+       y="28.424503"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:26.6667px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Semi-Bold'">Contributions to <tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+   id="tspan88863">Switzerland</tspan> under H2020</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:13.3333px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';fill:#4d4d4d"
+     x="737.45282"
+     y="37.871094"
+     id="text93721"><tspan
+       sodipodi:role="line"
+       id="tspan93719"
+       x="737.45282"
+       y="37.871094"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';fill:#4d4d4d">Source: Horizon Dashboard</tspan></text>
 </svg>

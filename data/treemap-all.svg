@@ -1,0 +1,933 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="897"
+   height="627.13544"
+   version="1.1"
+   id="svg52176"
+   sodipodi:docname="treemap-all.svg"
+   inkscape:version="1.1.2 (b8e25be8, 2022-02-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs52180">
+    <clipPath
+       id="clip2">
+      <use
+         xlink:href="#path2"
+         id="use51923"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-395.5,-260.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip0">
+      <use
+         xlink:href="#path0"
+         id="use51899"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-12.5,-62.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor1">
+      <use
+         xlink:href="#path_ancestor1"
+         id="use51842"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-10.5,-50.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor0">
+      <rect
+         width="880"
+         height="580"
+         id="use51834"
+         fill="#cccccc"
+         fill-opacity="0"
+         stroke="#cccccc"
+         stroke-opacity="0.1"
+         x="0"
+         y="0" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor2">
+      <use
+         xlink:href="#path_ancestor2"
+         id="use51850"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-10.5,-413.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip8">
+      <use
+         xlink:href="#path8"
+         id="use51995"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-431.5,-425.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor3">
+      <use
+         xlink:href="#path_ancestor3"
+         id="use51858"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-507.5,-50.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor4">
+      <use
+         xlink:href="#path_ancestor4"
+         id="use51866"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-507.5,-558.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip1">
+      <use
+         xlink:href="#path1"
+         id="use51911"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-273.5,-260.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor5">
+      <rect
+         width="58"
+         height="58"
+         id="use51874"
+         fill="#cccccc"
+         fill-opacity="0.333333"
+         stroke="#cccccc"
+         stroke-opacity="0.433333"
+         x="0"
+         y="0" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor6">
+      <rect
+         width="132"
+         height="58"
+         id="use51882"
+         fill="#cccccc"
+         fill-opacity="0.333333"
+         stroke="#cccccc"
+         stroke-opacity="0.433333"
+         x="0"
+         y="0" />
+    </clipPath>
+    <clipPath
+       id="clip_ancestor7">
+      <rect
+         width="60"
+         height="58"
+         id="use51890"
+         fill="#cccccc"
+         fill-opacity="0.333333"
+         stroke="#cccccc"
+         stroke-opacity="0.433333"
+         x="0"
+         y="0" />
+    </clipPath>
+    <clipPath
+       id="clip3">
+      <use
+         xlink:href="#path3"
+         id="use51935"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-273.5,-62.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip4">
+      <use
+         xlink:href="#path4"
+         id="use51947"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-12.5,-425.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip5">
+      <use
+         xlink:href="#path5"
+         id="use51959"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-12.5,-520.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip6">
+      <use
+         xlink:href="#path6"
+         id="use51971"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-135.5,-588.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip7">
+      <use
+         xlink:href="#path7"
+         id="use51983"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-135.5,-425.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip9">
+      <use
+         xlink:href="#path9"
+         id="use52007"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-431.5,-480.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip10">
+      <use
+         xlink:href="#path10"
+         id="use52019"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-431.5,-570.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip11">
+      <use
+         xlink:href="#path11"
+         id="use52031"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-509.5,-62.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip12">
+      <use
+         xlink:href="#path12"
+         id="use52043"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-671.5,-62.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip13">
+      <use
+         xlink:href="#path13"
+         id="use52055"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-772.5,-62.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip14">
+      <use
+         xlink:href="#path14"
+         id="use52067"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-509.5,-281.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip15">
+      <use
+         xlink:href="#path15"
+         id="use52079"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-876.5,-467.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip16">
+      <use
+         xlink:href="#path16"
+         id="use52091"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-669.5,-467.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip17">
+      <use
+         xlink:href="#path17"
+         id="use52103"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-795.5,-467.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip18">
+      <use
+         xlink:href="#path18"
+         id="use52115"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-669.5,-281.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip19">
+      <use
+         xlink:href="#path19"
+         id="use52127"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%"
+         transform="translate(-509.5,-570.63544)" />
+    </clipPath>
+    <clipPath
+       id="clip20">
+      <rect
+         id="use52139"
+         fill="#5e4fa2"
+         width="54"
+         height="44"
+         x="0"
+         y="0" />
+    </clipPath>
+    <clipPath
+       id="clip21">
+      <rect
+         id="use52151"
+         fill="#e85e49"
+         width="128"
+         height="44"
+         x="0"
+         y="0" />
+    </clipPath>
+    <clipPath
+       id="clip22">
+      <rect
+         id="use52163"
+         fill="#9e0142"
+         width="56"
+         height="44"
+         x="0"
+         y="0" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview52178"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1"
+     inkscape:cx="447"
+     inkscape:cy="329"
+     inkscape:window-width="1565"
+     inkscape:window-height="1030"
+     inkscape:window-x="311"
+     inkscape:window-y="142"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg52176"
+     showguides="false"
+     inkscape:guide-bbox="true"
+     fit-margin-top="10"
+     fit-margin-left="10"
+     fit-margin-right="10"
+     fit-margin-bottom="10" />
+  <rect
+     width="495"
+     height="361"
+     id="path_ancestor1"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="10.5"
+     y="50.635441" />
+  <rect
+     width="495"
+     height="203"
+     id="path_ancestor2"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="10.5"
+     y="413.63544" />
+  <rect
+     width="379"
+     height="506"
+     id="path_ancestor3"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="507.5"
+     y="50.635441" />
+  <rect
+     width="379"
+     height="58"
+     id="path_ancestor4"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="507.5"
+     y="558.63544"
+     style="stroke-width:1" />
+  <rect
+     id="path0"
+     fill="#fdbe70"
+     width="259"
+     height="347"
+     x="12.5"
+     y="62.635441" />
+  <rect
+     id="path4"
+     fill="#fbf8b0"
+     width="121"
+     height="93"
+     x="12.5"
+     y="425.63544" />
+  <rect
+     id="path5"
+     fill="#fbf8b0"
+     width="121"
+     height="94"
+     x="12.5"
+     y="520.63544" />
+  <rect
+     id="path6"
+     fill="#fbf8b0"
+     width="294"
+     height="26"
+     x="135.5"
+     y="588.63544" />
+  <rect
+     id="path7"
+     fill="#fbf8b0"
+     width="294"
+     height="161"
+     x="135.5"
+     y="425.63544" />
+  <rect
+     id="path8"
+     fill="#fbf8b0"
+     width="72"
+     height="53"
+     x="431.5"
+     y="425.63544" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="434.07031"
+     y="441.0629"
+     id="text2045-6-78-4-3-8"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-2-8-2"
+       x="434.07031"
+       y="441.0629"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">NMP</tspan><tspan
+       sodipodi:role="line"
+       x="434.07031"
+       y="461.14774"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan47214-1">M€592</tspan></text>
+  <rect
+     id="path9"
+     fill="#fbf8b0"
+     width="72"
+     height="88"
+     x="431.5"
+     y="480.63544" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="434.3125"
+     y="496.08926"
+     id="text2045-6-78-4-3-5"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-2-8-7"
+       x="434.3125"
+       y="496.08926"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">SPACE</tspan><tspan
+       sodipodi:role="line"
+       x="434.3125"
+       y="516.17413"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan47214-4">M€965</tspan></text>
+  <rect
+     id="path10"
+     fill="#fbf8b0"
+     width="72"
+     height="44"
+     x="431.5"
+     y="570.63544" />
+  <rect
+     id="path11"
+     fill="#bee5a0"
+     width="160"
+     height="217"
+     x="509.5"
+     y="62.635441" />
+  <rect
+     id="path12"
+     fill="#bee5a0"
+     width="99"
+     height="217"
+     x="671.5"
+     y="62.635441" />
+  <rect
+     id="path13"
+     fill="#bee5a0"
+     width="112"
+     height="217"
+     x="772.5"
+     y="62.635441" />
+  <rect
+     id="path14"
+     fill="#bee5a0"
+     width="158"
+     height="273"
+     x="509.5"
+     y="281.63544" />
+  <rect
+     id="path15"
+     fill="#bee5a0"
+     width="8"
+     height="87"
+     x="876.5"
+     y="467.63544" />
+  <rect
+     id="path16"
+     fill="#bee5a0"
+     width="124"
+     height="87"
+     x="669.5"
+     y="467.63544" />
+  <rect
+     id="path17"
+     fill="#bee5a0"
+     width="79"
+     height="87"
+     x="795.5"
+     y="467.63544" />
+  <rect
+     id="path18"
+     fill="#bee5a0"
+     width="215"
+     height="184"
+     x="669.5"
+     y="281.63544" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="797.93164"
+     y="481.08926"
+     id="text2045-6-78-4-36-3"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-2-0-0"
+       x="797.93164"
+       y="481.08926"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">SOCIETY</tspan><tspan
+       sodipodi:role="line"
+       x="797.93164"
+       y="501.1741"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan50702-0">M€1,010</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="671.93164"
+     y="481.08926"
+     id="text2045-6-78-4-36-1"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-2-0-2"
+       x="671.93164"
+       y="481.08926"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">SECURITY</tspan><tspan
+       sodipodi:role="line"
+       x="671.93164"
+       y="501.1741"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan50702-3">M€1,574</tspan></text>
+  <rect
+     id="path19"
+     fill="#56adae"
+     width="375"
+     height="44"
+     x="509.50003"
+     y="570.63544"
+     style="stroke-width:0.999999" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:26.6667px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="8.7239571"
+     y="28.424503"
+     id="text53184"><tspan
+       sodipodi:role="line"
+       id="tspan53182"
+       x="8.7239571"
+       y="28.424503"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:26.6667px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Semi-Bold'">Contributions to <tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+   id="tspan87919">All Countries</tspan> under H2020</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:14.6667px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';fill:#333333"
+     x="10.796875"
+     y="61.190128"
+     id="text2045"><tspan
+       sodipodi:role="line"
+       id="tspan2043"
+       x="10.796875"
+       y="61.190128"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.6667px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';fill:#333333">Excellent Science</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:14.6667px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';fill:#333333"
+     x="10.88281"
+     y="423.14001"
+     id="text2045-3"><tspan
+       sodipodi:role="line"
+       id="tspan2043-9"
+       x="10.88281"
+       y="423.14001"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.6667px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';fill:#333333">Industrial Leadership</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:14.6667px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';fill:#333333"
+     x="508.39844"
+     y="60.268929"
+     id="text2045-1"><tspan
+       sodipodi:role="line"
+       id="tspan2043-8"
+       x="508.39844"
+       y="60.268929"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.6667px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';fill:#333333">Societal Challenges</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:14.6667px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';fill:#333333"
+     x="508.34116"
+     y="568.28326"
+     id="text2045-8"><tspan
+       sodipodi:role="line"
+       id="tspan2043-2"
+       x="508.34116"
+       y="568.28326"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.6667px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';fill:#333333">Other</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="14.868164"
+     y="78.089272"
+     id="text2045-6"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3"
+       x="14.868164"
+       y="78.089272"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">ERC</tspan><tspan
+       sodipodi:role="line"
+       x="14.868164"
+       y="98.17411"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans'"
+       id="tspan35814">M€12,947</tspan></text>
+  <rect
+     id="path3"
+     fill="#fdbe70"
+     width="230"
+     height="196"
+     x="273.5"
+     y="62.635441" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="276.03613"
+     y="78.089264"
+     id="text2045-6-78"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4"
+       x="276.03613"
+       y="78.089264"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">MSCA</tspan><tspan
+       sodipodi:role="line"
+       x="276.03613"
+       y="98.174103"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan45842">M€6,504</tspan></text>
+  <rect
+     id="path1"
+     fill="#fdbe70"
+     width="120"
+     height="149"
+     x="273.5"
+     y="260.63544" />
+  <rect
+     id="path2"
+     fill="#fdbe70"
+     width="108"
+     height="149"
+     x="395.5"
+     y="260.63544" />
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="276.06543"
+     y="275.94083"
+     id="text2045-6-7"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-1"
+       x="276.06543"
+       y="275.94083"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">FET</tspan><tspan
+       sodipodi:role="line"
+       x="276.06543"
+       y="296.02567"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan41852">M€2,600</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="398.01172"
+     y="275.94083"
+     id="text2045-6-0"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-9"
+       x="398.01172"
+       y="275.94083"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">INFRA</tspan><tspan
+       sodipodi:role="line"
+       x="398.01172"
+       y="296.02567"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan42036">M€2,349</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="512.07031"
+     y="597.22528"
+     id="text2045-8-6"><tspan
+       sodipodi:role="line"
+       id="tspan2043-2-2"
+       x="512.07031"
+       y="597.22528"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans'">M€3,106</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="14.36842"
+     y="441.21133"
+     id="text2045-6-78-5"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-37"
+       x="14.36842"
+       y="441.21133"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">INNOSME</tspan><tspan
+       sodipodi:role="line"
+       x="14.36842"
+       y="461.29617"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan46175">M€1,701</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="138.07031"
+     y="441.21133"
+     id="text2045-6-78-9"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-3"
+       x="138.07031"
+       y="441.21133"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">ICT</tspan><tspan
+       sodipodi:role="line"
+       x="138.07031"
+       y="461.29617"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan46506">M€7,050</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="434.27832"
+     y="586.08929"
+     id="text2045-6-78-4-3"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-2-8"
+       x="434.27832"
+       y="586.08929"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">OTHER</tspan><tspan
+       sodipodi:role="line"
+       x="434.27832"
+       y="606.17413"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan47214">M€494</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="16.164062"
+     y="536.06293"
+     id="text2045-6-78-93"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-7"
+       x="16.164062"
+       y="536.06293"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">ADVMANU</tspan><tspan
+       sodipodi:role="line"
+       x="16.164062"
+       y="556.14771"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan46690">M€1,721</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="139.16406"
+     y="604.28949"
+     id="text2045-6-78-93-2"><tspan
+       sodipodi:role="line"
+       x="139.16406"
+       y="604.28949"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan46690-5"><tspan
+   id="tspan70433"
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">ADVMAT </tspan>M€1,721</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="512.05566"
+     y="76.089272"
+     id="text2045-6-78-3"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-9"
+       x="512.05566"
+       y="76.089272"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">ENERGY</tspan><tspan
+       sodipodi:role="line"
+       x="512.05566"
+       y="96.17411"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan47676">M€4,980</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="674.05566"
+     y="76.062904"
+     id="text2045-6-78-4-1"><tspan
+       sodipodi:role="line"
+       x="674.05566"
+       y="76.062904"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan34536">ENV</tspan><tspan
+       sodipodi:role="line"
+       x="674.05566"
+       y="96.147743"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan50128">M€3,104</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="775.06543"
+     y="76.089272"
+     id="text2045-6-78-4-2"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-2-9"
+       x="775.06543"
+       y="76.089272"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">FOOD</tspan><tspan
+       sodipodi:role="line"
+       x="775.06543"
+       y="96.17411"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan50966">M€3,522</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="512.06055"
+     y="295.0629"
+     id="text2045-6-78-67"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-8"
+       x="512.06055"
+       y="295.0629"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">HEALTH</tspan><tspan
+       sodipodi:role="line"
+       x="512.06055"
+       y="315.14774"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan47860">M€6,168</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+     x="672.16797"
+     y="295.0629"
+     id="text2045-6-78-4-36"><tspan
+       sodipodi:role="line"
+       id="tspan2043-3-4-2-0"
+       x="672.16797"
+       y="295.0629"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'">TPT</tspan><tspan
+       sodipodi:role="line"
+       x="672.16797"
+       y="315.14774"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
+       id="tspan50702">M€5,674</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-size:13.3333px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';fill:#4d4d4d"
+     x="737.45282"
+     y="37.871094"
+     id="text93721"><tspan
+       sodipodi:role="line"
+       id="tspan93719"
+       x="737.45282"
+       y="37.871094"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';fill:#4d4d4d">Source: Horizon Dashboard</tspan></text>
+</svg>

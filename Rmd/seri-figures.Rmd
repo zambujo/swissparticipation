@@ -3,6 +3,8 @@ title: "FP7 & H2020 Figures"
 output: 
   html_document:
     self_contained: no
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r boilerplate, include=FALSE}
@@ -42,8 +44,12 @@ df_raw <-
 
 df <- df_raw %>%
     mutate(start_semester = floor_date(start_date, "6 months")) %>%
-    # remove the CERN
-    filter(legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH")
+    # removing most international organizations (CERN, WHO, ...)
+    filter(
+      !str_detect(legal_name, "EUROPEAN|MONDIALE|WORLD") |
+        !str_detect(legal_name, "ORGANIZATION|ORGANISATION|ASSOCIATION")
+    )
+
 ```
 
 ## An Overview of Swiss Participation  {.tabset .tabset-fade .tabset-pills}
@@ -51,22 +57,22 @@ df <- df_raw %>%
 ```{r plot-styling}
 get_particip <- function(x) {
   total <- x %>%
-    group_by(year = start_year) %>%
+    group_by(year = start_semester) %>%
     summarise(n_total = n(),
               contrib_all = sum(re_contribution, na.rm = TRUE))
   ch <- x %>%
     filter(country_code == "CH") %>%
-    group_by(framework_programme, year = start_year) %>%
+    group_by(framework_programme, year = start_semester) %>%
     summarise(n_ch = n(),
               contrib_ch = sum(re_contribution, na.rm = TRUE))
   # coordinations
   total2 <- x %>%
     filter(partner_role == "Coordinator") %>%
-    count(year = start_year, name = "coord_total")
+    count(year = start_semester, name = "coord_total")
   ch2 <- x %>%
     filter(country_code == "CH") %>%
     filter(partner_role == "Coordinator") %>%
-    group_by(framework_programme, year = start_year) %>%
+    group_by(framework_programme, year = start_semester) %>%
     summarise(coord_ch = n())
   coord <- left_join(total2, ch2, by = "year") %>%
     mutate(share_coord = 100 * coord_ch / coord_total)
@@ -142,8 +148,8 @@ participation %>%
   geom_bar(position = "stack", stat = "identity") + 
   labs(
     title = "Swiss Participation",
-    subtitle = "By project starting year, FP7 and H2020",
-    x = "Project Starting Year",
+    subtitle = "By project starting semester, FP7 and H2020",
+    x = "Project Starting Semester",
     y = "%"
   ) +
   scale_fill_manual(values = pal) +
@@ -158,8 +164,8 @@ participation %>%
   geom_bar(position = "stack", stat = "identity") + 
   labs(
     title = "Contributions to Swiss Participants",
-    subtitle = "By project starting year, FP7 and H2020",
-    x = "Project Starting Year",
+    subtitle = "By project starting semester, FP7 and H2020",
+    x = "Project Starting Semester",
     y = "%"
   ) +
   scale_fill_manual(values = pal) +
@@ -174,11 +180,12 @@ participation %>%
   geom_bar(position = "stack", stat = "identity") + 
   labs(
     title = "Swiss Coordinations",
-    subtitle = "By project starting year, FP7 and H2020",
-    x = "Project Starting Year",
+    subtitle = "By project starting semester, FP7 and H2020",
+    x = "Project Starting Semester",
     y = "%"
   ) +
   scale_fill_manual(values = pal) +
+  scale_shape_manual(values = c(16, 16)) +
   own_theme()
 ```
 
@@ -320,6 +327,12 @@ country_participation <- df %>%
 ```
 
 ```{r visual-countries, fig.asp=.5}
+pal <- c(
+  rep("#DFD8CA", ch_rank - 1),
+  "#B91646",
+  rep("#DFD8CA", 10 - ch_rank)) %>%
+  rev()
+
 top_participants %>%
   mutate(
     Country = fct_rev(fct_inorder(Country)),

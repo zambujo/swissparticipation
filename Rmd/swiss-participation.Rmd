@@ -23,32 +23,58 @@ Horizon Dashboard data on Horizon 2020 offers more details than the data in the 
 source(here::here("R", "package.r"))
 source(here::here("R", "utils.r"))
 
-df_schema <- here("data", "schema-cordis-plus.yml") %>%
-  read_yaml() %>%
-  as.list()
-
-df_raw <-
-  list.files(here("data"), pattern = "cordis-plus-", full.names = TRUE) %>%
-  map_df(read_csv, col_types = df_schema)
-
-df_raw <- df_raw %>%
+# H2020 official figures
+df <-
+  here("data-raw", "horizon2020.xlsx") %>%
+  read_excel() %>%
+  clean_names() %>%
+  rename(project_id = project_nbr,
+         pic = general_pic) %>%
   mutate(
+    legal_entity_type = str_sub(legal_entity_type, 1, 3),
+    country_code = str_sub(country_code, 1, 2),
+    # rename role
+    partner_role = str_to_title(partner_role),
+    pillar = str_extract(pillar_abbr, "\\d"),
+    pillar = if_else(pillar_abbr == "EU.0.", "Cross-theme", pillar),
+    pillar = if_else(pillar_abbr == "Euratom", pillar_abbr, pillar),
+    
+    partner_role = str_to_lower(partner_role),
     pillar = fct_inseq(pillar),
     pillar = fct_rev(pillar),
     pillar = fct_relevel(pillar, "Cross-theme", after = 0),
     pillar = fct_recode(
-      pillar, I = "1", II = "2", III = "3", IV = "4", V = "5"),
+      pillar,
+      I = "1",
+      II = "2",
+      III = "3",
+      IV = "4",
+      V = "5"
+    ),
     org_type = fct_collapse(
       legal_entity_type,
       `Research & Education` = c("HES", "REC"),
       `Private Companies` = "PRC",
-      `Others (Excl. R&Ed)` = c("PUB", "OTH")))
-
-df <- df_raw %>%
-  filter(framework_programme == "H2020") %>%
-  filter(legal_name != "EUROPEAN ORGANIZATION FOR NUCLEAR RESEARCH") %>%
-  mutate(call_semester = floor_date(call_deadline_date, "6 months"))
-
+      `Others (Excl. R&Ed)` = c("PUB", "OTH")
+    ),
+    eu_contribution = str_replace(eu_contribution, fixed("-"), "0"),
+    eu_contribution = as.numeric(eu_contribution),
+    # country code
+    country_code = str_replace(country_code, "KO", "XK"),
+    # import dates
+    signature_date = as.Date(signature_date, format = "%d/%m/%Y"),
+    call_deadline_date = as.Date(call_deadline_date, format = "%d/%m/%Y"),
+    signature_year = str_sub(signature_date, 1, 4),
+    call_year = str_sub(call_deadline_date, 1, 4),
+    signature_year = int(signature_year),
+    call_year = int(call_year),
+    call_semester = floor_date(call_deadline_date, "6 months")
+  ) %>%
+  # removing most international organizations (CERN, WHO, ...)
+  filter(
+    !str_detect(legal_name, "EUROPEAN|MONDIALE|WORLD") |
+      !str_detect(legal_name, "ORGANIZATION|ORGANISATION|ASSOCIATION")
+  )
 ```
 
 ## Total EU Contribution by Pillar
@@ -579,7 +605,13 @@ stats_depth_2 <- df %>%
   group_by(pillar, pillar_descr, thematic_priority_abbr) %>%
   summarise(total_eu_contrib = sum(eu_contribution)) %>%
   ungroup() %>%
-  # for printing
+  mutate(thematic_priority_abbr = case_when(
+    total_eu_contrib < 500000000 ~ "OTHER",
+    TRUE ~ as.character(thematic_priority_abbr)
+  )) %>%
+  group_by(pillar, pillar_descr, thematic_priority_abbr) %>%
+  summarise(total_eu_contrib = sum(total_eu_contrib)) %>%
+  ungroup() %>%
   unite("pillar", starts_with("pillar"), sep = ". ") %>%
   # for binding
   select(pillar,
@@ -603,48 +635,4 @@ stats_depth_2 %>%
   ) %>%
   write_csv(here("data", "h2020-treemap.csv"))
 # plot with https://rawgraphs.io
-```
-
-```{r ch-type-role, fig.asp=.7, eval = FALSE}
-pal <- c("#B91646", "#DFD8CA")
-df %>%
-  filter(!is.na(pillar)) %>%
-  filter(country_code == "CH") %>%
-  mutate(
-    pillar = fct_other(pillar, keep = chr(roman(1:5))),
-    pillar = fct_relevel(pillar, "Other", after = 0)
-  ) %>%
-  group_by(pillar, org_type, role = partner_role) %>%
-  summarise(contrib = sum(eu_contribution, na.rm = TRUE)) %>%
-  ungroup() %>%
-  mutate(org_type = fct_rev(org_type)) %>%
-  arrange(pillar, org_type) %>%
-  ggplot(aes(x = pillar, y = contrib, fill = org_type)) +
-  geom_col(position = position_stack(reverse = FALSE)) +
-  scale_fill_manual(values = rev(pal), guide = guide_legend(reverse = TRUE)) +
-  scale_y_continuous(labels = unit_format(
-    suffix = "",
-    scale = 1e-6,
-    big.mark = ","
-  )) +
-  coord_flip() +
-  facet_wrap(role ~ ., ncol = 1) +
-  theme_minimal() +
-  labs(
-    title = "Distribution of EU Contribution to Swiss Institutions",
-    subtitle = "By Pillar, Institution Sector, and Instituion Role",
-    x = "Pillar",
-    y = "EU Contribution to Swiss Institutions (MioEUR)"
-  ) +
-  theme(
-    text = element_text(size = 15, family = "Gill Sans", color = "gray10"),
-    plot.title.position = "plot",
-    legend.position = "top",
-    legend.title = element_blank(),
-    axis.title.y = element_text(
-      angle = 0, 
-      vjust = 1.05, 
-      margin = margin(r = -30))
-  )
-
 ```

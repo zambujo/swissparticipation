@@ -3,6 +3,8 @@ title: "Gathering FP Data for Analysis"
 output: 
   html_document:
     self_contained: no
+editor_options: 
+  chunk_output_type: console
 ---
 
 ## Data Sources
@@ -83,6 +85,8 @@ glue("{cordis_base_url}cordis-h2020projects-csv.zip") %>%
 Then, we download the data to the `data-raw` folder and unzip the archives:
 
 ```{r extract-download-cordis-data, eval=FALSE}
+# TODO: download with bash script
+
 glue("{fp6_base_url}{end_points[1]}") %>%
   download.file(here("data-raw", end_points[1]))
 glue("{fp6_base_url}{end_points[2]}") %>%
@@ -233,6 +237,7 @@ organizations_cordis_fp7 <-
 # Attention!
 # 3 cases where (project_id, pic)
 # appear 2x w/ different partner_role
+
 organizations_cordis <-
   organizations_cordis_fp7 %>%
   bind_rows(organizations_cordis_h2020) %>%
@@ -251,7 +256,7 @@ organizations_cordis <-
   )
 ```
 
-Unlike for project data, Horizon Dahsboard *organization* data is only available for H2020 and not for FP7.
+Unlike for project data, Horizon Dashboard *organization* data is only available for H2020 and not for FP7.  For H2020 projects, Horizon Dashboard *organization* data is more comprehensive than CORDIS data.
 
 ```{r, load-organizations-dashboard-data}
 organizations_dashboard_h2020 <-
@@ -276,8 +281,8 @@ Once again, we combine both datasets:
 
 ```{r, load-organizations-data}
 organizations <-
-  organizations_cordis %>%
-  left_join(organizations_dashboard_h2020,
+  organizations_dashboard_h2020 %>%
+  full_join(organizations_cordis,
     by = c("project_id", "pic", "partner_role")
   )
 ```
@@ -306,14 +311,6 @@ plot(
   cex = .5,
   log = "xy"
 )
-plot(
-  dfsample$net_ec_contribution,
-  dfsample$ec_contribution,
-  type = "p",
-  pch = 19,
-  cex = .5,
-  log = "xy"
-)
 ```
 
 Last, we make some final adjustments to the data and write it to the `./data` folder.
@@ -321,6 +318,12 @@ Last, we make some final adjustments to the data and write it to the `./data` fo
 ```{r transform}
 df_raw <- organizations %>%
   left_join(projects, by = "project_id")
+
+organizations %>%
+  anti_join(projects, by = "project_id")
+
+projects %>%
+  anti_join(organizations, by = "project_id")
 
 # download CORDIS country codes
 country_codes <-
