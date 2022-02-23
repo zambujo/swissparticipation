@@ -34,19 +34,20 @@ meta() %>%
 
 ## Background
 
-FP7 and Horizon 2020 (H2020) correspond to the part of the [EU Multiannual Financial Framework](https://op.europa.eu/en/publication-detail/-/publication/d2cf202e-f36a-45b2-84e7-1ac6ad996e90) (MFF) that is allocated to research and innovation. FP7 is an abbreviation for the 7th Framework Programme in Research and Innovation and corresponds to the MFF 2007-2013.  H2020, also known as FP8, refers to the 8th Framework Programme and corresponds to the MFF 2014–2020.
+FP7 and Horizon 2020 (H2020) correspond to the part of the [EU Multiannual Financial Framework](https://op.europa.eu/en/publication-detail/-/publication/d2cf202e-f36a-45b2-84e7-1ac6ad996e90) (MFF) that is allocated to research and innovation. FP7 is an abbreviation for the 7th Framework Programme in Research and Innovation and corresponds to the MFF 2007-2013.  H2020, also known as FP8, refers to the 8th Framework Programme and corresponds to the phase of the MFF running from 2014 to 2020.  A new Framework Programme, Horizon Europe started in 2021 and is running until 2027. 
 
-Switzerland has been fully associated to the EU's Research Programmes since 2004 (see [Swiss Participation in European Research Framework Programmes](https://www.sbfi.admin.ch/dam/sbfi/en/dokumente/webshop/2016/beteiligung_der_schweizandeneuropaeischenforschungsrahmenprogram.pdf.download.pdf/swiss_participationineuropeanresearchframeworkprogrammes.pdf)).
+Switzerland has been fully associated to the EU's Research Programmes since 2004 (see [Swiss Participation in European Research Framework Programmes](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html)).  However, as a result of the adoption of the "mass immigration" initiative of the 9th of February 2014, Switzerland was excluded in 2014 and only partially associated in 2015 and 2016.  Despite regaining full association only in 2017, Switzerland kept its place among the top 10 beneficiaries in H2020 (TODO: add reference to figure).
+
+### Top 10 beneficiaries under FP7 (2007-2013)
+
+!["FP7 Top 10"](https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/visual-countries-fp7-1.svg)
 
 
-## FP7
+### Top 10 beneficiaries under H2020 (2014-2020)
 
-![FP7 ranking top 10](https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/visual-countries-fp7-1.svg)
-]
+!["H2020 Top 10"](https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/visual-countries-1.svg)
 
-## H2020
-
-![H2020 ranking top 10](https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/visual-countries-1.svg)
+![](https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/swiss-countributions-1.svg)
 
 ![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-all.svg)
 

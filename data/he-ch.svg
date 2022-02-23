@@ -21,16 +21,24 @@
      inkscape:pagecheckerboard="0"
      showgrid="false"
      inkscape:zoom="1.0148233"
-     inkscape:cx="448.35393"
-     inkscape:cy="313.84775"
-     inkscape:window-width="1357"
-     inkscape:window-height="885"
-     inkscape:window-x="0"
-     inkscape:window-y="25"
+     inkscape:cx="405.98202"
+     inkscape:cy="313.35506"
+     inkscape:window-width="1515"
+     inkscape:window-height="888"
+     inkscape:window-x="132"
+     inkscape:window-y="279"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg615" />
   <defs
      id="defs619">
+    <linearGradient
+       id="linearGradient20092"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#e6e6e6;stop-opacity:1;"
+         offset="0"
+         id="stop20090" />
+    </linearGradient>
     <clipPath
        id="clip_ancestor2">
       <use
@@ -171,14 +179,14 @@
     </clipPath>
     <clipPath
        id="clip0">
-      <use
-         xlink:href="#path0"
+      <rect
          id="use398"
+         fill="#fdbe70"
+         width="361"
+         height="7.5693331"
          x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-12.5,-62.63544)" />
+         y="544.43066"
+         style="fill:#cccccc;fill-opacity:0.333333;stroke-width:1" />
     </clipPath>
     <clipPath
        id="clip12">
@@ -302,14 +310,13 @@
     </clipPath>
     <clipPath
        id="clip3">
-      <use
-         xlink:href="#path3"
+      <rect
          id="use434"
+         fill="#fdbe70"
+         width="196"
+         height="269"
          x="0"
-         y="0"
-         width="100%"
-         height="100%"
-         transform="translate(-375.5,-62.63544)" />
+         y="8.26416e-07" />
     </clipPath>
     <clipPath
        id="clip4">
@@ -364,13 +371,6 @@
      x="575.5"
      y="572.63544"
      style="stroke-width:1" />
-  <rect
-     id="path0"
-     fill="#fdbe70"
-     width="361"
-     height="552"
-     x="12.5"
-     y="62.635441" />
   <text
      xml:space="preserve"
      style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
@@ -406,13 +406,6 @@
        y="369.14774"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
        id="tspan41852" /></text>
-  <rect
-     id="path3"
-     fill="#fdbe70"
-     width="196"
-     height="269"
-     x="375.5"
-     y="62.635441" />
   <text
      xml:space="preserve"
      style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
@@ -666,7 +659,7 @@
        id="tspan2043-9"
        x="575.78125"
        y="61.049503"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.6667px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';fill:#333333">Industrial Leadership</tspan></text>
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.6667px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';fill:#333333">Innovative Europe</tspan></text>
   <text
      xml:space="preserve"
      style="font-weight:bold;font-size:14.6667px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';fill:#333333"
@@ -676,7 +669,7 @@
        id="tspan2043-8"
        x="576.34375"
        y="287.19012"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.6667px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';fill:#333333">Societal Challenges</tspan></text>
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.6667px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';fill:#333333">Global Challenges ...</tspan></text>
   <text
      xml:space="preserve"
      style="font-weight:bold;font-size:14.6667px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';fill:#333333"
@@ -703,7 +696,16 @@
      width="196"
      height="64"
      x="375.5"
-     y="550.63544" />
+     y="550.63544"
+     style="stroke:#cccccc;stroke-opacity:0.33333334;fill:#cccccc;fill-opacity:0.33333334" />
+  <rect
+     id="path2-0"
+     fill="#fdbe70"
+     width="25.526966"
+     height="64"
+     x="545.97302"
+     y="550.63544"
+     style="fill:#fdbe70;fill-opacity:1;stroke:#cccccc;stroke-width:1;stroke-opacity:0.333333" />
   <text
      xml:space="preserve"
      style="font-weight:bold;font-size:16px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold'"
