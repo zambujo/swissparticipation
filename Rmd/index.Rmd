@@ -38,34 +38,58 @@ FP7 and Horizon 2020 (H2020) correspond to the part of the [EU Multiannual Finan
 
 Switzerland has been fully associated to the EU's Research Programmes since 2004 (see [Swiss Participation in European Research Framework Programmes](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html)).  However, as a result of the adoption of the "mass immigration" initiative of the 9th of February 2014, Switzerland was excluded in 2014 and only partially associated in 2015 and 2016.  Despite regaining full association only in 2017, Switzerland kept its place among the top 10 beneficiaries in H2020 (TODO: add reference to figure).
 
-### Top 10 beneficiaries under FP7 (2007-2013)
+## Top Beneficiaries {.tabset .tabset-fade .tabset-pills}
+
+### FP7 (2007-2013)
 
 ![](https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/visual-countries-fp7-1.svg)
 
-### Top 10 beneficiaries under H2020 (2014-2020)
+### H2020 (2014-2020)
 
 ![](https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/visual-countries-1.svg)
 
-A close look at the contributions to Switzerland by semester reveal a temporary decline between 2014 and 2017 due to the exclusion and partial association of Switzerland at the beginning of H2020 (TODO reference to the picture). 
+A close look at the contributions to Switzerland by semester reveals a temporary decline between 2014 and 2017 due to the exclusion and partial association of Switzerland at the beginning of H2020 (TODO reference to the picture). 
+
+## Swiss Participation Over Time {.tabset .tabset-fade .tabset-pills}
+
+### Contributions
 
 ![](https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/swiss-countributions-1.svg)
 
+### Coordinations
+
+![](https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/coordinations-overviews-1.svg)
+
+### Participation
+
+![](https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/swiss-participations-1.svg)
+
+##  Structure of H2020 {.tabset .tabset-fade .tabset-pills}
+
+The framework programmes are further organized in different sections. H2020, for instance, was divided in three main sections (aka pillars): (I) Excellent Science, (II) Industrial Leadership, and (III) Societal Challenges (see [link](https://ec.europa.eu/programmes/horizon2020/en/h2020-sections)).
+
+### All countries
+
 ![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-all.svg)
+### Switzerland
 
 ![](https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-ch.svg)
 
-## Contributions to Excellent Science and to Research and HigherEd
+## Participation profile
 
-![](https://zambujo.github.io/swissparticipation/swiss-participation_files/figure-html/additional-context-1.svg)
+### Excellent Science/Research and HigherEd
+
+Among the top 10 beneficiaries under H2020, only the United Kingdom has comparable levels of participation in Excellence Science.
+
+![](https://zambujo.github.io/swissparticipation/swiss-participation_files/figure-html/country-profile-1-1.svg)
+### Industrial Leadership/Private Sector
+
+![](https://zambujo.github.io/swissparticipation/swiss-participation_files/figure-html/country-profile-2-1.svg)
 
 ## Horizon Europe
 
-![HE SERI](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/horizon-europe/_jcr_content/par/image_798342255/image.imagespooler.jpg/1640244356864/Graphic%20Horizon%20Package%20Eligibility_Calls%202022_FINAL.jpp)
-
+![](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/horizon-europe/_jcr_content/par/image_798342255/image.imagespooler.jpg/1640244356864/Graphic%20Horizon%20Package%20Eligibility_Calls%202022_FINAL.jpp)
 
 ---
 
-
-> For Swiss official figures, please visit [Facts and Figures on the Swiss Participation in the EU-Framework Programmes for Research and Innovation](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html).
-
-> For EU's official figures, please visit the [Horizon Dashboard](https://webgate.ec.europa.eu/dashboard/sense/app/a976d168-2023-41d8-acec-e77640154726/sheet/0c8af38b-b73c-4da2-ba41-73ea34ab7ac4/state/analysis/select/Country/Switzerland).
+> For Swiss official figures, please visit [Facts and Figures on the Swiss Participation in the EU-Framework Programmes for Research and Innovation](https://www.sbfi.admin.ch/sbfi/en/home/research-and-innovation/international-cooperation-r-and-i/eu-framework-programmes-for-research/f-f-swiss-participation.html). For EU's official figures, please visit the [Horizon Dashboard](https://webgate.ec.europa.eu/dashboard/sense/app/a976d168-2023-41d8-acec-e77640154726/sheet/0c8af38b-b73c-4da2-ba41-73ea34ab7ac4/state/analysis/select/Country/Switzerland).

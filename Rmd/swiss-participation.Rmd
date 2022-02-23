@@ -380,9 +380,11 @@ combined %>%
   )
 ```
 
-### Typology of the Top-10 Participating Countries
+## Country Participation Profiles {.tabset .tabset-fade .tabset-pills}
 
-```{r additional-context, fig.asp=1}
+### Excellent Science/Research and HigherEd
+
+```{r country-profile-1, fig.asp=1}
 pal <- c(
   rep("#767676", ch_rank - 1),
   "#800000",
@@ -458,6 +460,86 @@ top_participants %>%
     plot.title.position = "plot",
     legend.position = "top")
 ```
+
+### Industrial Leadership/Private Sector
+
+```{r country-profile-2, fig.asp=1}
+pal <- c(
+  rep("#767676", ch_rank - 1),
+  "#800000",
+  rep("#767676", 10 - ch_rank))
+
+## share to Pillar II
+contribution_share_pillar <- df %>%
+  filter(!is.na(pillar)) %>%
+  semi_join(top_participants %>%
+    select(country = Country) %>%
+    head(10),
+  by = "country"
+  ) %>%
+  group_by(
+    Country = country,
+    Pillar = pillar
+  ) %>%
+  summarise(`Contribution` = sum(eu_contribution)) %>%
+  mutate(share_pillar = 100 * prop.table(Contribution)) %>%
+  filter(Pillar == "II") %>%
+  select(-Pillar, -Contribution)
+
+## share to Resesearch and HigherEd
+contribution_share_prc <- df %>%
+  filter(!is.na(pillar)) %>%
+  semi_join(top_participants %>%
+    select(country = Country) %>%
+    head(10),
+  by = "country"
+  ) %>%
+  group_by(
+    Country = country,
+    Type = legal_entity_type
+  ) %>%
+  summarise(`Contribution` = sum(eu_contribution)) %>%
+  mutate(share_reshed = 100 * prop.table(Contribution)) %>%
+  filter(Type == "PRC") %>%
+  select(-Type, -Contribution)
+
+top_participants %>%
+  inner_join(contribution_share_prc, by = c("Country")) %>%
+  inner_join(contribution_share_pillar, by = c("Country")) %>%
+  mutate(
+    Country = fct_rev(fct_inorder(Country)),
+    contrib_country = contrib_country / 1000000
+  ) %>%
+  ggplot(
+    aes(
+      x = share_pillar,
+      y = share_reshed,
+      label = Country,
+      col = Country,
+      size = contrib_country)) +
+  geom_point(fill = NA) +
+  geom_text_repel(
+    size = 5,
+    show.legend = FALSE,
+    box.padding = .75,
+    family = "Gill Sans") +
+  guides(size = guide_legend(
+    title = "Total EU Contribution (MioEUR) :",
+    override.aes = list(fill = "gray45", col = "gray45", shape = 21))) +
+  labs(
+    x = glue("Contributions to Pillar II: ",
+             "Industrial Leadership\n",
+             "(% of the total contribution to the country)"),
+    y = glue("Contribution to Private Companies\n",
+             "(% of the total contribution to the country)")) +
+  scale_color_manual(values = rev(pal), guide = "none") +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 15, family = "Gill Sans", color = "gray10"),
+    plot.title.position = "plot",
+    legend.position = "top")
+```
+
 
 ---
 
@@ -573,7 +655,7 @@ df %>%
 
 
 ```{r visual-overview, eval=FALSE}
-# Differentiate pillars 1 to III
+# Differentiate pillars I to III
 stats_depth_1 <- df %>%
   filter(!is.na(pillar)) %>%
   filter(country_code == "CH") %>%
@@ -637,3 +719,25 @@ stats_depth_2 %>%
   write_csv(here("data", "h2020-treemap.csv"))
 # plot with https://rawgraphs.io
 ```
+
+
+```{r he, eval=FALSE}
+
+he <- tibble(
+  pillar = c("Excellent Science", "Excellent Science", "Excellent Science",
+             "Industrial Competitiveness","Industrial Competitiveness","Industrial Competitiveness","Industrial Competitiveness","Industrial Competitiveness","Industrial Competitiveness","Industrial Competitiveness",
+             "Innovative Europe", "Innovative Europe", "Innovative Europe", 
+             "Widening ERA", "Widening ERA"),
+  thematic_priority = c("ERC", "MSCA", "INFRA",
+                        "HEALTH", "CULTURE", "SECURITY", "SPACE", "ENERGY", "FOOD", "JRC",
+                        "EIC", "ECOSYSTEMS", "EIT",
+                        "SPREAD", "RISYS"),
+  contrib = c(16004, 6602, 2406,
+              8256, 2280, 1596, 15349, 15123, 8952, 1970,
+              10105, 527, 2965,
+              2955, 438)
+)
+
+
+```
+

@@ -226,7 +226,6 @@ country_participation <- df %>%
 ```
 
 ```{r visual-countries-fp7, fig.asp=.5}
-# minimal plotting
 pal <- c(
   rep("#DFD8CA", ch_rank - 1),
   "#B91646",
