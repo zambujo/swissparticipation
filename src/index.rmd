@@ -123,7 +123,7 @@ include_graphics("https://zambujo.github.io/swissparticipation/swiss-participati
 ```{r outlook, child=here::here("Rmd", "outlook_en.rmd")}
 ```
 
-```{r}
+```{r, fig.cap="Horizon Europe Budget"}
 include_graphics("https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-he.svg")
 ```
 
