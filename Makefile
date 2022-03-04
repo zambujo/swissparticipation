@@ -1,6 +1,6 @@
-all: site
+all: render
 
-site:
+render:
 	cd R;\
 	Rscript render-site.R;\
-	cp ../xaringan/summary.html ../docs/;
+	# cp ../xaringan/summary.html ../docs/;

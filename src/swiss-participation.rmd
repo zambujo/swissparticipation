@@ -716,7 +716,7 @@ stats_depth_2 %>%
     ),
     contrib_txt = str_c("M€", contrib_txt)
   ) %>%
-  write_csv(here("data", "h2020-treemap.csv"))
+  write_csv(here("data", "treemap-h2020-ch.csv"))
 # plot with https://rawgraphs.io
 ```
 
@@ -738,6 +738,7 @@ he <- tibble(
               2955, 438)
 )
 
+write_csv(he, here("data", "treemap-he.csv"))
 
 ```
 

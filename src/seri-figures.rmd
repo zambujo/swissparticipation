@@ -56,33 +56,34 @@ df <- df_raw %>%
 
 ```{r plot-styling}
 get_particip <- function(x) {
-  total <- x %>%
-    group_by(year = start_semester) %>%
-    summarise(n_total = n(),
-              contrib_all = sum(re_contribution, na.rm = TRUE))
   ch <- x %>%
     filter(country_code == "CH") %>%
-    group_by(framework_programme, year = start_semester) %>%
+    group_by(framework_programme, time_period = start_semester) %>%
     summarise(n_ch = n(),
               contrib_ch = sum(re_contribution, na.rm = TRUE))
-  # coordinations
-  total2 <- x %>%
-    filter(partner_role == "Coordinator") %>%
-    count(year = start_semester, name = "coord_total")
+  total <- x %>%
+    group_by(time_period = start_semester) %>%
+    summarise(n_total = n(),
+              contrib_all = sum(re_contribution, na.rm = TRUE))
+
   ch2 <- x %>%
     filter(country_code == "CH") %>%
     filter(partner_role == "Coordinator") %>%
-    group_by(framework_programme, year = start_semester) %>%
+    group_by(framework_programme, time_period = start_semester) %>%
     summarise(coord_ch = n())
-  coord <- left_join(total2, ch2, by = "year") %>%
+  total2 <- x %>%
+    filter(partner_role == "Coordinator") %>%
+    count(time_period = start_semester, name = "coord_total")
+
+  coord <- left_join(total2, ch2, by = "time_period") %>%
     mutate(share_coord = 100 * coord_ch / coord_total)
 
-  left_join(total, ch, by = "year") %>%
+  left_join(total, ch, by = "time_period") %>%
     mutate(
       share_particip = 100 * n_ch / n_total,
       share_contrib = 100 * contrib_ch / contrib_all
     ) %>%
-    left_join(coord, by = c("year", "framework_programme")) %>%
+    left_join(coord, by = c("time_period", "framework_programme")) %>%
     filter(!is.na(framework_programme))
 }
 
@@ -144,7 +145,7 @@ get_avg_particip(df) %>%
 ```{r swiss-participations}
 pal <- c("#6B7AA1", "#11324D")
 participation %>%
-  ggplot(aes(x = year, y = share_particip, fill = framework_programme)) +
+  ggplot(aes(x = time_period, y = share_particip, fill = framework_programme)) +
   geom_bar(position = "stack", stat = "identity") + 
   labs(
     title = "Swiss Participation",
@@ -160,7 +161,7 @@ participation %>%
 
 ```{r swiss-countributions}
 participation %>%
-  ggplot(aes(x = year, y = share_contrib, fill = framework_programme)) +
+  ggplot(aes(x = time_period, y = share_contrib, fill = framework_programme)) +
   geom_bar(position = "stack", stat = "identity") + 
   labs(
     title = "Contributions to Swiss Participants",
@@ -176,7 +177,7 @@ participation %>%
 
 ```{r coordinations-overviews}
 participation %>%
-  ggplot(aes(x = year, y = share_coord, fill = framework_programme)) +
+  ggplot(aes(x = time_period, y = share_coord, fill = framework_programme)) +
   geom_bar(position = "stack", stat = "identity") + 
   labs(
     title = "Swiss Coordinations",

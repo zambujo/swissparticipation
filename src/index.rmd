@@ -1,0 +1,122 @@
+---
+title: "Swiss Participation in the EU R&I Programmes"
+output:
+  html_document:
+    toc: false
+---
+
+```{r, include=FALSE, results='asis'}
+library(knitr)
+library(metathis)
+
+opts_chunk$set(echo = FALSE)
+meta() %>%
+  meta_description(
+    "Swiss Participation in FP7 and Horizon 2020") %>%
+  meta_name("github-repo" = "zambujo/swissparticipation") %>%
+  meta_viewport() %>%
+  meta_social(
+    title = "Switzerland in FP7&H2020",
+    url = "https://zambujo.github.io/swissparticipation",
+    image = "https://zambujo.github.io/assets/images/treemap.jpg",
+    image_alt = "CH H2020 Participation",
+    og_type = "website",
+    og_author = "João Martins",
+    twitter_card_type = "summary",
+    twitter_creator = "@whereisjoao"
+  )
+```
+
+<!-- badges: start -->
+[![](https://img.shields.io/github/watchers/zambujo/swissparticipation?style=social)](https://github.com/zambujo/swissparticipation)
+[![](https://img.shields.io/github/issues/zambujo/swissparticipation)](https://github.com/zambujo/swissparticipation/issues)
+<!-- badges: end -->
+
+<br />
+
+```{r motivation, child=here::here("Rmd", "motivation_en.rmd")}
+```
+
+<br />
+
+```{r background, child=here::here("Rmd", "background_en.rmd")}
+```
+
+```{r swiss-participation, child=here::here("Rmd", "swiss-participation_en.rmd")}
+```
+
+#### Contributions
+
+```{r semester-contributions}
+include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/swiss-countributions-1.svg")
+```
+
+#### Participation
+
+```{r}
+include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/swiss-participations-1.svg")
+```
+
+#### Coordinations
+
+```{r}
+include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/coordinations-overviews-1.svg")
+```
+
+
+```{r top-participants, child=here::here("Rmd", "top-participants_en.rmd")}
+```
+
+### FP7 (2007-2013)
+
+```{r}
+include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/visual-countries-fp7-1.svg")
+```
+
+### H2020 (2014-2020)
+
+```{r}
+include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/visual-countries-1.svg")
+```
+
+```{r h2020-structure, child=here::here("Rmd", "h2020-structure_en.rmd")}
+```
+
+### All countries
+
+```{r}
+include_graphics("https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-h2020-all.svg")
+```
+
+### Switzerland
+
+```{r}
+include_graphics("https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-h2020-ch.svg")
+```
+
+```{r participation-profile, child=here::here("Rmd", "participation-profile_en.rmd")}
+```
+
+### Excellent Science/Research and HigherEd
+
+```{r}
+include_graphics("https://zambujo.github.io/swissparticipation/swiss-participation_files/figure-html/country-profile-1-1.svg")
+```
+
+### Industrial Leadership/Private Sector
+
+```{r}
+include_graphics("https://zambujo.github.io/swissparticipation/swiss-participation_files/figure-html/country-profile-2-1.svg")
+```
+
+```{r outlook, child=here::here("Rmd", "outlook_en.rmd")}
+```
+
+```{r}
+include_graphics("https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-he.svg")
+```
+
+---
+
+```{r see-also, child=here::here("Rmd", "varia_en.rmd")}
+```
