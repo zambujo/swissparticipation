@@ -45,19 +45,19 @@ meta() %>%
 ```{r swiss-participation, child=here::here("Rmd", "swiss-participation_en.rmd")}
 ```
 
-#### Contributions
+### Contributions
 
 ```{r semester-contributions}
 include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/swiss-countributions-1.svg")
 ```
 
-#### Participation
+### Participation
 
 ```{r}
 include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/swiss-participations-1.svg")
 ```
 
-#### Coordinations
+### Coordinations
 
 ```{r}
 include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/coordinations-overviews-1.svg")
