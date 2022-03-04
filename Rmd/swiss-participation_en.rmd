@@ -1,3 +1,1 @@
-## Swiss Participation Over Time {.tabset .tabset-fade .tabset-pills}
-
 A closer look at the EU contributions to Switzerland throughout the semesters of FP7 and H2020 (2007-2020) reveals a temporary, yet strong, decline over the time period of exclusion and partial association, between 2014 and 2017 (see [Fig. 1: Semester Contributions to CH](#semester-contributions)). The only exception was an initial contribution attributable to the participation in Euratom and a vice-presidency at the Scientific Council of the European Research Council. Interestingly, 2022 shows record high values.  This is likely due to record participation levels on last calls of H2020 (and the time lag between the call deadlines and the project starting dates).

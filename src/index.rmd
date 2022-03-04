@@ -39,8 +39,12 @@ meta() %>%
 
 <br />
 
+## Background
+
 ```{r background, child=here::here("Rmd", "background_en.rmd")}
 ```
+
+## Swiss Participation Over Time {.tabset .tabset-fade .tabset-pills}
 
 ```{r swiss-participation, child=here::here("Rmd", "swiss-participation_en.rmd")}
 ```
@@ -63,6 +67,7 @@ include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_file
 include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/coordinations-overviews-1.svg")
 ```
 
+## Top Participating Countries {.tabset .tabset-fade .tabset-pills}
 
 ```{r top-participants, child=here::here("Rmd", "top-participants_en.rmd")}
 ```
@@ -79,6 +84,8 @@ include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_file
 include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/visual-countries-1.svg")
 ```
 
+##  H2020 structure {.tabset .tabset-fade .tabset-pills}
+
 ```{r h2020-structure, child=here::here("Rmd", "h2020-structure_en.rmd")}
 ```
 
@@ -93,6 +100,8 @@ include_graphics("https://raw.githubusercontent.com/zambujo/swissparticipation/m
 ```{r}
 include_graphics("https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-h2020-ch.svg")
 ```
+
+## Participation profile {.tabset .tabset-fade .tabset-pills}
 
 ```{r participation-profile, child=here::here("Rmd", "participation-profile_en.rmd")}
 ```
@@ -109,6 +118,8 @@ include_graphics("https://zambujo.github.io/swissparticipation/swiss-participati
 include_graphics("https://zambujo.github.io/swissparticipation/swiss-participation_files/figure-html/country-profile-2-1.svg")
 ```
 
+## Outlook
+
 ```{r outlook, child=here::here("Rmd", "outlook_en.rmd")}
 ```
 
@@ -117,6 +128,8 @@ include_graphics("https://raw.githubusercontent.com/zambujo/swissparticipation/m
 ```
 
 ---
+
+## Varia
 
 ```{r see-also, child=here::here("Rmd", "varia_en.rmd")}
 ```
