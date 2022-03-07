@@ -196,7 +196,7 @@ Switzerland ranks 7th by total EU contribution in FP7 and 8th in H2020. (The CER
 
 ### FP7
 
-Participation count, number of projects (distinct), and total EU contribution for the top 10 participating countries (by total EU contribution).
+Participation count, number of projects (distinct), and total EU contribution for the top 15 participating countries (by total EU contribution).
 
 ```{r top-participants-fp7}
 # find and sort top participants
@@ -205,41 +205,28 @@ top_participants <- df %>%
   group_by(Country = country) %>%
   summarise(contrib_country = sum(re_contribution, na.rm = TRUE)) %>%
   ungroup() %>%
-  arrange(desc(contrib_country))
-
+  arrange(desc(contrib_country)) %>%
+  mutate(
+    country_txt = str_replace(Country, "United Kingdom", "UK"),
+    country_txt = sprintf("%d. %s", row_number(), country_txt))
+         
 ch_rank <- which(pull(top_participants, Country) == "Switzerland")
-
-# calculate further participation statistics
-country_participation <- df %>%
-  filter(framework_programme == "FP7") %>%
-  group_by(
-    Country = country,
-    `Project Start Year` = start_year,
-    Type = org_type
-  ) %>%
-  summarise(
-    `Participation Count` = n(),
-    `Nb Projects` = n_distinct(project_id),
-    `EU Contribution` = sum(re_contribution, na.rm = TRUE)
-  ) %>%
-  ungroup() %>%
-  arrange(`Type`, `Project Start Year`)
 ```
 
 ```{r visual-countries-fp7, fig.asp=.5}
 pal <- c(
   rep("#DFD8CA", ch_rank - 1),
   "#B91646",
-  rep("#DFD8CA", 10 - ch_rank)) %>%
+  rep("#DFD8CA", 15 - ch_rank)) %>%
   rev()
 
 top_participants %>%
   mutate(
-    Country = fct_rev(fct_inorder(Country)),
+    country_txt = fct_rev(fct_inorder(country_txt)),
     share = 100 * prop.table(contrib_country)
   ) %>%
-  head(10) %>%
-  ggplot(aes(x = contrib_country, y = Country, fill = Country)) +
+  head(15) %>%
+  ggplot(aes(x = contrib_country, y = country_txt, fill = country_txt)) +
   geom_col() +
   geom_text(
     aes(label = sprintf("%.1f%%", share)),
@@ -264,9 +251,24 @@ top_participants %>%
 ```
 
 ```{r}
+country_participation <- df %>%
+  filter(framework_programme == "FP7") %>%
+  group_by(
+    Country = country,
+    `Project Start Year` = start_year,
+    Type = org_type
+  ) %>%
+  summarise(
+    `Participation Count` = n(),
+    `Nb Projects` = n_distinct(project_id),
+    `EU Contribution` = sum(re_contribution, na.rm = TRUE)
+  ) %>%
+  ungroup() %>%
+  arrange(`Type`, `Project Start Year`)
+
 top_participants %>%
   select(Country) %>%
-  head(10) %>%
+  head(15) %>%
   inner_join(country_participation, by = "Country") %>%
   reactable(
     groupBy = c("Country", "Project Start Year"),
@@ -296,7 +298,7 @@ top_participants %>%
 
 ### H2020
 
-Participation count, number of projects (distinct), and total EU contribution for the top 10 participating countries (by total EU contribution).
+Participation count, number of projects (distinct), and total EU contribution for the top 15 participating countries (by total EU contribution).
 
 ```{r top-participants}
 # find and sort top participants
@@ -305,41 +307,28 @@ top_participants <- df %>%
   group_by(Country = country) %>%
   summarise(contrib_country = sum(eu_contribution, na.rm = TRUE)) %>%
   ungroup() %>%
-  arrange(desc(contrib_country))
+  arrange(desc(contrib_country)) %>%
+  mutate(
+    country_txt = str_replace(Country, "United Kingdom", "UK"),
+    country_txt = sprintf("%d. %s", row_number(), country_txt))
 
 ch_rank <- which(pull(top_participants, Country) == "Switzerland")
-
-# calculate further participation statistics
-country_participation <- df %>%
-  filter(framework_programme == "H2020") %>%
-  group_by(
-    Country = country,
-    `Call Year` = call_year,
-    Type = org_type
-  ) %>%
-  summarise(
-    `Participation Count` = n(),
-    `Nb Projects` = n_distinct(project_id),
-    `EU Contribution` = sum(eu_contribution, na.rm = TRUE)
-  ) %>%
-  ungroup() %>%
-  arrange(`Type`, `Call Year`)
 ```
 
 ```{r visual-countries, fig.asp=.5}
 pal <- c(
   rep("#DFD8CA", ch_rank - 1),
   "#B91646",
-  rep("#DFD8CA", 10 - ch_rank)) %>%
+  rep("#DFD8CA", 15 - ch_rank)) %>%
   rev()
 
 top_participants %>%
   mutate(
-    Country = fct_rev(fct_inorder(Country)),
+    country_txt = fct_rev(fct_inorder(country_txt)),
     share = 100 * prop.table(contrib_country)
   ) %>%
-  head(10) %>%
-  ggplot(aes(x = contrib_country, y = Country, fill = Country)) +
+  head(15) %>%
+  ggplot(aes(x = contrib_country, y = country_txt, fill = country_txt)) +
   geom_col() +
   geom_text(
     aes(label = sprintf("%.1f%%", share)),
@@ -364,10 +353,25 @@ top_participants %>%
 ```
 
 ```{r}
+country_participation <- df %>%
+  filter(framework_programme == "H2020") %>%
+  group_by(
+    Country = country,
+    `Call Year` = call_year,
+    Type = org_type
+  ) %>%
+  summarise(
+    `Participation Count` = n(),
+    `Nb Projects` = n_distinct(project_id),
+    `EU Contribution` = sum(eu_contribution, na.rm = TRUE)
+  ) %>%
+  ungroup() %>%
+  arrange(`Type`, `Call Year`)
+
 # show with reactable
 top_participants %>%
   select(Country) %>%
-  head(10) %>%
+  head(15) %>%
   inner_join(country_participation, by = "Country") %>%
   reactable(
     groupBy = c("Country", "Call Year"),

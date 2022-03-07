@@ -1,9 +1,9 @@
 The Framework Programmes are divided in pillars (or sections) and subdivided in funding instruments.  H2020, for instance, was composed of three main pillars:
 
-  1. Pillar I on Excellent Science: aiming at enhancing European scientific competitiveness globally, obtained 36% of the budget;
+  1. Pillar I, on Excellent Science: aiming at enhancing European scientific competitiveness globally, obtained 36% of the budget;
 
-  2. Pillar II on Industrial Leadership: aiming at maximizing competitiveness of European companies and SMEs, obtained 20% of the budget;
+  2. Pillar II, on Industrial Leadership: aiming at maximizing competitiveness of European companies and SMEs, obtained 20% of the budget;
   
-  3. Pillar III on Societal Challenges: aiming at tackling Europe’s main political and social priorities, obtained 39% of the budged (see [more](https://ec.europa.eu/programmes/horizon2020/en/h2020-sections)).
+  3. Pillar III, on Societal Challenges: aiming at tackling Europe’s main political and social priorities, obtained 39% of the budged (see [more](https://ec.europa.eu/programmes/horizon2020/en/h2020-sections)).
 
 Compared to the overall budget distribution for all countries, the distribution EU contributions obtained by Switzerland in H2020 was strongly skewed towards the pillar on Excellent Science (64.3% for Switzerland versus 36.2% for all countries).  For instance, contributions from the European Research Council (ERC), the flagship instrument of pillar on Excellent Science, in which scientific excellence is the sole selection criterion, accounted for more than 40% of all EU contributions to Switzerland. In relative terms, the share of ERC contributions to Switzerland surpass the share of contributions from the entire pillar on Excellent Science to all countries. 

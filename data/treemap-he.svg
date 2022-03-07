@@ -4,9 +4,31 @@
    height="577"
    version="1.1"
    id="svg1048"
+   sodipodi:docname="treemap-he.svg"
+   inkscape:version="1.1.2 (b8e25be8, 2022-02-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview14866"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1"
+     inkscape:cx="444"
+     inkscape:cy="288"
+     inkscape:window-width="1776"
+     inkscape:window-height="816"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg1048" />
   <defs
      id="defs1052">
     <clipPath
@@ -18,7 +40,7 @@
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-736,-489)" />
+         transform="translate(-729.5,-472.5)" />
     </clipPath>
     <clipPath
        id="clip14">
@@ -29,7 +51,7 @@
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-868,-489)" />
+         transform="translate(-861.5,-472.5)" />
     </clipPath>
     <clipPath
        id="clip_ancestor0">
@@ -53,7 +75,7 @@
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-734,-477)" />
+         transform="translate(-727.5,-460.5)" />
     </clipPath>
     <clipPath
        id="clip_ancestor1">
@@ -64,7 +86,7 @@
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-12,-22)" />
+         transform="translate(-5.5,-5.5)" />
     </clipPath>
     <clipPath
        id="clip_ancestor2">
@@ -75,7 +97,7 @@
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-12,-203)" />
+         transform="translate(-5.5,-186.5)" />
     </clipPath>
     <clipPath
        id="clip_ancestor3">
@@ -86,7 +108,7 @@
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-734,-22)" />
+         transform="translate(-727.5,-5.5)" />
     </clipPath>
     <clipPath
        id="clip1">
@@ -97,7 +119,7 @@
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-473,-34)" />
+         transform="translate(-466.5,-17.5)" />
     </clipPath>
     <clipPath
        id="clip2">
@@ -108,7 +130,7 @@
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-663,-34)" />
+         transform="translate(-656.5,-17.5)" />
     </clipPath>
     <clipPath
        id="clip3">
@@ -152,7 +174,7 @@
          y="0"
          width="100%"
          height="100%"
-         transform="translate(-14,-34)" />
+         transform="translate(-7.5,-17.5)" />
     </clipPath>
     <clipPath
        id="clip6">
@@ -232,401 +254,405 @@
          transform="translate(-736,-361)" />
     </clipPath>
   </defs>
+  <rect
+     width="720"
+     height="179"
+     id="path_ancestor1"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="5.5"
+     y="5.5" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333"
+     x="5.7682257"
+     y="23.443142"
+     id="text2045-0"><tspan
+       id="tspan2043-4"
+       x="5.7682257"
+       y="23.443142"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333">Excellent Science<tspan
+   style="font-weight:normal"
+   id="tspan15526"> 26%</tspan></tspan></text>
+  <rect
+     width="720"
+     height="385"
+     id="path_ancestor2"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="5.5"
+     y="186.5" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333"
+     x="6.5065088"
+     y="201.68776"
+     id="text2045-1-1"><tspan
+       id="tspan2043-8-6"
+       x="6.5065088"
+       y="201.68776"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333">Global Challenges<tspan
+   style="font-weight:normal"
+   id="tspan18142"> 56%</tspan></tspan></text>
+  <rect
+     width="154"
+     height="453"
+     id="path_ancestor3"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="727.5"
+     y="5.5" />
+  <rect
+     width="154"
+     height="111"
+     id="path_ancestor4"
+     fill="#cccccc"
+     fill-opacity="0.333333"
+     stroke="#cccccc"
+     stroke-opacity="0.433333"
+     x="727.5"
+     y="460.5" />
+  <rect
+     id="path0"
+     fill="#1f77b4"
+     width="457"
+     height="155.76172"
+     x="7.5"
+     y="26.738293"
+     style="fill:#5298bd;fill-opacity:1;stroke-width:1" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+     x="10.82645"
+     y="42.427643"
+     id="text2045-6-1"><tspan
+       id="tspan2043-3-8"
+       x="10.82645"
+       y="42.427643"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">ERC</tspan><tspan
+       x="10.82645"
+       y="62.427643"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+       id="tspan35814-4">M€16,004</tspan></text>
+  <rect
+     id="path1"
+     fill="#1f77b4"
+     width="188"
+     height="155.76172"
+     x="466.5"
+     y="26.738293"
+     style="fill:#5298bd;fill-opacity:1;stroke-width:1" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+     x="469.19223"
+     y="42.427643"
+     id="text2045-6-78-97"><tspan
+       id="tspan2043-3-4-31"
+       x="469.19223"
+       y="42.427643"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">MSCA</tspan><tspan
+       x="469.19223"
+       y="62.427643"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+       id="tspan45842-0">M€6,602</tspan></text>
+  <rect
+     id="path2"
+     fill="#1f77b4"
+     width="67"
+     height="155.76172"
+     x="656.5"
+     y="26.738293"
+     style="fill:#5298bd;fill-opacity:1;stroke-width:1" />
   <g
-     id="g46754"
-     transform="translate(-6.5,-16.5)">
+     id="g23899"
+     transform="matrix(1,0,0,0.97843665,-6.5,-3.86388)"
+     style="stroke-width:1.01096">
     <rect
-       width="720"
-       height="179"
-       id="path_ancestor1"
-       fill="#cccccc"
-       fill-opacity="0.333333"
-       stroke="#cccccc"
-       stroke-opacity="0.433333"
-       x="12"
-       y="22" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333"
-       x="12.268226"
-       y="39.943142"
-       id="text2045-0"><tspan
-         id="tspan2043-4"
-         x="12.268226"
-         y="39.943142"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333">Excellent Science</tspan></text>
-    <rect
-       width="720"
-       height="385"
-       id="path_ancestor2"
-       fill="#cccccc"
-       fill-opacity="0.333333"
-       stroke="#cccccc"
-       stroke-opacity="0.433333"
-       x="12"
-       y="203" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333"
-       x="13.006509"
-       y="218.18776"
-       id="text2045-1-1"><tspan
-         id="tspan2043-8-6"
-         x="13.006509"
-         y="218.18776"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333">Global Challenges</tspan></text>
-    <rect
-       width="154"
-       height="453"
-       id="path_ancestor3"
-       fill="#cccccc"
-       fill-opacity="0.333333"
-       stroke="#cccccc"
-       stroke-opacity="0.433333"
-       x="734"
-       y="22" />
-    <rect
-       width="154"
-       height="111"
-       id="path_ancestor4"
-       fill="#cccccc"
-       fill-opacity="0.333333"
-       stroke="#cccccc"
-       stroke-opacity="0.433333"
-       x="734"
-       y="477" />
-    <rect
-       id="path0"
-       fill="#1f77b4"
-       width="457"
-       height="155.76172"
+       id="path3"
+       fill="#ff7f0e"
+       width="161"
+       height="252"
        x="14"
-       y="43.238293"
-       style="fill:#5298bd;fill-opacity:1;stroke-width:1" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-       x="17.32645"
-       y="58.927643"
-       id="text2045-6-1"><tspan
-         id="tspan2043-3-8"
-         x="17.32645"
-         y="58.927643"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">ERC</tspan><tspan
-         x="17.32645"
-         y="78.927643"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-         id="tspan35814-4">M€16,004</tspan></text>
+       y="215"
+       style="fill:#71b294;fill-opacity:1;stroke-width:1.01096" />
     <rect
-       id="path1"
-       fill="#1f77b4"
-       width="188"
-       height="155.76172"
-       x="473"
-       y="43.238293"
-       style="fill:#5298bd;fill-opacity:1;stroke-width:1" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-       x="475.69223"
-       y="58.927643"
-       id="text2045-6-78-97"><tspan
-         id="tspan2043-3-4-31"
-         x="475.69223"
-         y="58.927643"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">MSCA</tspan><tspan
-         x="475.69223"
-         y="78.927643"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-         id="tspan45842-0">M€6,602</tspan></text>
+       id="path4"
+       fill="#ff7f0e"
+       width="161"
+       height="68"
+       x="14"
+       y="469"
+       style="fill:#71b294;fill-opacity:1;stroke-width:1.01096" />
     <rect
-       id="path2"
-       fill="#1f77b4"
-       width="67"
-       height="155.76172"
-       x="663"
-       y="43.238293"
-       style="fill:#5298bd;fill-opacity:1;stroke-width:1" />
-    <g
-       id="g23899"
-       transform="matrix(1,0,0,0.97843665,0,12.63612)"
-       style="stroke-width:1.01096">
-      <rect
-         id="path3"
-         fill="#ff7f0e"
-         width="161"
-         height="252"
-         x="14"
-         y="215"
-         style="fill:#71b294;fill-opacity:1;stroke-width:1.01096" />
-      <rect
-         id="path4"
-         fill="#ff7f0e"
-         width="161"
-         height="68"
-         x="14"
-         y="469"
-         style="fill:#71b294;fill-opacity:1;stroke-width:1.01096" />
-      <rect
-         id="path5"
-         fill="#ff7f0e"
-         width="161"
-         height="47"
-         x="14"
-         y="539"
-         style="fill:#71b294;fill-opacity:1;stroke-width:1.01096" />
-      <rect
-         id="path6"
-         fill="#ff7f0e"
-         width="406"
-         height="186"
-         x="177"
-         y="215"
-         style="fill:#71b294;fill-opacity:1;stroke-width:1.01096" />
-      <rect
-         id="path7"
-         fill="#ff7f0e"
-         width="406"
-         height="183"
-         x="177"
-         y="403"
-         style="fill:#71b294;fill-opacity:1;stroke-width:1.01096" />
-      <rect
-         id="path8"
-         fill="#ff7f0e"
-         width="145"
-         height="304"
-         x="585"
-         y="215"
-         style="fill:#71b294;fill-opacity:1;stroke-width:1.01096" />
-      <rect
-         id="path9"
-         fill="#ff7f0e"
-         width="145"
-         height="65"
-         x="585"
-         y="521"
-         style="fill:#71b294;fill-opacity:1;stroke-width:1.01096" />
-    </g>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-       x="181.0025"
-       y="239.98631"
-       id="text2045-6-78-3-6-7"><tspan
-         id="tspan2043-3-4-9-0-9"
-         x="181.0025"
-         y="239.98631"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">DIGITA, INDUSTRY, SPACE</tspan><tspan
-         x="181.0025"
-         y="259.98633"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-         id="tspan47676-4-8">M€15,349</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-       x="17.32645"
-       y="239.77538"
-       id="text2045-6-78-67-4"><tspan
-         id="tspan2043-3-4-8-9"
-         x="17.32645"
-         y="239.77538"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">HEALTH</tspan><tspan
-         x="17.32645"
-         y="259.77539"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-         id="tspan47860-2">M€8,256</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-       x="588.01447"
-       y="240.01756"
-       id="text2045-6-78-4-2-0"><tspan
-         id="tspan2043-3-4-2-9-9"
-         x="588.01447"
-         y="240.01756"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">FOOD, AGRI</tspan><tspan
-         x="588.01447"
-         y="260.01758"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-         id="tspan50966-2">M€8,952</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-       x="589.23322"
-       y="539.24115"
-       id="text2045-6-78-4-2-0-4"><tspan
-         id="tspan2043-3-4-2-9-9-1"
-         x="589.23322"
-         y="539.24115"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">JRC</tspan><tspan
-         x="589.23322"
-         y="559.24115"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-         id="tspan50966-2-7">M€1,970</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-       x="180.48688"
-       y="424.01242"
-       id="text2045-6-78-3-6"><tspan
-         id="tspan2043-3-4-9-0"
-         x="180.48688"
-         y="424.01242"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">CLIMATE, ENERGY, MOBILITY</tspan><tspan
-         x="180.48688"
-         y="444.01242"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-         id="tspan47676-4">M€15,123</tspan></text>
-    <g
-       id="g23730"
-       transform="matrix(1,0,0,0.9789541,0,9.9547135)"
-       style="stroke-width:1.01069">
-      <rect
-         id="path10"
-         fill="#2ca02c"
-         width="150"
-         height="325"
-         x="736"
-         y="34"
-         style="fill:#fbbe5e;fill-opacity:1;stroke-width:1.01069" />
-      <rect
-         id="path12"
-         fill="#2ca02c"
-         width="150"
-         height="95"
-         x="736"
-         y="361"
-         style="fill:#fbbe5e;fill-opacity:1;stroke-width:1.01069" />
-      <rect
-         id="path11"
-         fill="#2ca02c"
-         width="150"
-         height="15"
-         x="736"
-         y="458"
-         style="fill:#fbbe5e;fill-opacity:1;stroke-width:1.01069" />
-    </g>
+       id="path5"
+       fill="#ff7f0e"
+       width="161"
+       height="47"
+       x="14"
+       y="539"
+       style="fill:#71b294;fill-opacity:1;stroke-width:1.01096" />
     <rect
-       id="path13"
-       fill="#d62728"
-       width="130"
-       height="89.147171"
-       x="736"
-       y="496.85281"
-       style="fill:#9d90b9;fill-opacity:1;stroke-width:0.999996" />
+       id="path6"
+       fill="#ff7f0e"
+       width="406"
+       height="186"
+       x="177"
+       y="215"
+       style="fill:#71b294;fill-opacity:1;stroke-width:1.01096" />
     <rect
-       id="path14"
-       fill="#d62728"
-       width="18"
-       height="89.147171"
-       x="868"
-       y="496.85281"
-       style="fill:#9d90b9;fill-opacity:1;stroke-width:0.999996" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-       x="17.842075"
-       y="556.55054"
-       id="text2045-6-78-4-36-1-9"><tspan
-         id="tspan2043-3-4-2-0-2-1"
-         x="17.842075"
-         y="556.55054"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">CIVIL SECURITY</tspan><tspan
-         x="17.842075"
-         y="576.55054"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-         id="tspan50702-3-0">M€1,596</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-       x="17.990513"
-       y="488.46609"
-       id="text2045-6-78-4-36-1-9-7"><tspan
-         id="tspan2043-3-4-2-0-2-1-9"
-         x="17.990513"
-         y="488.46609"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">CULTURE</tspan><tspan
-         x="17.990513"
-         y="508.46609"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-         id="tspan50702-3-0-5">M€2,280</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-       x="-193.44855"
-       y="680.63446"
-       id="text2045-6-0-2"
-       transform="rotate(-90)"><tspan
-         id="tspan2043-3-9-3"
-         x="-193.44855"
-         y="680.63446"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">INFRA</tspan><tspan
-         x="-193.44855"
-         y="700.63446"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-         id="tspan42036-7">M€2,406</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333"
-       x="737.17554"
-       y="39.943142"
-       id="text2045-3-6"><tspan
-         id="tspan2043-9-3"
-         x="737.17554"
-         y="39.943142"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333">Innovation</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333"
-       x="735.39844"
-       y="491.99341"
-       id="text2045-8-8"><tspan
-         id="tspan2043-2-5"
-         x="735.39844"
-         y="491.99341"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333">Widening ERA</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-       x="738.02338"
-       y="58.927643"
-       id="text2045-6-78-9-4"><tspan
-         id="tspan2043-3-4-3-8"
-         x="738.02338"
-         y="58.927643"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">EIC</tspan><tspan
-         x="738.02338"
-         y="78.927643"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-         id="tspan46506-6">M€10,105</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-       x="738.02338"
-       y="378.52963"
-       id="text2045-6-78-9-1"><tspan
-         id="tspan2043-3-4-3-4"
-         x="738.02338"
-         y="378.52963"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">EIT</tspan><tspan
-         x="738.02338"
-         y="398.52963"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-         id="tspan46506-0">M€2,2965</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-       x="738.539"
-       y="512.93542"
-       id="text2045-6-78-4-36-3-9"><tspan
-         id="tspan2043-3-4-2-0-0-3"
-         x="738.539"
-         y="512.93542"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">SPREAD</tspan><tspan
-         x="738.539"
-         y="532.93542"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
-         id="tspan50702-0-0">M€2,955</tspan></text>
+       id="path7"
+       fill="#ff7f0e"
+       width="406"
+       height="183"
+       x="177"
+       y="403"
+       style="fill:#71b294;fill-opacity:1;stroke-width:1.01096" />
+    <rect
+       id="path8"
+       fill="#ff7f0e"
+       width="145"
+       height="304"
+       x="585"
+       y="215"
+       style="fill:#71b294;fill-opacity:1;stroke-width:1.01096" />
+    <rect
+       id="path9"
+       fill="#ff7f0e"
+       width="145"
+       height="65"
+       x="585"
+       y="521"
+       style="fill:#71b294;fill-opacity:1;stroke-width:1.01096" />
   </g>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+     x="174.5025"
+     y="223.48631"
+     id="text2045-6-78-3-6-7"><tspan
+       id="tspan2043-3-4-9-0-9"
+       x="174.5025"
+       y="223.48631"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">DIGITA, INDUSTRY, SPACE</tspan><tspan
+       x="174.5025"
+       y="243.48633"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+       id="tspan47676-4-8">M€15,349</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+     x="10.82645"
+     y="223.27538"
+     id="text2045-6-78-67-4"><tspan
+       id="tspan2043-3-4-8-9"
+       x="10.82645"
+       y="223.27538"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">HEALTH</tspan><tspan
+       x="10.82645"
+       y="243.27539"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+       id="tspan47860-2">M€8,256</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+     x="581.51447"
+     y="223.51756"
+     id="text2045-6-78-4-2-0"><tspan
+       id="tspan2043-3-4-2-9-9"
+       x="581.51447"
+       y="223.51756"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">FOOD, AGRI</tspan><tspan
+       x="581.51447"
+       y="243.51758"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+       id="tspan50966-2">M€8,952</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+     x="582.73322"
+     y="522.74115"
+     id="text2045-6-78-4-2-0-4"><tspan
+       id="tspan2043-3-4-2-9-9-1"
+       x="582.73322"
+       y="522.74115"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">JRC</tspan><tspan
+       x="582.73322"
+       y="542.74115"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+       id="tspan50966-2-7">M€1,970</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+     x="173.98688"
+     y="407.51242"
+     id="text2045-6-78-3-6"><tspan
+       id="tspan2043-3-4-9-0"
+       x="173.98688"
+       y="407.51242"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">CLIMATE, ENERGY, MOBILITY</tspan><tspan
+       x="173.98688"
+       y="427.51242"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+       id="tspan47676-4">M€15,123</tspan></text>
+  <g
+     id="g23730"
+     transform="matrix(1,0,0,0.9789541,-6.5,-6.5452865)"
+     style="stroke-width:1.01069">
+    <rect
+       id="path10"
+       fill="#2ca02c"
+       width="150"
+       height="325"
+       x="736"
+       y="34"
+       style="fill:#fbbe5e;fill-opacity:1;stroke-width:1.01069" />
+    <rect
+       id="path12"
+       fill="#2ca02c"
+       width="150"
+       height="95"
+       x="736"
+       y="361"
+       style="fill:#fbbe5e;fill-opacity:1;stroke-width:1.01069" />
+    <rect
+       id="path11"
+       fill="#2ca02c"
+       width="150"
+       height="15"
+       x="736"
+       y="458"
+       style="fill:#fbbe5e;fill-opacity:1;stroke-width:1.01069" />
+  </g>
+  <rect
+     id="path13"
+     fill="#d62728"
+     width="130"
+     height="89.147171"
+     x="729.5"
+     y="480.35281"
+     style="fill:#9d90b9;fill-opacity:1;stroke-width:0.999996" />
+  <rect
+     id="path14"
+     fill="#d62728"
+     width="18"
+     height="89.147171"
+     x="861.5"
+     y="480.35281"
+     style="fill:#9d90b9;fill-opacity:1;stroke-width:0.999996" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+     x="11.342075"
+     y="540.05054"
+     id="text2045-6-78-4-36-1-9"><tspan
+       id="tspan2043-3-4-2-0-2-1"
+       x="11.342075"
+       y="540.05054"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">CIVIL SECURITY</tspan><tspan
+       x="11.342075"
+       y="560.05054"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+       id="tspan50702-3-0">M€1,596</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+     x="11.490513"
+     y="471.96609"
+     id="text2045-6-78-4-36-1-9-7"><tspan
+       id="tspan2043-3-4-2-0-2-1-9"
+       x="11.490513"
+       y="471.96609"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">CULTURE</tspan><tspan
+       x="11.490513"
+       y="491.96609"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+       id="tspan50702-3-0-5">M€2,280</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+     x="-176.94855"
+     y="674.13446"
+     id="text2045-6-0-2"
+     transform="rotate(-90)"><tspan
+       id="tspan2043-3-9-3"
+       x="-176.94855"
+       y="674.13446"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">INFRA</tspan><tspan
+       x="-176.94855"
+       y="694.13446"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+       id="tspan42036-7">M€2,406</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333"
+     x="728.67554"
+     y="23.443142"
+     id="text2045-3-6"><tspan
+       id="tspan2043-9-3"
+       x="728.67554"
+       y="23.443142"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333">Innovation<tspan
+   style="font-weight:normal"
+   id="tspan19018"> 14</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333"
+     x="728.89844"
+     y="475.49341"
+     id="text2045-8-8"><tspan
+       id="tspan2043-2-5"
+       x="728.89844"
+       y="475.49341"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333">Widening<tspan
+   style="font-weight:normal"
+   id="tspan23755"> 4%</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+     x="731.52338"
+     y="42.427643"
+     id="text2045-6-78-9-4"><tspan
+       id="tspan2043-3-4-3-8"
+       x="731.52338"
+       y="42.427643"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">EIC</tspan><tspan
+       x="731.52338"
+       y="62.427643"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+       id="tspan46506-6">M€10,105</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+     x="731.52338"
+     y="362.02963"
+     id="text2045-6-78-9-1"><tspan
+       id="tspan2043-3-4-3-4"
+       x="731.52338"
+       y="362.02963"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">EIT</tspan><tspan
+       x="731.52338"
+       y="382.02963"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+       id="tspan46506-0">M€2,2965</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+     x="732.039"
+     y="496.43542"
+     id="text2045-6-78-4-36-3-9"><tspan
+       id="tspan2043-3-4-2-0-0-3"
+       x="732.039"
+       y="496.43542"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif">SPREAD</tspan><tspan
+       x="732.039"
+       y="516.43542"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif"
+       id="tspan50702-0-0">M€2,955</tspan></text>
 </svg>

@@ -4,7 +4,7 @@
    height="577"
    version="1.1"
    id="svg615"
-   sodipodi:docname="treemap-ch.svg"
+   sodipodi:docname="treemap-h2020-ch.svg"
    inkscape:version="1.1.2 (b8e25be8, 2022-02-05)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -315,8 +315,8 @@
      inkscape:pagecheckerboard="0"
      showgrid="false"
      inkscape:zoom="1.1538462"
-     inkscape:cx="432.9"
-     inkscape:cy="260.86667"
+     inkscape:cx="440.69998"
+     inkscape:cy="260.86666"
      inkscape:window-width="1809"
      inkscape:window-height="1016"
      inkscape:window-x="0"
@@ -713,7 +713,9 @@
        id="tspan2043"
        x="5.796875"
        y="24.054684"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333">Excellent Science</tspan></text>
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333">I. Excellent Science <tspan
+   style="font-weight:normal"
+   id="tspan4835">64%</tspan></tspan></text>
   <text
      xml:space="preserve"
      style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333"
@@ -724,7 +726,9 @@
        id="tspan2043-9"
        x="570.78125"
        y="24.054684"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333">Industrial Leadership</tspan></text>
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333">II. Industrial Leadership <tspan
+   style="font-weight:normal"
+   id="tspan5515">14%</tspan></tspan></text>
   <text
      xml:space="preserve"
      style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333"
@@ -735,7 +739,9 @@
        id="tspan2043-8"
        x="571.34375"
        y="249.18802"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333">Societal Challenges</tspan></text>
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333">III. Societal Challenges <tspan
+   style="font-weight:normal"
+   id="tspan6661">19%</tspan></tspan></text>
   <text
      xml:space="preserve"
      style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333"
@@ -746,7 +752,9 @@
        id="tspan2043-2"
        x="571.28125"
        y="541.20367"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333">Other</tspan></text>
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#333333">Other<tspan
+   style="font-weight:normal"
+   id="tspan7415"> 3%</tspan></tspan></text>
   <text
      xml:space="preserve"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif"

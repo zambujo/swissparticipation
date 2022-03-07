@@ -722,7 +722,6 @@ stats_depth_2 %>%
 
 
 ```{r he, eval=FALSE}
-
 he <- tibble(
   pillar = c("Excellent Science", "Excellent Science", "Excellent Science",
              "Industrial Competitiveness","Industrial Competitiveness","Industrial Competitiveness","Industrial Competitiveness","Industrial Competitiveness","Industrial Competitiveness","Industrial Competitiveness",
@@ -737,6 +736,12 @@ he <- tibble(
               10105, 527, 2965,
               2955, 438)
 )
+
+
+he %>%
+  group_by(pillar) %>%
+  summarise(total_contrib = sum(contrib)) %>%
+  mutate(share_contrib = 100 * prop.table(total_contrib))
 
 write_csv(he, here("data", "treemap-he.csv"))
 
