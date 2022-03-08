@@ -11,15 +11,15 @@ editor_options:
 
 The raw data is available at:
 
-- [CORDIS](https://cordis.europa.eu/)
+- [CORDIS](https://cordis.europa.eu/), **updated 2022-01-18**
   - [CORDIS FP7 projects](https://data.europa.eu/data/datasets/cordisfp7projects)  
-  - [CORDIS H2020 projects](https://data.europa.eu/data/datasets/cordish2020projects), updated 2021-12-14
+  - [CORDIS H2020 projects](https://data.europa.eu/data/datasets/cordish2020projects)
   - [CORDIS reference data](https://data.europa.eu/data/datasets/cordisref-data)
-  - [Country data]()
-- [**Horizon Dashboard**](https://webgate.ec.europa.eu/dashboard) 
- - `Everyone` ➡ `FP7 Projects` ➡ `FP7 Project Details` ➡ `Top Funded Projects`  
- - `Everyone` ➡ `H2020 Projects` ➡ `H2020 Projects` ➡ `Top Funded Projects`  
- - `Everyone` ➡ `H2020 Projects` ➡ `Data Export` ➡ `Raw Data Export Sheet`, updated 2021-12-06  
+  - [Country data](https://cordis.europa.eu/data/reference/cordisref-countries.csv)
+- [**Horizon Dashboard**](https://webgate.ec.europa.eu/dashboard), **updated 2021-12-06**
+  - ➡ `Everyone` ➡ `FP7 Projects` ➡ `FP7 Project Details` ➡ `Top Funded Projects`  
+  - ➡ `Everyone` ➡ `H2020 Projects` ➡ `H2020 Projects` ➡ `Top Funded Projects`  
+  - ➡ `Everyone` ➡ `H2020 Projects` ➡ `Data Export` ➡ `Raw Data Export Sheet`
 
 Horizon Europe project data not yet centrally published.
 
@@ -33,12 +33,13 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Collecting CORDIS Data
+## Data Collection
 
-CORDIS publishes snapshots of its public data in the [EU open data portal](https://data.europa.eu).  The data are provided by framework programme.  For FP7 and H2020, the latest data are now packed in ZIP files containing a collection of CSV datasets.  We can see the details of how to download them using the R programming language.  We use the following libraries:
+### CORDIS Data
 
-Below, we generate the links for both projects and organisations, from which we can download the datasets.  First, we check when were the files last modified.
+CORDIS publishes snapshots of its public data in the [EU open data portal](https://data.europa.eu).  The data are provided by framework programme.  For FP7 and H2020, the latest data are now packed in ZIP files containing a collection of CSV datasets.
 
+Below, we  check when were the files last modified
 ```{r}
 source(here::here("R", "package.r"))
 source(here::here("R", "utils.r"))
@@ -50,72 +51,38 @@ get_last_modified <- function(url) {
     pluck("last-modified")
 }
 
-fp6_base_url <- "https://cordis.europa.eu/data/FP6/"
-cordis_base_url <- "https://cordis.europa.eu/data/"
-
 end_points <-
-  expand_grid(c("fp6", "fp7", "h2020"), c("projects", "organizations")) %>%
-  setNames(c("programme", "dataset")) %>%
-  mutate(dataset_name = sprintf("cordis-%s%s.csv", programme, dataset)) %>%
-  pull(dataset_name)
+  read_lines(here("inst", "urls.txt"))
 
 # FP6 last modified on 09 Mar 2020 ----
-glue("{fp6_base_url}{end_points[1]}") %>%
-  get_last_modified()
-glue("{fp6_base_url}{end_points[2]}") %>%
-  get_last_modified()
-
-# updated 17 Aug 2021 ----
-glue("{cordis_base_url}{end_points[3]}") %>%
-  get_last_modified()
-glue("{cordis_base_url}{end_points[4]}") %>%
-  get_last_modified()
-glue("{cordis_base_url}{end_points[5]}") %>%
-  get_last_modified()
-glue("{cordis_base_url}{end_points[6]}") %>%
-  get_last_modified()
+get_last_modified(end_points[1])
+get_last_modified(end_points[2])
 
 # updated 18 Jan 2022 ----
-glue("{cordis_base_url}cordis-fp7projects-csv.zip") %>%
-  get_last_modified()
-glue("{cordis_base_url}cordis-h2020projects-csv.zip") %>%
-  get_last_modified()
+get_last_modified(end_points[3])
+get_last_modified(end_points[4])
 ```
 
-Then, we download the data to the `data-raw` folder and unzip the archives:
+then download the data to `data-raw/`
+```{r download, comment='', eval=TRUE, echo=FALSE}
+cat(readLines(here::here("inst", "download.sh")), sep = '\n')
+```
 
-```{r extract-download-cordis-data, eval=FALSE}
-# TODO: download with bash script
-
-glue("{fp6_base_url}{end_points[1]}") %>%
-  download.file(here("data-raw", end_points[1]))
-glue("{fp6_base_url}{end_points[2]}") %>%
-  download.file(here("data-raw", end_points[2]))
-glue("{cordis_base_url}{end_points[3]}") %>%
-  download.file(here("data-raw", end_points[3]))
-glue("{cordis_base_url}{end_points[4]}") %>%
-  download.file(here("data-raw", end_points[4]))
-glue("{cordis_base_url}{end_points[5]}") %>%
-  download.file(here("data-raw", end_points[5]))
-glue("{cordis_base_url}{end_points[6]}") %>%
-  download.file(here("data-raw", end_points[6]))
-
-glue("{cordis_base_url}cordis-fp7projects-csv.zip") %>%
-  download.file(here("data-raw", "cordis-fp7projects-csv.zip"))
-glue("{cordis_base_url}cordis-h2020projects-csv.zip") %>%
-  download.file(here("data-raw", "cordis-h2020projects-csv.zip"))
-
+and unzip the archives.
+```{r extract}
 here("data-raw", "cordis-fp7projects-csv.zip") %>%
   unzip(exdir = here("data-raw", "fp7"))
 here("data-raw", "cordis-h2020projects-csv.zip") %>%
   unzip(exdir = here("data-raw", "h2020"))
 ```
 
-## Collecting Dashboard Data
+### Horizon Dashboard Data
 
-The Horizon Dashboard is a Qlik Sense application. The raw data cannot be automatically downloead but users can nevertheless export it manually to Excel (see [Data Sources](#data-sources)).
+[Horizon Dashboard](https://webgate.ec.europa.eu/dashboard) is a Qlik Sense application. The raw data is used in official EU statistics.  Unfortunately they cannot be automatically downloaded. It is possible, nevertheless, to manually export a couple of views to Excel (see [Data sources](#data-sources)).
 
-### Gathering Project Data
+## Data Preprocessing
+
+### Project Details
 
 Horizon Dashboard project data only covers FP7 and H2020. The data is provided in two separate tables, one for each framework programme. To combine both tables, we select the relevant columns:
 
@@ -203,7 +170,7 @@ organizations_cordis_fp6 <-
   read_tsv()
 ```
 
-### Gathering Participations
+### Participation Details
 
 Participation details are provided in the *organization* data tables.  To work with the latest CORDIS data, we load the previously unzipped CSV files:
 
@@ -256,7 +223,7 @@ organizations_cordis <-
   )
 ```
 
-Unlike for project data, Horizon Dashboard *organization* data is only available for H2020 and not for FP7.  For H2020 projects, Horizon Dashboard *organization* data is more comprehensive than CORDIS data.
+Unlike for the project details, Horizon Dashboard participation data is only available for H2020, not for FP7.  For H2020 projects, Horizon Dashboard participation data is more comprehensive than CORDIS data and is used as the source of EU official statistics.
 
 ```{r, load-organizations-dashboard-data}
 organizations_dashboard_h2020 <-
@@ -287,7 +254,7 @@ organizations <-
   )
 ```
 
-### Combining project and participation data
+### Project and Participation Details Combined
 
 Having combined both CORDIS and Horizon Dashboard datasets, we obtain three columns with contribution details: `ec_contribution` (CORDIS), `net_ec_contribution` (CORDIS), and `eu_contribution` (Horizon Dashboard). As the European Commission official reporting is based on `eu_contribution` from the Horizon Dashboard, we will check how the values from CORDIS -- `ec_contribution` and `net_ec_contribution` -- compare to `eu_contribution` under H2020.
 
@@ -313,18 +280,19 @@ plot(
 )
 ```
 
-Last, we make some final adjustments to the data and write it to the `./data` folder.
 
-```{r transform}
+```{r}
+# check differences
+anti_join(organizations, projects, by = "project_id")
+anti_join(projects, organizations, by = "project_id")
+
 df_raw <- organizations %>%
   left_join(projects, by = "project_id")
+```
 
-organizations %>%
-  anti_join(projects, by = "project_id")
+Below, we add country names and perform minor cleaning of the data set.
 
-projects %>%
-  anti_join(organizations, by = "project_id")
-
+```{r transform}
 # download CORDIS country codes
 country_codes <-
   "https://cordis.europa.eu/data/reference/cordisref-countries.csv" %>%
@@ -379,6 +347,8 @@ df_raw <- df_raw %>%
   left_join(country_codes, by = "country_code") %>%
   filter(!is.na(start_date))
 ```
+
+Last, we write the view by year to the `./data` folder
 
 ```{r write, include=FALSE}
 # store data types
