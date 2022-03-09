@@ -88,9 +88,9 @@ get_particip <- function(x) {
 }
 
 get_avg_particip <- function(x) {
-  x <- x %>% 
+  x <- x %>%
     filter(!is.na(framework_programme))
-  
+
   total <- x %>%
     group_by(framework_programme) %>%
     summarise(n_total = n(),
@@ -100,7 +100,7 @@ get_avg_particip <- function(x) {
     group_by(framework_programme) %>%
     summarise(n_ch = n(),
               contrib_ch = sum(re_contribution, na.rm = TRUE))
-  
+
   # coordinations
   total2 <- x %>%
     filter(partner_role == "Coordinator") %>%
@@ -112,7 +112,7 @@ get_avg_particip <- function(x) {
     summarise(coord_ch = n())
   coord <- left_join(total2, ch2, by = "framework_programme") %>%
     mutate(avg_share_coord = 100 * coord_ch / coord_total)
-  
+
   left_join(total, ch, by = "framework_programme") %>%
     mutate(
       avg_share_particip = 100 * n_ch / n_total,
@@ -146,7 +146,7 @@ get_avg_particip(df) %>%
 pal <- c("#6B7AA1", "#11324D")
 participation %>%
   ggplot(aes(x = time_period, y = share_particip, fill = framework_programme)) +
-  geom_bar(position = "stack", stat = "identity") + 
+  geom_bar(position = "stack", stat = "identity") +
   labs(
     title = "Swiss Participation",
     subtitle = "By semester of project starting date, FP7 and H2020",
@@ -162,7 +162,7 @@ participation %>%
 ```{r swiss-countributions}
 participation %>%
   ggplot(aes(x = time_period, y = share_contrib, fill = framework_programme)) +
-  geom_bar(position = "stack", stat = "identity") + 
+  geom_bar(position = "stack", stat = "identity") +
   labs(
     title = "Contributions to Swiss Participants",
     subtitle = "By semester of project starting date, FP7 and H2020",
@@ -178,7 +178,7 @@ participation %>%
 ```{r coordinations-overviews}
 participation %>%
   ggplot(aes(x = time_period, y = share_coord, fill = framework_programme)) +
-  geom_bar(position = "stack", stat = "identity") + 
+  geom_bar(position = "stack", stat = "identity") +
   labs(
     title = "Swiss Coordinations",
     subtitle = "By semester of project starting date, FP7 and H2020",
@@ -208,7 +208,7 @@ top_participants <- df %>%
   arrange(desc(contrib_country)) %>%
   mutate(
     country_txt = str_replace(Country, "United Kingdom", "UK"),
-    country_txt = sprintf("%d. %s", row_number(), country_txt))
+    country_txt = sprintf("%s %d.", country_txt, row_number()))
          
 ch_rank <- which(pull(top_participants, Country) == "Switzerland")
 ```
@@ -310,7 +310,7 @@ top_participants <- df %>%
   arrange(desc(contrib_country)) %>%
   mutate(
     country_txt = str_replace(Country, "United Kingdom", "UK"),
-    country_txt = sprintf("%d. %s", row_number(), country_txt))
+    country_txt = sprintf("%s %d.", country_txt, row_number()))
 
 ch_rank <- which(pull(top_participants, Country) == "Switzerland")
 ```

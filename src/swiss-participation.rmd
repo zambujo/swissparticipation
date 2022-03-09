@@ -38,7 +38,6 @@ df <-
     pillar = str_extract(pillar_abbr, "\\d"),
     pillar = if_else(pillar_abbr == "EU.0.", "Cross-theme", pillar),
     pillar = if_else(pillar_abbr == "Euratom", pillar_abbr, pillar),
-    
     partner_role = str_to_lower(partner_role),
     pillar = fct_inseq(pillar),
     pillar = fct_rev(pillar),
@@ -206,7 +205,7 @@ The below *Figure 4* updates [Figure 17 in page 30](https://www.sbfi.admin.ch/da
 
 ```{r fig-four, fig.asp=1}
 get_contrib_area <- function(x) {
-  x <- x %>% 
+  x <- x %>%
     filter(framework_programme == "H2020") %>%
     filter(!is.na(thematic_priority_abbr))
 
@@ -223,7 +222,8 @@ get_contrib_area <- function(x) {
     mutate(
       share = contrib / sum(contrib),
       context = "CH")
-  bind_rows(to_all, to_ch)
+
+  dplyr::bind_rows(to_all, to_ch)
 }
 
 pillar_area_lookup <- df %>%
@@ -255,8 +255,8 @@ area_labels %>%
   select(-contrib) %>%
   pivot_wider(names_from = context, values_from = share) %>%
   pivot_longer(
-    cols = c("Total", "CH"), 
-    names_to = "context", 
+    cols = c("Total", "CH"),
+    names_to = "context",
     values_to = "share") %>%
   left_join(contribs, by = c("Area", "context")) %>%
   mutate(
@@ -282,7 +282,7 @@ area_labels %>%
   theme_minimal() +
   labs(
     title = "Funding by Programme Area Under H2020",
-    subtitle = "(MioEUR)")+
+    subtitle = "(MioEUR)") +
   theme(
     text = element_text(size = 14, family = "Gill Sans", color = "gray10"),
     plot.title.position = "plot",
@@ -361,7 +361,8 @@ combined %>%
     title = "Time Distribution of EU Contribution by Institution Sector",
     subtitle = glue(
       "<span style='color:{pal[1]};'>**Switzerland**</span> ",
-      "vs <span style='color:{pal[2]};weight: bold;'>**Remaining Countries**</span>"
+      "vs <span style='color:{pal[2]};weight: bold;'>",
+      "**Remaining Countries**</span>"
     ),
     x = "Call Semester",
     y = "%"
@@ -388,14 +389,14 @@ combined %>%
 pal <- c(
   rep("#767676", ch_rank - 1),
   "#800000",
-  rep("#767676", 10 - ch_rank))
+  rep("#767676", 15 - ch_rank))
 
 ## share to Pillar I
 contribution_share_pillar <- df %>%
   filter(!is.na(pillar)) %>%
   semi_join(top_participants %>%
     select(country = Country) %>%
-    head(10),
+    head(15),
   by = "country"
   ) %>%
   group_by(
@@ -412,7 +413,7 @@ contribution_share_reshed <- df %>%
   filter(!is.na(pillar)) %>%
   semi_join(top_participants %>%
     select(country = Country) %>%
-    head(10),
+    head(15),
   by = "country"
   ) %>%
   group_by(
@@ -467,14 +468,14 @@ top_participants %>%
 pal <- c(
   rep("#767676", ch_rank - 1),
   "#800000",
-  rep("#767676", 10 - ch_rank))
+  rep("#767676", 15 - ch_rank))
 
 ## share to Pillar II
 contribution_share_pillar <- df %>%
   filter(!is.na(pillar)) %>%
   semi_join(top_participants %>%
     select(country = Country) %>%
-    head(10),
+    head(15),
   by = "country"
   ) %>%
   group_by(
@@ -491,7 +492,7 @@ contribution_share_prc <- df %>%
   filter(!is.na(pillar)) %>%
   semi_join(top_participants %>%
     select(country = Country) %>%
-    head(10),
+    head(15),
   by = "country"
   ) %>%
   group_by(
@@ -653,7 +654,6 @@ df %>%
   )
 ```
 
-
 ```{r visual-overview, eval=FALSE}
 # Differentiate pillars I to III
 stats_depth_1 <- df %>%
@@ -723,20 +723,58 @@ stats_depth_2 %>%
 
 ```{r he, eval=FALSE}
 he <- tibble(
-  pillar = c("Excellent Science", "Excellent Science", "Excellent Science",
-             "Industrial Competitiveness","Industrial Competitiveness","Industrial Competitiveness","Industrial Competitiveness","Industrial Competitiveness","Industrial Competitiveness","Industrial Competitiveness",
-             "Innovative Europe", "Innovative Europe", "Innovative Europe", 
-             "Widening ERA", "Widening ERA"),
-  thematic_priority = c("ERC", "MSCA", "INFRA",
-                        "HEALTH", "CULTURE", "SECURITY", "SPACE", "ENERGY", "FOOD", "JRC",
-                        "EIC", "ECOSYSTEMS", "EIT",
-                        "SPREAD", "RISYS"),
-  contrib = c(16004, 6602, 2406,
-              8256, 2280, 1596, 15349, 15123, 8952, 1970,
-              10105, 527, 2965,
-              2955, 438)
+  pillar = c(
+    "Excellent Science",
+    "Excellent Science",
+    "Excellent Science",
+    "Industrial Competitiveness",
+    "Industrial Competitiveness",
+    "Industrial Competitiveness",
+    "Industrial Competitiveness",
+    "Industrial Competitiveness",
+    "Industrial Competitiveness",
+    "Industrial Competitiveness",
+    "Innovative Europe",
+    "Innovative Europe",
+    "Innovative Europe",
+    "Widening ERA",
+    "Widening ERA"
+  ),
+  thematic_priority = c(
+    "ERC",
+    "MSCA",
+    "INFRA",
+    "HEALTH",
+    "CULTURE",
+    "SECURITY",
+    "SPACE",
+    "ENERGY",
+    "FOOD",
+    "JRC",
+    "EIC",
+    "ECOSYSTEMS",
+    "EIT",
+    "SPREAD",
+    "RISYS"
+  ),
+  contrib = c(
+    16004,
+    6602,
+    2406,
+    8256,
+    2280,
+    1596,
+    15349,
+    15123,
+    8952,
+    1970,
+    10105,
+    527,
+    2965,
+    2955,
+    438
+  )
 )
-
 
 he %>%
   group_by(pillar) %>%
@@ -744,6 +782,5 @@ he %>%
   mutate(share_contrib = 100 * prop.table(total_contrib))
 
 write_csv(he, here("data", "treemap-he.csv"))
-
 ```
 
