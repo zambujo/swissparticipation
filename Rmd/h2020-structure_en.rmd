@@ -1,11 +1,11 @@
-The Framework Programmes are divided in pillars (or sections) and subdivided in funding instruments (or thematic priorities).  H2020, for instance, was composed of three main pillars:
+The Framework Programmes are divided into pillars/sections and further split into funding instruments/thematic priorities.  H2020, in particular, was composed of three main pillars:
 
   - Pillar I, on Excellent Science, aiming at enhancing European scientific competitiveness globally, obtained 36% of the budget;
 
-  - Pillar II, on Industrial Leadership, aiming at maximizing competitiveness of European companies and SMEs, obtained 20% of the budget;
+  - Pillar II, on Industrial Leadership, aiming at maximizing the competitiveness of European companies and SMEs, obtained 20% of the budget;
   
-  - Pillar III, on Societal Challenges, aiming at tackling Europe’s main political and social priorities, obtained 39% of the budged.
+  - Pillar III, on Societal Challenges, aiming at tackling Europe’s main political and social priorities, obtained 39% of the budget.
 
-Compared to the overall budget distribution for all countries, the distribution EU contributions obtained by Switzerland in H2020 is strongly skewed towards the pillar on Excellent Science (64.3% for Switzerland versus 36.2% for all countries).
+As for Switzerland, the distribution of EU contributions obtained in H2020 looks remarkably skewed towards Pillar I, on Excellent Science, with a 64.3% share.
 
-In addition, contributions from the European Research Council (ERC), the flagship instrument of pillar on Excellent Science, in which scientific excellence is the sole selection criterion, accounted for more than 40% of all EU contributions to Switzerland. In relative terms, the share of ERC contributions to Switzerland surpasses the share of contributions from the entire pillar on Excellent Science to all countries. 
+In addition, contributions from the European Research Council (ERC), the flagship instrument of the pillar on Excellent Science, accounted for more than 40% of all EU contributions to Switzerland. The ERC is the only funding instrument of the Framework Programme where scientific excellence is the sole selection criterion. Essentially, the relative share of ERC contributions to Switzerland surpassed that of Pillar I to all countries.

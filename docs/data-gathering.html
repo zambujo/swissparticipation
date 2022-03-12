@@ -358,76 +358,64 @@ $(document).ready(function () {
 
 <div id="data-sources" class="section level2">
 <h2>Data Sources</h2>
-<p>The raw data is available at:</p>
+<p>The data is available at:</p>
 <ul>
-<li><a href="https://cordis.europa.eu/">CORDIS</a>, <strong>updated
+<li><a href="https://data.europa.eu">data.europa.eu</a>, <strong>updated
 2022-01-18</strong>
 <ul>
-<li><a
-href="https://data.europa.eu/data/datasets/cordisfp7projects">CORDIS FP7
+<li><a href="https://data.europa.eu/data/datasets/cordisfp7projects">FP7
 projects</a><br />
 </li>
 <li><a
-href="https://data.europa.eu/data/datasets/cordish2020projects">CORDIS
-H2020 projects</a></li>
-<li><a href="https://data.europa.eu/data/datasets/cordisref-data">CORDIS
-reference data</a></li>
+href="https://data.europa.eu/data/datasets/cordish2020projects">H2020
+projects</a></li>
 <li><a
-href="https://cordis.europa.eu/data/reference/cordisref-countries.csv">Country
+href="https://data.europa.eu/data/datasets/cordisref-data">reference
 data</a></li>
 </ul></li>
-<li><a href="https://webgate.ec.europa.eu/dashboard"><strong>Horizon
-Dashboard</strong></a>, <strong>updated 2021-12-06</strong>
+<li><a
+href="https://webgate.ec.europa.eu/dashboard">webgate.ec.europa.eu/dashboard
+(Horizon Dashboard)</a>, <strong>updated 2021-12-06</strong>
 <ul>
-<li>➡ <code>Everyone</code> ➡ <code>FP7 Projects</code> ➡
-<code>FP7 Project Details</code> ➡
-<code>Top Funded Projects</code><br />
+<li><code>Everyone/FP7 Projects/FP7 Project Details/Top Funded Projects</code><br />
 </li>
-<li>➡ <code>Everyone</code> ➡ <code>H2020 Projects</code> ➡
-<code>H2020 Projects</code> ➡ <code>Top Funded Projects</code><br />
+<li><code>Everyone/H2020 Projects/H2020 Projects/Top Funded Projects</code><br />
 </li>
-<li>➡ <code>Everyone</code> ➡ <code>H2020 Projects</code> ➡
-<code>Data Export</code> ➡ <code>Raw Data Export Sheet</code></li>
+<li><code>Everyone/H2020 Projects/Data Export/Raw Data Export Sheet</code></li>
 </ul></li>
 </ul>
-<p>Horizon Europe project data not yet centrally published.</p>
 </div>
 <div id="data-collection" class="section level2">
 <h2>Data Collection</h2>
-<div id="cordis-data" class="section level3">
-<h3>CORDIS Data</h3>
-<p>CORDIS publishes snapshots of its public data in the <a
-href="https://data.europa.eu">EU open data portal</a>. The data are
-provided by framework programme. For FP7 and H2020, the latest data are
-now packed in ZIP files containing a collection of CSV datasets.</p>
-<p>Below, we check when were the files last modified</p>
+<div id="eu-data-portal" class="section level3">
+<h3>EU data portal</h3>
+<p>The EU publishes snapshots of its public data in a <a
+href="https://data.europa.eu">data portal</a>. The data are available
+for FP6, FP7, and H2020. For FP7 and H2020, the latest data are packed
+in ZIP archives which contain CSV files on projects and
+participants.</p>
+<p>First, we check when were the files last modified.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;R&quot;</span>, <span class="st">&quot;package.r&quot;</span>))</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;R&quot;</span>, <span class="st">&quot;utils.r&quot;</span>))</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>get_last_modified <span class="ot">&lt;-</span> <span class="cf">function</span>(url) {</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  url <span class="sc">%&gt;%</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    httr<span class="sc">::</span><span class="fu">HEAD</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    httr<span class="sc">::</span><span class="fu">headers</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pluck</span>(<span class="st">&quot;last-modified&quot;</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>end_points <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">&quot;inst&quot;</span>, <span class="st">&quot;urls.txt&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_lines</span>()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># FP6 last modified on 09 Mar 2020</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">last_modified</span>(end_points[<span class="dv">1</span>])</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">last_modified</span>(end_points[<span class="dv">2</span>])</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>end_points <span class="ot">&lt;-</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_lines</span>(<span class="fu">here</span>(<span class="st">&quot;inst&quot;</span>, <span class="st">&quot;urls.txt&quot;</span>))</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># FP6 last modified on 09 Mar 2020 ----</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">get_last_modified</span>(end_points[<span class="dv">1</span>])</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">get_last_modified</span>(end_points[<span class="dv">2</span>])</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># updated 18 Jan 2022 ----</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">get_last_modified</span>(end_points[<span class="dv">3</span>])</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">get_last_modified</span>(end_points[<span class="dv">4</span>])</span></code></pre></div>
-<p>then download the data to <code>data-raw/</code></p>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># FP7 and H2020 last modified on 18 Jan 2022</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">last_modified</span>(end_points[<span class="dv">3</span>])</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">last_modified</span>(end_points[<span class="dv">4</span>])</span></code></pre></div>
+<p>Second, we run <code>inst/download.sh</code> to download the ZIP
+files to <code>data-raw/</code>.</p>
 <pre><code>#!/bin/bash
 
 while read url; do
     wget -P ../data-raw $url
 done &lt; urls.txt</code></pre>
-<p>and unzip the archives.</p>
+<p>Third, we unzip the archives.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;cordis-fp7projects-csv.zip&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unzip</span>(<span class="at">exdir =</span> <span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;fp7&quot;</span>))</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;cordis-h2020projects-csv.zip&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -436,19 +424,19 @@ done &lt; urls.txt</code></pre>
 <div id="horizon-dashboard-data" class="section level3">
 <h3>Horizon Dashboard Data</h3>
 <p><a href="https://webgate.ec.europa.eu/dashboard">Horizon
-Dashboard</a> is a Qlik Sense application. The raw data is used in
-official EU statistics. Unfortunately they cannot be automatically
-downloaded. It is possible, nevertheless, to manually export a couple of
-views to Excel (see <a href="#data-sources">Data sources</a>).</p>
+Dashboard</a> consists of a Qlik Sense application. The raw data is used
+in official EU statistics but cannot be automatically downloaded. It is
+possible, nevertheless, to manually export a couple of views to Excel
+(see <a href="#data-sources">Data sources</a>).</p>
 </div>
 </div>
 <div id="data-preprocessing" class="section level2">
 <h2>Data Preprocessing</h2>
 <div id="project-details" class="section level3">
 <h3>Project Details</h3>
-<p>Horizon Dashboard project data only covers FP7 and H2020. The data is
-provided in two separate tables, one for each framework programme. To
-combine both tables, we select the relevant columns:</p>
+<p>Horizon Dashboard project funding data only covers FP7 and H2020. The
+data is provided in two separate tables, one for each framework
+programme. To combine both tables, we select the relevant columns:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fp7_dashboard <span class="ot">&lt;-</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">&quot;data-raw&quot;</span>, <span class="st">&quot;fp7-projects.xlsx&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_excel</span>(<span class="at">guess_max =</span> <span class="dv">20000</span>) <span class="sc">%&gt;%</span></span>

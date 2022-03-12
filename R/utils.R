@@ -2,7 +2,6 @@ int <- function(x) as.integer(x)
 chr <- function(x) as.character(x)
 roman <- function(x) as.roman(x)
 
-
 own_theme <- function() {
     ret <- (theme_minimal() +
         theme(
@@ -71,4 +70,11 @@ get_participation <- function(x) {
       highlight = TRUE,
       compact = TRUE
     )
+}
+
+last_modified <- function(url) {
+  url %>%
+    httr::HEAD() %>%
+    httr::headers() %>%
+    pluck("last-modified")
 }

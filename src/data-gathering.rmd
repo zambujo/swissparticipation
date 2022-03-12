@@ -7,24 +7,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Data Sources
-
-The raw data is available at:
-
-- [CORDIS](https://cordis.europa.eu/), **updated 2022-01-18**
-  - [CORDIS FP7 projects](https://data.europa.eu/data/datasets/cordisfp7projects)  
-  - [CORDIS H2020 projects](https://data.europa.eu/data/datasets/cordish2020projects)
-  - [CORDIS reference data](https://data.europa.eu/data/datasets/cordisref-data)
-  - [Country data](https://cordis.europa.eu/data/reference/cordisref-countries.csv)
-- [**Horizon Dashboard**](https://webgate.ec.europa.eu/dashboard), **updated 2021-12-06**
-  - ➡ `Everyone` ➡ `FP7 Projects` ➡ `FP7 Project Details` ➡ `Top Funded Projects`  
-  - ➡ `Everyone` ➡ `H2020 Projects` ➡ `H2020 Projects` ➡ `Top Funded Projects`  
-  - ➡ `Everyone` ➡ `H2020 Projects` ➡ `Data Export` ➡ `Raw Data Export Sheet`
-
-Horizon Europe project data not yet centrally published.
-
 ```{r, include=FALSE}
-# prevent chunks from running, by default
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -33,42 +16,51 @@ knitr::opts_chunk$set(
 )
 ```
 
+## Data Sources
+
+The data is available at:
+
+- [data.europa.eu](https://data.europa.eu), **updated 2022-01-18**
+  - [FP7 projects](https://data.europa.eu/data/datasets/cordisfp7projects)  
+  - [H2020 projects](https://data.europa.eu/data/datasets/cordish2020projects)
+  - [reference data](https://data.europa.eu/data/datasets/cordisref-data)
+- [webgate.ec.europa.eu/dashboard (Horizon Dashboard)](https://webgate.ec.europa.eu/dashboard), **updated 2021-12-06**
+  - `Everyone/FP7 Projects/FP7 Project Details/Top Funded Projects`  
+  - `Everyone/H2020 Projects/H2020 Projects/Top Funded Projects`  
+  - `Everyone/H2020 Projects/Data Export/Raw Data Export Sheet`
+
 ## Data Collection
 
-### CORDIS Data
+### EU data portal
 
-CORDIS publishes snapshots of its public data in the [EU open data portal](https://data.europa.eu).  The data are provided by framework programme.  For FP7 and H2020, the latest data are now packed in ZIP files containing a collection of CSV datasets.
+The EU publishes snapshots of its public data in a [data portal](https://data.europa.eu).  The data are available for FP6, FP7, and H2020. For FP7 and H2020, the latest data are packed in ZIP archives which contain CSV files on projects and participants.
 
-Below, we  check when were the files last modified
+First, we check when were the files last modified.
+
 ```{r}
 source(here::here("R", "package.r"))
 source(here::here("R", "utils.r"))
 
-get_last_modified <- function(url) {
-  url %>%
-    httr::HEAD() %>%
-    httr::headers() %>%
-    pluck("last-modified")
-}
+end_points <- here("inst", "urls.txt") %>%
+  read_lines()
 
-end_points <-
-  read_lines(here("inst", "urls.txt"))
+# FP6 last modified on 09 Mar 2020
+last_modified(end_points[1])
+last_modified(end_points[2])
 
-# FP6 last modified on 09 Mar 2020 ----
-get_last_modified(end_points[1])
-get_last_modified(end_points[2])
-
-# updated 18 Jan 2022 ----
-get_last_modified(end_points[3])
-get_last_modified(end_points[4])
+# FP7 and H2020 last modified on 18 Jan 2022
+last_modified(end_points[3])
+last_modified(end_points[4])
 ```
 
-then download the data to `data-raw/`
+Second, we run `inst/download.sh` to download the ZIP files to `data-raw/`.
+
 ```{r download, comment='', eval=TRUE, echo=FALSE}
 cat(readLines(here::here("inst", "download.sh")), sep = '\n')
 ```
 
-and unzip the archives.
+Third, we unzip the archives.
+
 ```{r extract}
 here("data-raw", "cordis-fp7projects-csv.zip") %>%
   unzip(exdir = here("data-raw", "fp7"))
@@ -78,13 +70,13 @@ here("data-raw", "cordis-h2020projects-csv.zip") %>%
 
 ### Horizon Dashboard Data
 
-[Horizon Dashboard](https://webgate.ec.europa.eu/dashboard) is a Qlik Sense application. The raw data is used in official EU statistics.  Unfortunately they cannot be automatically downloaded. It is possible, nevertheless, to manually export a couple of views to Excel (see [Data sources](#data-sources)).
+[Horizon Dashboard](https://webgate.ec.europa.eu/dashboard) consists of a Qlik Sense application. The raw data is used in official EU statistics but cannot be automatically downloaded. It is possible, nevertheless, to manually export a couple of views to Excel (see [Data sources](#data-sources)).
 
 ## Data Preprocessing
 
 ### Project Details
 
-Horizon Dashboard project data only covers FP7 and H2020. The data is provided in two separate tables, one for each framework programme. To combine both tables, we select the relevant columns:
+Horizon Dashboard project funding data only covers FP7 and H2020. The data is provided in two separate tables, one for each framework programme. To combine both tables, we select the relevant columns:
 
 ```{r load-projects-dashboard-data}
 fp7_dashboard <-
