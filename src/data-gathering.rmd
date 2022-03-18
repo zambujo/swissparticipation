@@ -202,7 +202,7 @@ organizations_cordis_fp6 <-
 
 Horizon Dashboard only includes participation data for H2020 and not for FP7. Nevertheless, the data in the Horizon Dashboard appear to be of a higher quality than that of the Data Portal and are therefore used as a source of official statistics.
 
-First, we save the data to CSV, for future reference.
+First, we save the data to CSV, for [future reference](https://flatgithub.com/zambujo/swissparticipation).
 
 ```{r}
 organizations_dashboard_h2020 <-
