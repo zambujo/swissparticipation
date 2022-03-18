@@ -16,155 +16,251 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Data Sources
+## Sources
 
-The data is available at:
+The raw data can be found on these websites:
 
-- [data.europa.eu](https://data.europa.eu), **updated 2022-01-18**
+- [Horizon Dashboard](https://webgate.ec.europa.eu/dashboard)
+  - `Everyone` ➜ `FP7 Projects` ➜ `FP7 Project Details` ➜ `Top Funded Projects`  
+  - `Everyone` ➜ `H2020 Projects` ➜ `H2020 Projects` ➜ `Top Funded Projects`  
+  - `Everyone` ➜ `H2020 Projects` ➜ `Data Export` ➜ `Raw Data Export Sheet`
+- [EU Data Portal](https://data.europa.eu)
   - [FP7 projects](https://data.europa.eu/data/datasets/cordisfp7projects)  
   - [H2020 projects](https://data.europa.eu/data/datasets/cordish2020projects)
-  - [reference data](https://data.europa.eu/data/datasets/cordisref-data)
-- [webgate.ec.europa.eu/dashboard (Horizon Dashboard)](https://webgate.ec.europa.eu/dashboard), **updated 2021-12-06**
-  - `Everyone/FP7 Projects/FP7 Project Details/Top Funded Projects`  
-  - `Everyone/H2020 Projects/H2020 Projects/Top Funded Projects`  
-  - `Everyone/H2020 Projects/Data Export/Raw Data Export Sheet`
+  - [CORDIS Reference Data](https://data.europa.eu/data/datasets/cordisref-data)
 
-## Data Collection
+## Getting the data
 
-### EU data portal
+### Horizon Dashboard
 
-The EU publishes snapshots of its public data in a [data portal](https://data.europa.eu).  The data are available for FP6, FP7, and H2020. For FP7 and H2020, the latest data are packed in ZIP archives which contain CSV files on projects and participants.
+The [Horizon Dashboard](https://webgate.ec.europa.eu/dashboard) consists of a Qlik Sense application. Raw data are used in the official statistics of the European Commission but cannot be downloaded automatically. However, certain datasets can still be manually exported to `xlsx` files (see [Sources](#sources) above).
 
-First, we check when were the files last modified.
+### Data Portal
+
+The EU produces snapshots of its publicly available data on the [EU Data Portal](https://data.europa.eu). Data can be found for FP6, FP7, and H2020. For FP7 and H2020, the most recent data are stored in ZIP archives containing CSV files about projects and participants.
+
+It is possible to download the data by hand or automatically. The following outlines how to download the data automatically with the command-line and the [Wget](https://www.gnu.org/software/wget) command.
+
+First, we create a text file, `inst/url_list.txt`, with the list of URLs from which we would like to download the data files.
+
+```{r urls, comment='', eval=TRUE, echo=FALSE}
+cat(readLines(here::here("inst", "url_list.txt")), sep = '\n')
+```
+
+Second, we create a shell script, `inst/download_files.sh`, which downloads the data files to the `data-raw/` folder.
+
+```{bash}
+#!/bin/bash
+while read url; do
+	wget -P ../data-raw $url
+done < ../inst/url_list.txt
+```
+
+Besides, it is also possible to inspect when the files were last updated. We do this by creating another shell script, `inst/last_updated.sh`, which displays the `Last-Modidied` information for each file.
+
+```{bash}
+#!/bin/bash
+while read url; do
+	wget --server-response --spider $url 2>&1 | grep -i Last-Modified
+done < ../inst/urls.txt
+```
+
+To finish, we extract the files from the ZIP archives. The [unzip](http://infozip.sourceforge.net) command fails to extract the files from the Zip archives.  The most recent release contains a faulty Zip file structure. Fortunately, the [tar](https://www.gnu.org/software/tar) command offers a workaround.
+
+```{bash}
+#!/bin/bash
+tar -xvf data-raw/cordis-fp7projects-csv.zip
+mkdir data-raw/fp7
+mv csv data-raw/fp7
+tar -xvf data-raw/cordis-h2020projects-csv.zip
+mkdir data-raw/h2020
+mv csv data-raw/h2020
+```
+
+## Data Preprocessing
+
+The first step is to load a few useful [libraries](https://github.com/zambujo/swissparticipation/blob/main/R/package.r) and helper [functions](https://github.com/zambujo/swissparticipation/blob/main/R/utils.R).
 
 ```{r}
 source(here::here("R", "package.r"))
 source(here::here("R", "utils.r"))
-
-end_points <- here("inst", "urls.txt") %>%
-  read_lines()
-
-# FP6 last modified on 09 Mar 2020
-last_modified(end_points[1])
-last_modified(end_points[2])
-
-# FP7 and H2020 last modified on 18 Jan 2022
-last_modified(end_points[3])
-last_modified(end_points[4])
 ```
-
-Second, we run `inst/download.sh` to download the ZIP files to `data-raw/`.
-
-```{r download, comment='', eval=TRUE, echo=FALSE}
-cat(readLines(here::here("inst", "download.sh")), sep = '\n')
-```
-
-Third, we unzip the archives.
-
-```{r extract}
-here("data-raw", "cordis-fp7projects-csv.zip") %>%
-  unzip(exdir = here("data-raw", "fp7"))
-here("data-raw", "cordis-h2020projects-csv.zip") %>%
-  unzip(exdir = here("data-raw", "h2020"))
-```
-
-### Horizon Dashboard Data
-
-[Horizon Dashboard](https://webgate.ec.europa.eu/dashboard) consists of a Qlik Sense application. The raw data is used in official EU statistics but cannot be automatically downloaded. It is possible, nevertheless, to manually export a couple of views to Excel (see [Data sources](#data-sources)).
-
-## Data Preprocessing
 
 ### Project Details
 
-Horizon Dashboard project funding data only covers FP7 and H2020. The data is provided in two separate tables, one for each framework programme. To combine both tables, we select the relevant columns:
+#### Horizon Dashboard
+
+The data from the Horizon Dashboard only cover FP7 and H2020. The details about the projects are given in two tables, one per Framework Programme. Therefore, we select the matching columns to make it possible to merge the two tables.
 
 ```{r load-projects-dashboard-data}
+matching_columns <- c(
+  "project_id",
+  "project_acronym",
+  "thematic_priority",
+  "topic_code",
+  "topic_description",
+  "participations"
+)
+
 fp7_dashboard <-
+  # import xlsx to data frame
   here("data-raw", "fp7-projects.xlsx") %>%
   read_excel(guess_max = 20000) %>%
+  # convert names to snake case
   clean_names() %>%
-  select(
+  # rename columns for consistency between tables
+  rename(
     project_id = project_nbr,
-    project_acronym,
-    thematic_priority = thematic_priority_descr,
-    topic_code,
-    topic_description,
-    participations
-  ) %>%
+    thematic_priority = thematic_priority_descr) %>%
+  select(all_of(matching_columns)) %>%
+  # data frame label column
   mutate(framework_programme = "FP7")
 
 h2020_dashboard <-
+  # import xlsx to data frame
   here("data-raw", "h2020-projects.xlsx") %>%
   read_excel(guess_max = 20000) %>%
+  # convert names to snake case
   clean_names() %>%
-  select(
+  # rename columns for consistency between tables
+  rename(
     project_id = project_nbr,
-    project_acronym,
     thematic_priority = thema,
-    topic_code,
-    topic_description,
     participations = h2020_participations
   ) %>%
+  select(all_of(matching_columns)) %>%
+  # data frame label column
   mutate(framework_programme = "H2020")
 
-projects_dashboard <-
-  fp7_dashboard %>%
-  bind_rows(h2020_dashboard)
+# merge the tables
+projects_dashboard <- bind_rows(fp7_dashboard, h2020_dashboard)
 ```
 
-CORDIS also provides project data in framework programme specific tables. From CORDIS, we select a few extra columns of interest:
+#### Data Portal
+
+Details about the projects can also be found in the data downloaded from the Data Portal. Similarly to the Horizon Dashboard data, each Framework Programme has its own data table from which we select a few additional columns of interest.
 
 ```{r load-projects-cordis-data}
-# reconcile schemas using latest schema as reference
+additional_columns <- c(
+  "project_id",
+  "start_date",
+  "end_date",
+  "legal_basis",
+  "funding_scheme"
+)
+
+# use H2020 schema as reference
 projects_cordis_h2020 <-
   read_csv2(here("data-raw", "h2020", "csv", "project.csv")) %>%
+  # for data type consistency
+  mutate_if(is.POSIXct, as.Date)
+
   mutate(contentUpdateDate = as.Date(contentUpdateDate))
 
 projects_cordis_fp7 <-
   readr::read_csv2(here("data-raw", "fp7", "csv", "project.csv")) %>%
+  # for data type consistency
   mutate(
     contentUpdateDate = as.Date(contentUpdateDate),
-    ecSignatureDate = as.Date(ecSignatureDate), # missing
-    masterCall = as.character(masterCall)
-  ) # missing
+    ecSignatureDate = as.Date(ecSignatureDate),
+    masterCall = as.character(masterCall))
 
-projects_cordis <-
-  projects_cordis_fp7 %>%
-  bind_rows(projects_cordis_h2020) %>%
+projects_cordis <- bind_rows(projects_cordis_fp7, projects_cordis_h2020) %>%
+  # use snake case
   clean_names() %>%
-  select(
-    project_id = id,
-    start_date,
-    end_date,
-    legal_basis,
-    funding_scheme
-  )
+  # rename columns for consistency between tables
+  rename(project_id = id) %>%
+  select(all_of(additional_columns))
 ```
 
-And we combine both datasets:
+Finally, we combine the details from the Horizon Dashboard and the Data Portal.
 
 ```{r load-projects-data}
-projects <-
-  projects_dashboard %>%
-  left_join(projects_cordis, by = "project_id")
+projects <- full_join(projects_dashboard, projects_cordis, by = "project_id")
 ```
 
-As mentioned before, FP6 data are missing from the Horizon Dashboard. In CORDIS, contribution details under FP6 are provided in 2,621 (out of 75,241) cases only.  We will therefore not use FP6 data.  For completeness, we also include the code to read the FP6 data:
+##### FP6
+
+For completeness, we also include the R-code which reads the data available for FP6. As indicated already, the Horizon Dashboard contains no data for FP6. Moreover, the Data Portal only provides contribution amounts for 2,621 cases (out of 75,241). The data from FP6 will therefore be ignored in the remainder of this work. 
 
 ```{r fp6, eval=FALSE}
+# FP6 project details
 projects_cordis_fp6 <-
   here("data-raw", "cordis-fp6projects.csv") %>%
   readr::read_csv2() %>%
   clean_names()
-# Attention: TSV, not CSV
+
+# FP6 participation/contribution details
 organizations_cordis_fp6 <-
   here("data-raw", "cordis-fp6organizations.csv") %>%
-  read_tsv()
+  read_tsv() # beware: tsv, not csv
 ```
 
 ### Participation Details
 
-Participation details are provided in the *organization* data tables.  To work with the latest CORDIS data, we load the previously unzipped CSV files:
+#### Horizon Dashboard
+
+Horizon Dashboard only includes participation data for H2020 and not for FP7. Nevertheless, the data in the Horizon Dashboard appear to be of a higher quality than that of the Data Portal and are therefore used as a source of official statistics.
+
+First, we save the data to CSV, for future reference.
+
+```{r}
+organizations_dashboard_h2020 <-
+  here("data-raw", "horizon2020.xlsx") %>%
+  read_excel() %>%
+  clean_names() %>%
+  rename(project_id = project_nbr,
+         pic = general_pic)
+
+# add call year
+organizations_dashboard_h2020 <- organizations_dashboard_h2020 %>%
+  mutate(
+    call_date = as.Date(call_deadline_date, "%d/%m/%Y"),
+    call_year = format(call_date, "%Y")
+  ) %>%
+  select(-call_date)
+
+# store data types
+map_chr(organizations_dashboard_h2020, class) %>%
+  write_yaml(here("data", "schema-dashboard_export.yml"))
+
+# split data frame by call year
+yrs <- organizations_dashboard_h2020 %>%
+  distinct(call_year) %>%
+  pull() %>% sort()
+
+file_names <- here("data", glue("dashboard-export-{yrs}.csv"))
+
+organizations_dashboard_h2020 %>%
+  arrange(call_year) %>%
+  group_by(call_year) %>%
+  group_split() %>%
+  setNames(yrs) %>%
+  # write to ./data
+  walk2(file_names, vroom_write, delim = ",")
+```
+
+And select a few columns of interest.
+
+```{r}
+additional_columns <- c(
+  "project_id",
+  "pic",
+  "partner_role",
+  "pillar_abbr",
+  "pillar_descr",
+  "thematic_priority_abbr",
+  "signature_date",
+  "call_deadline_date",
+  "eu_contribution")
+
+organizations_dashboard_h2020 <- organizations_dashboard_h2020 %>%
+  select(all_of(additional_columns))
+```
+
+#### Data Portal
+
+Participation details are provided in the *organization.csv* tables.
 
 ```{r, load-organizations-cordis-data}
 organizations_cordis_h2020 <-
@@ -215,26 +311,6 @@ organizations_cordis <-
   )
 ```
 
-Unlike for the project details, Horizon Dashboard participation data is only available for H2020, not for FP7.  For H2020 projects, Horizon Dashboard participation data is more comprehensive than CORDIS data and is used as the source of EU official statistics.
-
-```{r, load-organizations-dashboard-data}
-organizations_dashboard_h2020 <-
-  here("data-raw", "horizon2020.xlsx") %>%
-  read_excel() %>%
-  clean_names() %>%
-  select(
-    project_id = project_nbr,
-    pic = general_pic,
-    partner_role,
-    pillar_abbr,
-    pillar_descr,
-    thematic_priority_abbr,
-    signature_date,
-    call_deadline_date,
-    eu_contribution
-  ) %>%
-  mutate(partner_role = str_to_lower(partner_role))
-```
 
 Once again, we combine both datasets:
 
