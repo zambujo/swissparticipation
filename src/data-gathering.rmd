@@ -12,7 +12,8 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   comment = FALSE,
-  eval = FALSE
+  eval = FALSE,
+  engine.opts = list(bash = "-l")
 )
 ```
 
@@ -49,7 +50,7 @@ cat(readLines(here::here("inst", "url_list.txt")), sep = '\n')
 
 Second, we create a shell script, `inst/download_files.sh`, which downloads the data files to the `data-raw/` folder.
 
-```{bash}
+```{bash, eval=FALSE}
 #!/bin/bash
 while read url; do
 	wget -P ../data-raw $url
@@ -62,12 +63,12 @@ Besides, it is also possible to inspect when the files were last updated. We do 
 #!/bin/bash
 while read url; do
 	wget --server-response --spider $url 2>&1 | grep -i Last-Modified
-done < ../inst/urls.txt
+done < ../inst/url_list.txt
 ```
 
 To finish, we extract the files from the ZIP archives. The [unzip](http://infozip.sourceforge.net) command fails to extract the files from the Zip archives.  The most recent release contains a faulty Zip file structure. Fortunately, the [tar](https://www.gnu.org/software/tar) command offers a workaround.
 
-```{bash}
+```{bash, eval=FALSE}
 #!/bin/bash
 tar -xvf data-raw/cordis-fp7projects-csv.zip
 mkdir data-raw/fp7
@@ -92,7 +93,7 @@ source(here::here("R", "utils.r"))
 
 The data from the Horizon Dashboard only cover FP7 and H2020. The details about the projects are given in two tables, one per Framework Programme. Therefore, we select the matching columns to make it possible to merge the two tables.
 
-```{r load-projects-dashboard-data}
+```{r}
 matching_columns <- c(
   "project_id",
   "project_acronym",
@@ -140,7 +141,7 @@ projects_dashboard <- bind_rows(fp7_dashboard, h2020_dashboard)
 
 Details about the projects can also be found in the data downloaded from the Data Portal. Similarly to the Horizon Dashboard data, each Framework Programme has its own data table from which we select a few additional columns of interest.
 
-```{r load-projects-cordis-data}
+```{r}
 additional_columns <- c(
   "project_id",
   "start_date",
@@ -154,8 +155,6 @@ projects_cordis_h2020 <-
   read_csv2(here("data-raw", "h2020", "csv", "project.csv")) %>%
   # for data type consistency
   mutate_if(is.POSIXct, as.Date)
-
-  mutate(contentUpdateDate = as.Date(contentUpdateDate))
 
 projects_cordis_fp7 <-
   readr::read_csv2(here("data-raw", "fp7", "csv", "project.csv")) %>%
@@ -181,7 +180,7 @@ projects <- full_join(projects_dashboard, projects_cordis, by = "project_id")
 
 ##### FP6
 
-For completeness, we also include the R-code which reads the data available for FP6. As indicated already, the Horizon Dashboard contains no data for FP6. Moreover, the Data Portal only provides contribution amounts for 2,621 cases (out of 75,241). The data from FP6 will therefore be ignored in the remainder of this work. 
+For completeness, we also include the code which reads the data available for FP6. As indicated already, the Horizon Dashboard contains no data for FP6. Moreover, the Data Portal only provides contribution amounts for 2,621 cases (out of 75,241). The data from FP6 will therefore be ignored in the remainder of this work. 
 
 ```{r fp6, eval=FALSE}
 # FP6 project details
@@ -202,7 +201,7 @@ organizations_cordis_fp6 <-
 
 Horizon Dashboard only includes participation data for H2020 and not for FP7. Nevertheless, the data in the Horizon Dashboard appear to be of a higher quality than that of the Data Portal and are therefore used as a source of official statistics.
 
-First, we save the data to CSV, for [future reference](https://flatgithub.com/zambujo/swissparticipation).
+First, we save the data to CSV.
 
 ```{r}
 organizations_dashboard_h2020 <-
@@ -260,36 +259,42 @@ organizations_dashboard_h2020 <- organizations_dashboard_h2020 %>%
 
 #### Data Portal
 
-Participation details are provided in the *organization.csv* tables.
+Details about participation can be found in the *organization.csv* tables.
 
-```{r, load-organizations-cordis-data}
+```{r}
+non_matching_columns <- c(
+  "contentUpdateDate",
+  "SME",
+  "nutsCode",
+  "endOfParticipation",
+  "active",
+  "totalCost",
+  "rcn"
+)
+
+selection_columns <- c(
+    "project_id",
+    "pic",
+    "legal_name",
+    "legal_short_name",
+    "legal_entity_type",
+    "country_code",
+    "legal_url",
+    "partner_role",
+    "ec_contribution",
+    "net_ec_contribution"
+)
+
 organizations_cordis_h2020 <-
   here("data-raw", "h2020", "csv", "organization.csv") %>%
   read_csv2(guess_max = 100000) %>%
-  select(
-    -contentUpdateDate,
-    -SME,
-    -nutsCode,
-    -endOfParticipation,
-    -active,
-    -totalCost,
-    -rcn
-  )
+  select(-all_of(non_matching_columns))
 
 organizations_cordis_fp7 <-
   here("data-raw", "fp7", "csv", "organization.csv") %>%
   read_csv2(guess_max = 130000) %>%
-  select(
-    -contentUpdateDate,
-    -SME,
-    -nutsCode,
-    -endOfParticipation,
-    -active,
-    -totalCost,
-    -rcn
-  )
+  select(-all_of(non_matching_columns))
 
-# Attention!
 # 3 cases where (project_id, pic)
 # appear 2x w/ different partner_role
 
@@ -297,95 +302,127 @@ organizations_cordis <-
   organizations_cordis_fp7 %>%
   bind_rows(organizations_cordis_h2020) %>%
   clean_names() %>%
-  select(
-    project_id,
+  rename(
     pic = organisation_id,
     legal_name = name,
     legal_short_name = short_name,
     legal_entity_type = activity_type,
     country_code = country,
     legal_url = organization_url,
-    partner_role = role,
-    ec_contribution,
-    net_ec_contribution
-  )
+    partner_role = role
+  ) %>%
+  select(all_of(selection_columns))
 ```
 
-
-Once again, we combine both datasets:
-
-```{r, load-organizations-data}
-organizations <-
-  organizations_dashboard_h2020 %>%
-  full_join(organizations_cordis,
-    by = c("project_id", "pic", "partner_role")
-  )
-```
-
-### Project and Participation Details Combined
-
-Having combined both CORDIS and Horizon Dashboard datasets, we obtain three columns with contribution details: `ec_contribution` (CORDIS), `net_ec_contribution` (CORDIS), and `eu_contribution` (Horizon Dashboard). As the European Commission official reporting is based on `eu_contribution` from the Horizon Dashboard, we will check how the values from CORDIS -- `ec_contribution` and `net_ec_contribution` -- compare to `eu_contribution` under H2020.
-
-```{r viz-contributions, eval=FALSE}
-dfsample <- organizations %>%
-  filter(!is.na(net_ec_contribution)) %>%
-  sample_n(10000)
-plot(
-  dfsample$ec_contribution,
-  dfsample$eu_contribution,
-  type = "p",
-  pch = 19,
-  cex = .5,
-  log = "xy"
-)
-plot(
-  dfsample$net_ec_contribution,
-  dfsample$eu_contribution,
-  type = "p",
-  pch = 19,
-  cex = .5,
-  log = "xy"
-)
-```
-
+Here again, we combine the details from the Horizon Dashboard and the Data Portal.
 
 ```{r}
-# check differences
+organizations <- organizations_dashboard_h2020 %>%
+  mutate(partner_role = str_to_lower(partner_role)) %>% # for joining
+  full_join(organizations_cordis,
+    by = c("project_id", "pic", "partner_role")
+)
+```
+
+### Project and Participation Details
+
+Having combined the datasets from the Horizon Dashboard and the Data Portal, we obtain three columns with details about funding contributions: `ec_contribution` (Data Portal), `net_ec_contribution` (Data Portal), and `eu_contribution` (Horizon Dashboard). The latter comprises the values of the Commission's official statistics for H2020. `eu_contribution` is nevertheless only available for H2020.  To extrapolate to FP7 statistics, we are going to compare the columns `ec_contribution` and `net_ec_contribution` with `eu_contribution`.
+
+```{r}
+# take a sample of 10'000 observations
+df_sample <- organizations %>%
+  filter(!is.na(eu_contribution)) %>%
+  filter(!is.na(ec_contribution)) %>%
+  filter(!is.na(net_ec_contribution)) %>%
+  select(ends_with("contribution")) %>%
+  mutate(ec_contribution = str_replace(ec_contribution, ",", ".")) %>%
+  mutate_all(as.numeric) %>%
+  sample_n(10000)
+
+# comparing `ec_contribution` with `eu_contribution`
+with(
+  df_sample,
+  plot(
+    ec_contribution,
+    eu_contribution,
+    type = "p",
+    pch = 19,
+    cex = .5,
+    log = "xy"
+  )
+)
+
+# comparing `net_ec_contribution` with `eu_contribution`
+with(
+  df_sample,
+  plot(
+    net_ec_contribution,
+    eu_contribution,
+    type = "p",
+    pch = 19,
+    cex = .5,
+    log = "xy"
+  )
+)
+```
+
+In addition, comparing of the number of projects between the `projects` table and the `organizations` table shows that twenty four projects lack details about individual funding contributions.
+
+```{r}
 anti_join(organizations, projects, by = "project_id")
 anti_join(projects, organizations, by = "project_id")
 
-df_raw <- organizations %>%
+# => 24 projects with no participation details
+
+master_view <- organizations %>%
   left_join(projects, by = "project_id")
 ```
 
-Below, we add country names and perform minor cleaning of the data set.
+## Transforming
 
-```{r transform}
-# download CORDIS country codes
+Below are a few steps to clean up and improve the data.
+
+1. Clean up `country_code` and add the corresponding country names.
+
+```{r}
+# EU Data Portal country codes
 country_codes <-
-  "https://cordis.europa.eu/data/reference/cordisref-countries.csv" %>%
+  glue(
+    "https://cordis.europa.eu/",
+    "data/reference/",
+    "cordisref-countries.csv") %>%
   read_csv2() %>%
   clean_names() %>%
   filter(language == "en") %>%
-  distinct(eu_code, name) %>%
-  rename(country_code = eu_code, country = name)
+  select(eu_code, name) %>%
+  rename(
+    country_code = eu_code, # two-letter Eurostat country code
+    country = name)
 
-df_raw <- df_raw %>%
+master_view <- master_view %>%
   mutate(
-    legal_entity_type = str_sub(legal_entity_type, 1, 3),
-    country_code = str_sub(country_code, 1, 2),
-    # rename role
-    partner_role = str_to_title(partner_role),
-    pillar = str_extract(pillar_abbr, "\\d"),
-    pillar = if_else(pillar_abbr == "EU.0.", "Cross-theme", pillar),
-    pillar = if_else(pillar_abbr == "Euratom", pillar_abbr, pillar),
-    # clean contributions
+    country_code = str_sub(country_code, 1, 2), # two-letter only
+    country_code = str_replace(country_code, "KO", "XK")) %>%
+  left_join(country_codes, by = "country_code")
+```
+
+2. Clean up `legal_entity_type`.
+
+```{r}
+master_view <- master_view %>%
+  # `legal_entity_type` is a three-letter label only
+  mutate(legal_entity_type = str_sub(legal_entity_type, 1, 3))
+```
+
+3. Format and clean up the contributions.
+
+```{r}
+master_view <- master_view %>%
+  mutate(
     ec_contribution = str_replace(ec_contribution, ",", "."),
-    ec_contribution = str_replace(
-      ec_contribution,
-      fixed("xxxxx"),
-      NA_character_
-    ),
+    ec_contribution = str_replace(ec_contribution,
+                                  fixed("xxxxx"),
+                                  NA_character_),
     eu_contribution = str_replace(eu_contribution, fixed("-"), "0"),
     ec_contribution = as.numeric(ec_contribution),
     net_ec_contribution = as.numeric(net_ec_contribution),
@@ -393,16 +430,29 @@ df_raw <- df_raw %>%
     # reconcile FP7 and H2020 contribution data
     re_contribution = eu_contribution,
     re_contribution = if_else(is.na(re_contribution),
-      net_ec_contribution,
-      re_contribution
-    ),
+                              net_ec_contribution,
+                              re_contribution),
     re_contribution = if_else(is.na(re_contribution),
-      ec_contribution,
-      re_contribution
-    ),
-    # country code
-    country_code = str_replace(country_code, "KO", "XK"),
-    # import dates
+                              ec_contribution,
+                              re_contribution)
+  )
+```
+
+4. Relabel the pillars.
+
+```{r}
+master_view <- master_view %>%
+  mutate(
+    pillar = str_extract(pillar_abbr, "\\d"),
+    pillar = if_else(pillar_abbr == "EU.0.", "Cross-theme", pillar),
+    pillar = if_else(pillar_abbr == "Euratom", pillar_abbr, pillar))
+```
+
+5. Format and round the dates.
+
+```{r}
+master_view <- master_view %>%
+  mutate(
     signature_date = as.Date(signature_date, format = "%d/%m/%Y"),
     call_deadline_date = as.Date(call_deadline_date, format = "%d/%m/%Y"),
     signature_year = str_sub(signature_date, 1, 4),
@@ -411,33 +461,42 @@ df_raw <- df_raw %>%
     signature_year = int(signature_year),
     call_year = int(call_year),
     start_year = int(start_year)
-  ) %>%
-  left_join(country_codes, by = "country_code") %>%
-  filter(!is.na(start_date))
+  )
 ```
 
-Last, we write the view by year to the `./data` folder
+6. Transform `partner_role` to title case.
 
-```{r write, include=FALSE}
+```{r}
+master_view <- master_view %>%
+  mutate(partner_role = str_to_title(partner_role))
+```
+
+## Saving
+
+Finally, we can save `master_vier` as a CSV file, which can be viewed in [here](https://flatgithub.com/zambujo/swissparticipation).
+
+```{r}
 # store data types
-df_schema <- df_raw %>%
-  map_chr(class)
+master_view %>%
+  map_chr(class) %>% 
+  write_yaml(here("data", "schema-cordis-plus.yml"))
 
 # split CSVs by year
 df_years <-
-  df_raw %>%
+  master_view %>%
   distinct(start_year) %>%
   pull() %>%
   sort()
-df_raw <- df_raw %>%
-  arrange(start_year) %>%
-  group_by(start_year) %>%
-  group_split() %>%
-  setNames(df_years)
 
 # write to ./data
 file_names <- here("data", glue("cordis-plus-{df_years}.csv"))
-walk2(df_raw, file_names, vroom_write, delim = ",")
-write_yaml(df_schema, here("data", "schema-cordis-plus.yml"))
+
+master_view %>%
+  filter(!is.na(start_date)) %>%
+  arrange(start_year) %>%
+  group_by(start_year) %>%
+  group_split() %>%
+  setNames(df_years) %>%
+  walk2(file_names, vroom_write, delim = ",")
 ```
 
