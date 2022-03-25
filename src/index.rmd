@@ -2,6 +2,7 @@
 title: "Swiss Participation in the EU R&I Programmes"
 output:
   html_document:
+    css: style.css
     toc: false
 ---
 
@@ -37,12 +38,13 @@ meta() %>%
 ```{r motivation, child=here::here("Rmd", "motivation_en.rmd")}
 ```
 
-<br />
+:::info
+## EU Funding Programmes for Research and Innovation
 
-## Background
+Close to a tenth of the [Multi-annual Financial Framework](https://op.europa.eu/en/publication-detail/-/publication/d2cf202e-f36a-45b2-84e7-1ac6ad996e90) (MFF) of the European Union is spent on research and innovation. This section of the budget, also called the Framework Programme (FP) for research and innovation, is aimed at strengthening the European Research Area.
 
-```{r background, child=here::here("Rmd", "background_en.rmd")}
-```
+The programmes are run by the Directorate-General for Research and Innovation and by a number of Executive Agencies. FP7 refers to the Seventh Framework Programme and relates to the MFF 2007-2013.  FP8, called Horizon 2020 (H2020), refers to the Eighth Framework Programme and relates to the MFF 2014-2020. The current programme, FP9, is also referred to as Horizon Europe (HE) and relates to the MFF 2021-2027. 
+:::
 
 ## Swiss Participation Over Time {.tabset .tabset-fade .tabset-pills}
 
