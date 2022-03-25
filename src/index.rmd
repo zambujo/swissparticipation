@@ -35,9 +35,6 @@ meta() %>%
 
 <br />
 
-```{r motivation, child=here::here("Rmd", "motivation_en.rmd")}
-```
-
 :::info
 ## EU Funding Programmes for Research and Innovation
 
@@ -45,6 +42,15 @@ Close to a tenth of the [Multi-annual Financial Framework](https://op.europa.eu/
 
 The programmes are run by the Directorate-General for Research and Innovation and by a number of Executive Agencies. FP7 refers to the Seventh Framework Programme and relates to the MFF 2007-2013.  FP8, called Horizon 2020 (H2020), refers to the Eighth Framework Programme and relates to the MFF 2014-2020. The current programme, FP9, is also referred to as Horizon Europe (HE) and relates to the MFF 2021-2027. 
 :::
+
+<br />
+
+## Introduction
+
+```{r motivation, child=here::here("Rmd", "motivation_en.rmd")}
+```
+
+<br />
 
 ## Swiss Participation Over Time {.tabset .tabset-fade .tabset-pills}
 
@@ -69,6 +75,8 @@ include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_file
 include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/coordinations-overviews-1.svg")
 ```
 
+<br />
+
 ## Top Participating Countries {.tabset .tabset-fade .tabset-pills}
 
 ```{r top-participants, child=here::here("Rmd", "top-participants_en.rmd")}
@@ -86,12 +94,14 @@ include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_file
 include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/visual-countries-1.svg")
 ```
 
-##  H2020 structure {.tabset .tabset-fade .tabset-pills}
+<br />
+
+##  H2020 Structure {.tabset .tabset-fade .tabset-pills}
 
 ```{r h2020-structure, child=here::here("Rmd", "h2020-structure_en.rmd")}
 ```
 
-### All countries
+### All Countries
 
 ```{r}
 include_graphics("https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-h2020-all.svg")
@@ -103,7 +113,9 @@ include_graphics("https://raw.githubusercontent.com/zambujo/swissparticipation/m
 include_graphics("https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-h2020-ch.svg")
 ```
 
-## Participation profile {.tabset .tabset-fade .tabset-pills}
+<br />
+
+## Participation Profile {.tabset .tabset-fade .tabset-pills}
 
 ```{r participation-profile, child=here::here("Rmd", "participation-profile_en.rmd")}
 ```
@@ -120,18 +132,13 @@ include_graphics("https://zambujo.github.io/swissparticipation/swiss-participati
 include_graphics("https://zambujo.github.io/swissparticipation/swiss-participation_files/figure-html/country-profile-2-1.svg")
 ```
 
-## Outlook
+<br />
+
+## Switzerland, the UK, and Horizon Europe
 
 ```{r outlook, child=here::here("Rmd", "outlook_en.rmd")}
 ```
 
 ```{r, fig.cap="Horizon Europe Budget"}
 include_graphics("https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-he.svg")
-```
-
----
-
-## Varia
-
-```{r see-also, child=here::here("Rmd", "varia_en.rmd")}
 ```
