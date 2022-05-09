@@ -2,6 +2,7 @@
 title: "Gathering FP Data for Analysis"
 output: 
   html_document:
+    css: style.css
     self_contained: no
 editor_options: 
   chunk_output_type: console
@@ -29,6 +30,8 @@ The raw data can be found on these websites:
   - [FP7 projects](https://data.europa.eu/data/datasets/cordisfp7projects)  
   - [H2020 projects](https://data.europa.eu/data/datasets/cordish2020projects)
   - [CORDIS Reference Data](https://data.europa.eu/data/datasets/cordisref-data)
+
+<br><br>
 
 ## Getting the data
 
@@ -77,6 +80,8 @@ tar -xvf data-raw/cordis-h2020projects-csv.zip
 mkdir data-raw/h2020
 mv csv data-raw/h2020
 ```
+
+<br><br>
 
 ## Data Preprocessing
 
@@ -178,6 +183,8 @@ Finally, we combine the details from the Horizon Dashboard and the Data Portal.
 projects <- full_join(projects_dashboard, projects_cordis, by = "project_id")
 ```
 
+:::info
+
 ##### FP6
 
 For completeness, we also include the code which reads the data available for FP6. As indicated already, the Horizon Dashboard contains no data for FP6. Moreover, the Data Portal only provides contribution amounts for 2,621 cases (out of 75,241). The data from FP6 will therefore be ignored in the remainder of this work. 
@@ -194,6 +201,9 @@ organizations_cordis_fp6 <-
   here("data-raw", "cordis-fp6organizations.csv") %>%
   read_tsv() # beware: tsv, not csv
 ```
+
+:::
+
 
 ### Participation Details
 
@@ -378,6 +388,8 @@ master_view <- organizations %>%
   left_join(projects, by = "project_id")
 ```
 
+<br><br>
+
 ## Transforming
 
 Below are a few steps to clean up and improve the data.
@@ -470,6 +482,8 @@ master_view <- master_view %>%
 master_view <- master_view %>%
   mutate(partner_role = str_to_title(partner_role))
 ```
+
+<br><br>
 
 ## Saving
 

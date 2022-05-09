@@ -20,7 +20,7 @@ meta() %>%
     title = "Switzerland in FP7&H2020",
     url = "https://zambujo.github.io/swissparticipation",
     image = "https://zambujo.github.io/assets/images/treemap.jpg",
-    image_alt = "CH H2020 Participation",
+    image_alt = "CH Participation in FP7&H2020",
     og_type = "website",
     og_author = "João Martins",
     twitter_card_type = "summary",
@@ -35,110 +35,10 @@ meta() %>%
 
 <br />
 
-:::info
-## EU Funding Programmes for Research and Innovation
+This site provides supporting material to this [data story](https://data.snf.ch/stories/european-research-excellence-in-times-of-non-association-en.html).
 
-Close to a tenth of the [Multi-annual Financial Framework](https://op.europa.eu/en/publication-detail/-/publication/d2cf202e-f36a-45b2-84e7-1ac6ad996e90) (MFF) of the European Union is spent on research and innovation. This section of the budget, also called the Framework Programme (FP) for research and innovation, is aimed at strengthening the European Research Area.
+## See also 
 
-The programmes are run by the Directorate-General for Research and Innovation and by a number of Executive Agencies. FP7 refers to the Seventh Framework Programme and relates to the MFF 2007-2013.  FP8, called Horizon 2020 (H2020), refers to the Eighth Framework Programme and relates to the MFF 2014-2020. The current programme, FP9, is also referred to as Horizon Europe (HE) and relates to the MFF 2021-2027. 
-:::
-
-<br />
-
-## Introduction
-
-```{r motivation, child=here::here("Rmd", "motivation_en.rmd")}
-```
-
-<br />
-
-## Swiss Participation Over Time {.tabset .tabset-fade .tabset-pills}
-
-```{r swiss-participation, child=here::here("Rmd", "swiss-participation_en.rmd")}
-```
-
-### Contributions
-
-```{r semester-contributions}
-include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/swiss-countributions-1.svg")
-```
-
-### Participation
-
-```{r}
-include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/swiss-participations-1.svg")
-```
-
-### Coordinations
-
-```{r}
-include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/coordinations-overviews-1.svg")
-```
-
-<br />
-
-## Top Participating Countries {.tabset .tabset-fade .tabset-pills}
-
-```{r top-participants, child=here::here("Rmd", "top-participants_en.rmd")}
-```
-
-### FP7 (2007-2013)
-
-```{r}
-include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/visual-countries-fp7-1.svg")
-```
-
-### H2020 (2014-2020)
-
-```{r}
-include_graphics("https://zambujo.github.io/swissparticipation/seri-figures_files/figure-html/visual-countries-1.svg")
-```
-
-<br />
-
-##  H2020 Structure {.tabset .tabset-fade .tabset-pills}
-
-```{r h2020-structure, child=here::here("Rmd", "h2020-structure_en.rmd")}
-```
-
-### All Countries
-
-```{r}
-include_graphics("https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-h2020-all.svg")
-```
-
-### Switzerland
-
-```{r}
-include_graphics("https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-h2020-ch.svg")
-```
-
-<br />
-
-## Participation Profile {.tabset .tabset-fade .tabset-pills}
-
-```{r participation-profile, child=here::here("Rmd", "participation-profile_en.rmd")}
-```
-
-### Excellent Science/Research and HigherEd
-
-```{r}
-include_graphics("https://zambujo.github.io/swissparticipation/swiss-participation_files/figure-html/country-profile-1-1.svg")
-```
-
-### Industrial Leadership/Private Sector
-
-```{r}
-include_graphics("https://zambujo.github.io/swissparticipation/swiss-participation_files/figure-html/country-profile-2-1.svg")
-```
-
-<br />
-
-## Switzerland, the UK, and Horizon Europe
-
-```{r outlook, child=here::here("Rmd", "outlook_en.rmd")}
-```
-
-```{r, fig.cap="Horizon Europe Budget"}
-include_graphics("https://raw.githubusercontent.com/zambujo/swissparticipation/main/data/treemap-he.svg")
-```
+ - the [source code](https://github.com/snsf-data/datastory_h2020_participation) of the data story
+ - the [Zenodo archive](https://zenodo.org/record/6528403#.YnjpepJBxzU) of the data story
+ - the [source code](https://github.com/zambujo/swissparticipation) of this website
