@@ -1,7 +1,7 @@
 div.info {
   padding: 1em;
   margin: 1em 0;
-  padding-left: 100px;
+  padding-left: 15px;
   background-size: 70px;
   background-repeat: no-repeat;
   background-position: left 15px top 15px;
@@ -9,8 +9,4 @@ div.info {
   color: #1f5386;
   background-color: #dfedff;
   border: solid 1px #bed3ec;
-}
-
-div.info {
- background-image: url("img/info-circle.png");
 }
